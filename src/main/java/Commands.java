@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,8 +23,13 @@ public class Commands {
         switch (verb) {
             case "look":
                 // handle "look" command
+
                 if (noun.equals("")) {
+//                    List<String> items = new ArrayList<>();
+//                    items.add("test1");
+//                    items.add("test2");
                     List<String> items = currentLocation.getItems();
+
                     if (!items.isEmpty()) {
                         System.out.println("You see the following items:");
                         for (String item : items) {
@@ -35,6 +41,7 @@ public class Commands {
                 } else {
                     System.out.println("You look at the " + noun + ".");
                     // handle looking at specific object
+                    // to be complete once item object structure is finalized.
                 }
                 break;
 
