@@ -23,7 +23,6 @@ public class Commands {
             case "look":
                 // handle "look" command
                 if (noun.equals("")) {
-                    System.out.println(currentLocation.getDescription());
                     List<String> items = currentLocation.getItems();
                     if (!items.isEmpty()) {
                         System.out.println("You see the following items:");
@@ -50,6 +49,8 @@ public class Commands {
                         for (Location location : Main.locations) {
                             if (location.getName().equals(nextLocationName)) {
                                 currentLocation = location;
+                                System.out.println("You are in the " + currentLocation.getName());
+                                System.out.println("You see a " + currentLocation.getItems());
                                 player.setLocation(currentLocation);
                             }
                         }
@@ -59,9 +60,13 @@ public class Commands {
                 }
                 break;
 
-            default:
-                System.out.println("I don't understand that command.");
-                break;
+            case "help":
+                // handle get command
+                System.out.println("Commands:"
+                    + "\n" + "Go - move around"
+                    + "\n" + "Look - look at something"
+                    + "\n" + "Get - pick up stuff"
+                    + "\n" + "Help - see commands again");
         }
     }
 }

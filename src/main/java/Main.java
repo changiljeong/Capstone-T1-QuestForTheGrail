@@ -1,19 +1,30 @@
 import com.google.gson.Gson;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.Scanner;
 
 public class Main {
     private static Player player;
     private static Location currentLocation;
     static Location[] locations;
+    static Items[] items;
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
+        try(Reader reader = new InputStreamReader(Main.class.getClassLoader().getResourceAsStream("rooms.json"))) {
+
         Gson gson = new Gson();
-        FileReader reader = new FileReader("src\\main\\java\\locations.json");
         locations = gson.fromJson(reader, Location[].class);
+        }
+
+        try(Reader reader = new InputStreamReader(Main.class.getClassLoader().getResourceAsStream("items.json"))) {
+            Gson gson1 = new Gson();
+            items = gson1.fromJson(reader, Items[].class);
+        }
 
 
         // set current location to the first location in the array
@@ -39,6 +50,12 @@ public class Main {
         if (choice.equals("y")) {
             System.out.println("Let the adventure begin!");
 
+            //Display commands
+            System.out.println("Commands:"
+                + "\n" + "Go - move around"
+                + "\n" + "Look - look at something"
+                + "\n" + "Get - pick up stuff"
+                + "\n" + "Help - see commands again");
             // Display basic information about the game
             System.out.println(
                 "You walk into a dark, damp dungeon. You are in search of the holy grail.");
@@ -48,9 +65,9 @@ public class Main {
             // Game loop
             while (true) {
 
-                // Display status (player name, health, lives, inventory)
-                System.out.println("Location: " + currentLocation.getName());
-                System.out.println();
+//                // Display status (player name, health, lives, inventory)
+//                System.out.println("Location: " + currentLocation.getName());
+//                System.out.println();
 
                 System.out.println("What would you like to do?");
                 System.out.print("> ");
@@ -71,5 +88,14 @@ public class Main {
             System.out.println("Quitting game...");
             return;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Commands{" +
+            "player=" + player +
+            "locations" + locations +
+            "Main locations" + Main.locations +
+            '}';
     }
 }
