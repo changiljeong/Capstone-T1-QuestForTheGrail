@@ -1,0 +1,84 @@
+[
+    {
+      "name": "Level 1 The Gate of Trials",
+      "directions": {
+        "north": "Armory",
+        "south": "Main Room",
+        "east": "Enemy Near by",
+        "west": "Riddle Room"
+      },
+      "description": "You're at the entrance of the dungeon, Collect all 3 statues to open the door to the holy grail",
+      "puzzle": false,
+      "items": [
+        "no items here"
+      ]
+    },
+    {
+      "name": "Armory Room",
+      "directions": {
+        "north": "can't go that way",
+        "east": "Enemy Room",
+        "south": "can't go that way",
+        "west": "Riddle room"
+      },
+      "description": "You found a sword, which boosts your attack power by 15 HP.",
+      "puzzle": false,
+      "items": ["sword"]
+    },
+    {
+      "name": "Potion Room",
+      "directions": {
+        "north": "can't go that way",
+        "east": "can't go that way",
+        "south": "Enemy Room",
+        "west": "Boss Room"
+      },
+      "description": "You find a room filled with various potions that could aid you in your journey",
+      "puzzle": false,
+      "items": [
+        "health potion"
+      ]
+    },
+    {
+      "name": "Key Room",
+      "directions": {
+        "north": "can't go that way",
+        "east": "Boss Room",
+        "south": "Riddle Room",
+        "west": "can't go that way"
+      },
+      "description": "You come across a room with a shiny key on a pedestal. However, as soon as you grab it, the room starts filling with poisonous gas!",
+      "items": [
+        "no items here"
+      ]
+    },
+    {
+      "name": "Riddle Room",
+      "directions": {
+        "north": "Key Room",
+        "east": "Armory Room",
+        "south": "can't go that way",
+        "west": "cant go that way"
+      },
+      "description": "You enter a room filled with riddles, but beware, each wrong answer triggers a trap!",
+      "puzzle": true,
+      "items": [
+        "no items here"
+      ]
+    },
+    {
+      "name": "Boss Room",
+      "directions": {
+        "north": "1st piece of the Holy Grail",
+        "east": "Potion Room",
+        "south": "can't go that way",
+        "west": "can't go that way"
+      },
+      "description": "Congratulations! You've reached the final challenge. A fierce Chimera stands between you and a piece of the holy grail. Defeat it to claim your prize!",
+      "puzzle": false,
+      "enemy": "Chimera",
+      "items": [
+        "holy grail"
+      ]
+    }
+  ]
