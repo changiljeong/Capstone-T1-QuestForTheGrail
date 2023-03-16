@@ -37,7 +37,7 @@
     {
       "name": "Sword",
       "description": "A melee weapon found in the Armory Room, used for attacking enemies.",
-      "location": "Armory Room",
+      "location": "Armory",
       "type": "weapon",
       "use": "attack",
       "action": "You strike the enemy and feel the power",
