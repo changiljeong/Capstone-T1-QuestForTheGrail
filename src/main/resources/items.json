@@ -5,8 +5,7 @@
       "location": "Boss Room",
       "type": "quest item",
       "use": "open lock doors",
-      "action": "You use the key to move to the next level",
-      "modifier": ""
+      "action": "You use the key to move to the next level"
     },
     {
       "name": "Potion",
