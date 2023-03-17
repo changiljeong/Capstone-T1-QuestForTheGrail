@@ -14,8 +14,8 @@ public class Main {
 
         try(Reader reader = new InputStreamReader(Main.class.getClassLoader().getResourceAsStream("rooms.json"))) {
 
-        Gson gson = new Gson();
-        locations = gson.fromJson(reader, Location[].class);
+            Gson gson = new Gson();
+            locations = gson.fromJson(reader, Location[].class);
         }
 
 
@@ -55,7 +55,7 @@ public class Main {
                 Commands.roomDescription();
 
                 // display items in room
-
+                Commands.showItem();
 
                 // Ask player to input something
                 System.out.println("What would you like to do?");

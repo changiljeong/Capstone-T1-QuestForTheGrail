@@ -1,7 +1,5 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class Commands {
 
@@ -25,14 +23,17 @@ public class Commands {
         switch (verb) {
             case "inspect":
                 Map<String, String> items = currentLocation.getItems();
-                if(items.containsValue(noun)) {
-                    System.out.println(items.get("description"));
-                }
+                List<String> inventory = player.getInventory();
                 if (noun.equals("")) {
-                    System.out.println("Inspect what?");
+                    System.out.println("inspect what?");
+                } else if (items.containsValue(noun) || inventory.contains(noun)) {
+                    System.out.println(items.get("description"));
+                } else {
+                    System.out.println("Their is no " + noun + ".");
                 }
 
                 break;
+
 
             case "go":
                 // handle "go" command
@@ -55,6 +56,20 @@ public class Commands {
                 }
                 break;
 
+//            case "get":
+//                // handle get command
+//                Map<String, String> items1 = currentLocation.getItems();
+//                List<String> inventory1 = player.getInventory();
+//                if (noun.equals("")) {
+//                    System.out.println("There is nothing here");
+//                } else if (items1.containsValue(noun)) {
+//                    inventory1.add(items1.toString());
+//                    items1.remove(items1);
+//                } else {
+//                    System.out.println("There is no " + noun);
+//                }
+//                break;
+
             case "help":
                 // handle get command
                 System.out.println("Commands:"
@@ -68,6 +83,7 @@ public class Commands {
     public static void showStatus() {
         System.out.println("--------------------------------------");
         System.out.println("Location: " + currentLocation.getName());
+        System.out.println("Directions: " + currentLocation.getDirections().keySet());
         System.out.println("Health: " + player.getHealth());
         System.out.println("Inventory: " + player.getInventory());
         System.out.println("--------------------------------------");
@@ -75,10 +91,18 @@ public class Commands {
 
     public static void roomDescription() {
         System.out.println(currentLocation.getDescription());
-        System.out.println("You see following item you can acquire : " + currentLocation.getItems().get("name")+ ".");
-        System.out.println("From here, you can go to following directions to navigate through further: " + currentLocation.getDirections().keySet());
+        System.out.println("--------------------------------------");
     }
 
+    public static void showItem() {
+        Map<String, String> items = currentLocation.getItems();
+        if (items.isEmpty()) {
+            return;
+        } else {
+            System.out.println("You see a " + currentLocation.getItems().get("name") + ".");
+            System.out.println("--------------------------------------");
+        }
+    }
 
     public static void gameIntro() {
         //Display commands
@@ -93,12 +117,15 @@ public class Commands {
         System.out.println("Let the adventure begin!");
 
         // Display basic information about the game
-        System.out.println("-------------------------------------------------------------------------------");
-        System.out.println("You walk into a dark, damp dungeon. You are in search of the holy grail.");
-        System.out.println("The ancient dragon's minions has stolen the key to open the gate that leads to the Holy Grail!");
-        System.out.println("They broke the key into 3 pieces and scattered them throughout the dungeon!");
+        System.out.println(
+            "-------------------------------------------------------------------------------");
+        System.out.println(
+            "You walk into a dark, damp dungeon. You are in search of the holy grail.");
+        System.out.println(
+            "The ancient dragon's minions has stolen the key to open the gate that leads to the Holy Grail!");
+        System.out.println(
+            "They broke the key into 3 pieces and scattered them throughout the dungeon!");
         System.out.println("Find them to continue your journey towards the Holy Grail!");
-        System.out.println("-------------------------------------------------------------------------------");
     }
 
     public static void gameTitle() {

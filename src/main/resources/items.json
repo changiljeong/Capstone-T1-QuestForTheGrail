@@ -1,22 +1,5 @@
 [
     {
-      "name": "Key",
-      "description": "Unlocks doors in the Boss Room.",
-      "location": "Boss Room",
-      "type": "quest item",
-      "use": "open lock doors",
-      "action": "You use the key to move to the next level"
-    },
-    {
-      "name": "Potion",
-      "description": "Found in the Potion Room, restores health when consumed.",
-      "location": "Potion Room",
-      "type": "health",
-      "use": "consume",
-      "action": "You drink the potion and feel healed",
-      "modifier": ""
-    },
-    {
       "name": "Compass",
       "description": "A navigational tool used to find the way through the maze.",
       "location": "",
@@ -31,15 +14,6 @@
       "type": "lives",
       "use": "regain an extra life",
       "action": "You obtain a life and feel relief",
-      "modifier": ""
-    },
-    {
-      "name": "Sword",
-      "description": "A melee weapon found in the Armory Room, used for attacking enemies.",
-      "location": "Armory",
-      "type": "weapon",
-      "use": "attack",
-      "action": "You strike the enemy and feel the power",
       "modifier": ""
     },
     {
@@ -61,4 +35,5 @@
       "modifier": ""
     }
   ]
+
 

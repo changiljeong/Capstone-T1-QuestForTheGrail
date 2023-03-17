@@ -1,32 +1,30 @@
 [
   {
-    "name": "Level 1 The Gate of Trials",
+    "name": "The Gate of Trials",
     "directions": {
-      "north": "Armory",
-      "south": "Main Room"
+      "east": "Chimera's Grotto Entrance"
     },
-    "description": "You're at the entrance of the dungeon, Collect all 3 statues to open the door to the holy grail",
-    "puzzle": false,
-    "items": {
-      "name": "potion",
-      "description": "Found in the Potion Room, restores health when consumed.",
-      "location": "Potion Room",
-      "type": "health",
-      "use": "consume",
-      "action": "You drink the potion and feel healed",
-      "modifier": ""
-    }
+    "description": "The gate that leads to the holy grail is locked! The path to the Chimera's Grotto has opened to the east.",
+    "items":{}
+  },
+  {
+    "name": "Chimera's Grotto Entrance",
+    "directions": {
+      "west": "The Gate of Trials",
+      "north": "Armory"
+    },
+    "description": "You're in the entrance of the grotto. You should find something to defend yourself with...",
+    "items":{}
   },
   {
     "name": "Armory",
     "directions": {
-      "east": "Enemy Room",
-      "west": "Riddle Room"
+      "east": "Goblin's Lair",
+      "west": "Goblin's Game Room"
     },
-    "description": "You found a sword, which boosts your attack power by 15 HP.",
-    "puzzle": false,
+    "description": "You hear monsterous screams deep in the dungeon...",
     "items": {
-      "name": "Sword",
+      "name": "sword",
       "description": "A melee weapon found in the Armory Room, used for attacking enemies.",
       "location": "Armory",
       "type": "weapon",
@@ -36,20 +34,21 @@
     }
   },
   {
-    "name": "Enemy Room",
+    "name": "Goblin's Lair",
     "directions": {
       "west": "Armory",
-      "north": "Potion Room"
-    }
+      "north": "Sanctuary"
+    },
+    "description": "You see a mob of goblin's getting ready to attack you!",
+    "items":{}
   },
   {
-    "name": "Potion Room",
+    "name": "Sanctuary",
     "directions": {
-      "south": "Enemy Room",
+      "south": "Goblin's Lair",
       "west": "Boss Room"
     },
     "description": "You find a room filled with various potions that could aid you in your journey",
-    "puzzle": false,
     "items": {
       "name": "potion",
       "description": "Found in the Potion Room, restores health when consumed.",
@@ -63,54 +62,48 @@
   {
     "name": "Key Room",
     "directions": {
-      "south": "Riddle Room"
+      "south": "Goblin's Game Room"
     },
     "description": "You come across a room with a shiny key on a pedestal. However, as soon as you grab it, the room starts filling with poisonous gas!",
-    "items": {
-      "name": "potion",
-      "description": "Found in the Potion Room, restores health when consumed.",
-      "location": "Potion Room",
-      "type": "health",
-      "use": "consume",
-      "action": "You drink the potion and feel healed",
-      "modifier": ""
+    "items":{
+      "name": "key",
+      "description": "Unlocks doors in the Boss Room.",
+      "location": "Boss Room",
+      "type": "quest item",
+      "use": "open lock doors",
+      "action": "You use the key to move to the next level"
     }
   },
   {
-    "name": "Riddle Room",
+    "name": "Goblin's Game Room",
     "directions": {
       "north": "Key Room",
       "east": "Armory"
     },
     "description": "You enter a room filled with riddles, but beware, each wrong answer triggers a trap!",
     "puzzle": true,
-    "items": {
-      "name": "potion",
-      "description": "Found in the Potion Room, restores health when consumed.",
-      "location": "Potion Room",
-      "type": "health",
-      "use": "consume",
-      "action": "You drink the potion and feel healed",
-      "modifier": ""
-    }
+    "items":{}
   },
   {
     "name": "Boss Room",
     "directions": {
-      "north": "1st piece of the Holy Grail",
+      "north": "Grotto Treasure Room",
       "east": "Potion Room"
     },
     "description": "Congratulations! You've reached the final challenge. A fierce Chimera stands between you and a piece of the holy grail. Defeat it to claim your prize!",
-    "puzzle": false,
     "enemy": "Chimera",
+    "items":{}
+  },
+  {
+    "name": "Grotto Treasure Room",
+    "directions": {
+      "south": "Boss Room",
+      "north": "The Gate of Trials"
+    },
+    "description": "You've found the first piece of the Trial Key!",
     "items": {
-      "name": "potion",
-      "description": "Found in the Potion Room, restores health when consumed.",
-      "location": "Potion Room",
-      "type": "health",
-      "use": "consume",
-      "action": "You drink the potion and feel healed",
-      "modifier": ""
+      "name": "trial key 1"
     }
   }
 ]
+
