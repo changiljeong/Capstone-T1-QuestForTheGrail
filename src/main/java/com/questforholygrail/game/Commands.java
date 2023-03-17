@@ -1,7 +1,7 @@
-import java.util.ArrayList;
+package com.questforholygrail.game;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class Commands {
 
@@ -35,6 +35,7 @@ public class Commands {
                 }
 
                 break;
+
 
             case "go":
                 // handle "go" command

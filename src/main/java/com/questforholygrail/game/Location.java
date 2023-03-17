@@ -1,3 +1,5 @@
+package com.questforholygrail.game;
+
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +27,7 @@ public class Location {
     public Map<String, String> getItems() {
         return items;
     }
+
 
     public Map<String, String> getDirections() {
         return directions;

@@ -1,3 +1,5 @@
+package com.questforholygrail.game;
+
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,9 +16,10 @@ public class Main {
 
         try(Reader reader = new InputStreamReader(Main.class.getClassLoader().getResourceAsStream("rooms.json"))) {
 
-        Gson gson = new Gson();
-        locations = gson.fromJson(reader, Location[].class);
+            Gson gson = new Gson();
+            locations = gson.fromJson(reader, Location[].class);
         }
+
 
         // set current location to the first location in the array
         Location currentLocation = locations[0];
@@ -82,7 +85,7 @@ public class Main {
         return "Commands{" +
             "player=" + player +
             "locations" + locations +
-            "Main locations" + Main.locations +
+            "locations" + Main.locations +
             '}';
     }
 }
