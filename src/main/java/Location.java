@@ -4,7 +4,7 @@ import java.util.Map;
 public class Location {
     private String name;
     private String description;
-    private List<String> items;
+    static List<String> items;
     private Map<String, String> directions;
 
     public Location(String name, String description, List<String> items, Map<String, String> directions) {
@@ -29,5 +29,8 @@ public class Location {
     public Map<String, String> getDirections() {
         return directions;
     }
+
+
+
 }
 

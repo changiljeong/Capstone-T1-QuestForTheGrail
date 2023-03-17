@@ -1,6 +1,4 @@
 import com.google.gson.Gson;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -8,7 +6,6 @@ import java.util.Scanner;
 
 public class Main {
     private static Player player;
-    private static Location currentLocation;
     static Location[] locations;
     static Items[] items;
 
@@ -21,14 +18,9 @@ public class Main {
         locations = gson.fromJson(reader, Location[].class);
         }
 
-        try(Reader reader = new InputStreamReader(Main.class.getClassLoader().getResourceAsStream("items.json"))) {
-            Gson gson1 = new Gson();
-            items = gson1.fromJson(reader, Items[].class);
-        }
-
 
         // set current location to the first location in the array
-        currentLocation = locations[0];
+        Location currentLocation = locations[0];
 
         // create a new player with starting values
         player = new Player("Player", 100, currentLocation);
@@ -36,39 +28,36 @@ public class Main {
         Commands parser = new Commands(player, currentLocation);
 
         // Display game title
-        System.out.println("Welcome!");
+        Commands.gameTitle();
 
         // Wait for player to press enter
         System.out.println("Press enter to start the game...");
         scanner.nextLine();
 
         // Ask player if they want to start a new game
-        System.out.println("Would you like to start a new game? (y/n)");
-        String choice = scanner.nextLine();
-
-        // If player chooses to start a new game, begin the game
+        String choice;
+        do {
+            System.out.println("Would you like to start a new game? (y/n)");
+            choice = scanner.nextLine();
+        } while (!choice.equals("y") && !choice.equals("n"));
         if (choice.equals("y")) {
-            System.out.println("Let the adventure begin!");
 
-            //Display commands
-            System.out.println("Commands:"
-                + "\n" + "Go - move around"
-                + "\n" + "Look - look at something"
-                + "\n" + "Get - pick up stuff"
-                + "\n" + "Help - see commands again");
-            // Display basic information about the game
-            System.out.println(
-                "You walk into a dark, damp dungeon. You are in search of the holy grail.");
-            System.out.println(
-                "To win the game, you must find and use the 3 statues to unlock the passage to the holy grail!");
+            // print out intro
+            Commands.gameIntro();
 
             // Game loop
             while (true) {
 
-//                // Display status (player name, health, lives, inventory)
-//                System.out.println("Location: " + currentLocation.getName());
-//                System.out.println();
+                // displays location, player health and inventory, updates accordingly.
+                Commands.showStatus();
 
+                // displays room description
+                Commands.roomDescription();
+
+                // display items in room
+
+
+                // Ask player to input something
                 System.out.println("What would you like to do?");
                 System.out.print("> ");
                 String command = scanner.nextLine();
@@ -82,7 +71,6 @@ public class Main {
                 }
             }
         }
-
         // If player chooses not to start a new game, end the program
         else {
             System.out.println("Quitting game...");
