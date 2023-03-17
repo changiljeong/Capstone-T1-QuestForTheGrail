@@ -19,6 +19,7 @@ public class Commands {
                 }
                 break;
 
+
             case "go":
                 // handle "go" command
                 if (noun.equals("")) {
