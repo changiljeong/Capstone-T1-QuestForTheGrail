@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Main {
     private static Player player;
     static Location[] locations;
-    static Items[] items;
+
 
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);

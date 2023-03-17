@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Commands {
 
@@ -12,7 +13,6 @@ public class Commands {
         Commands.currentLocation = currentLocation;
     }
 
-
     public void parseCommand(String command) {
         String[] words = command.split(" ");
         String verb = words[0].toLowerCase();
@@ -23,28 +23,15 @@ public class Commands {
         }
 
         switch (verb) {
-            case "look":
-                // handle "look" command
-
-                if (noun.equals("")) {
-//                    List<String> items = new ArrayList<>();
-//                    items.add("test1");
-//                    items.add("test2");
-                    List<String> items = currentLocation.getItems();
-
-                    if (!items.isEmpty()) {
-                        System.out.println("You see the following items:");
-                        for (String item : items) {
-                            System.out.println("- " + item);
-                        }
-                    } else {
-                        System.out.println("You don't see any items here.");
-                    }
-                } else {
-                    System.out.println("You look at the " + noun + ".");
-                    // handle looking at specific object
-                    // to be complete once item object structure is finalized.
+            case "inspect":
+                Map<String, String> items = currentLocation.getItems();
+                if(items.containsValue(noun)) {
+                    System.out.println(items.get("description"));
                 }
+                if (noun.equals("")) {
+                    System.out.println("Inspect what?");
+                }
+
                 break;
 
             case "go":
@@ -59,6 +46,7 @@ public class Commands {
                             if (location.getName().equals(nextLocationName)) {
                                 currentLocation = location;
                                 player.setLocation(currentLocation);
+
                             }
                         }
                     } else {
@@ -71,7 +59,7 @@ public class Commands {
                 // handle get command
                 System.out.println("Commands:"
                     + "\n" + "Go - move around"
-                    + "\n" + "Look - look at something"
+                    + "\n" + "Inspect - Inspect at something"
                     + "\n" + "Get - pick up stuff"
                     + "\n" + "Help - see commands again");
         }
@@ -87,14 +75,17 @@ public class Commands {
 
     public static void roomDescription() {
         System.out.println(currentLocation.getDescription());
+        System.out.println("You see following item you can acquire : " + currentLocation.getItems().get("name")+ ".");
+        System.out.println("From here, you can go to following directions to navigate through further: " + currentLocation.getDirections().keySet());
     }
+
 
     public static void gameIntro() {
         //Display commands
         System.out.println("--------------------------------------");
         System.out.println("Commands:"
             + "\n" + "Go - move around"
-            + "\n" + "Look - look at something"
+            + "\n" + "Inspect - Inspect at something"
             + "\n" + "Get - pick up stuff"
             + "\n" + "Help - see commands again");
         System.out.println("--------------------------------------");
