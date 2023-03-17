@@ -1,3 +1,5 @@
+package com.questforholygrail.game;
+
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -83,7 +85,7 @@ public class Main {
         return "Commands{" +
             "player=" + player +
             "locations" + locations +
-            "Main locations" + Main.locations +
+            "locations" + Main.locations +
             '}';
     }
 }
