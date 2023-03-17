@@ -3,13 +3,15 @@ import java.util.List;
 import java.util.Map;
 
 public class Commands {
-    private Player player;
+
+    private static Player player;
     private static Location currentLocation;
 
     public Commands(Player player, Location currentLocation) {
-        this.player = player;
-        this.currentLocation = currentLocation;
+        Commands.player = player;
+        Commands.currentLocation = currentLocation;
     }
+
 
     public void parseCommand(String command) {
         String[] words = command.split(" ");
@@ -56,8 +58,6 @@ public class Commands {
                         for (Location location : Main.locations) {
                             if (location.getName().equals(nextLocationName)) {
                                 currentLocation = location;
-                                System.out.println("You are in the " + currentLocation.getName());
-                                System.out.println("You see a " + currentLocation.getItems());
                                 player.setLocation(currentLocation);
                             }
                         }
@@ -75,5 +75,59 @@ public class Commands {
                     + "\n" + "Get - pick up stuff"
                     + "\n" + "Help - see commands again");
         }
+    }
+
+    public static void showStatus() {
+        System.out.println("--------------------------------------");
+        System.out.println("Location: " + currentLocation.getName());
+        System.out.println("Health: " + player.getHealth());
+        System.out.println("Inventory: " + player.getInventory());
+        System.out.println("--------------------------------------");
+    }
+
+    public static void roomDescription() {
+        System.out.println(currentLocation.getDescription());
+    }
+
+    public static void gameIntro() {
+        //Display commands
+        System.out.println("--------------------------------------");
+        System.out.println("Commands:"
+            + "\n" + "Go - move around"
+            + "\n" + "Look - look at something"
+            + "\n" + "Get - pick up stuff"
+            + "\n" + "Help - see commands again");
+        System.out.println("--------------------------------------");
+
+        System.out.println("Let the adventure begin!");
+
+        // Display basic information about the game
+        System.out.println("-------------------------------------------------------------------------------");
+        System.out.println("You walk into a dark, damp dungeon. You are in search of the holy grail.");
+        System.out.println("The ancient dragon's minions has stolen the key to open the gate that leads to the Holy Grail!");
+        System.out.println("They broke the key into 3 pieces and scattered them throughout the dungeon!");
+        System.out.println("Find them to continue your journey towards the Holy Grail!");
+        System.out.println("-------------------------------------------------------------------------------");
+    }
+
+    public static void gameTitle() {
+        System.out.println("-----------------------");
+        System.out.println("Quest For The Holy Grail");
+        System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
+            + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
+            + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
+            + "⠀⠀⠀⣦⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⢀⣤⠀⠀⠀\n"
+            + "⠀⠀⠀⢿⣷⣄⠀⠀⠀⠀⣴⠟⠛⠛⠉⠉⠛⠛⠻⣦⠀⠀⠀⠀⣠⣾⡿⠀⠀⠀\n"
+            + "⠀⠀⠀⠸⣿⣿⣦⣄⠀⠀⣿⣦⣤⣄⣀⣀⣠⣤⣶⣿⠀⠀⣠⣼⣿⣿⠃⠀⠀⠀\n"
+            + "⠀⢠⣄⡀⠙⢿⣿⣿⣷⡀⢻⣿⣿⣿⣿⣿⣿⣿⣿⡟⢀⣾⣿⣿⡿⠋⢀⣠⠄⠀\n"
+            + "⠀⠀⠻⣿⣿⣶⣿⣿⣿⣧⠈⢿⣿⣿⣿⣿⣿⣿⡿⠁⣼⣿⣿⣿⣶⣿⣿⠏⠀⠀\n"
+            + "⠀⠀⠀⠈⠻⢿⣿⣿⣿⣿⣧⡈⠻⢿⣿⣿⡿⠟⢀⣾⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀\n"
+            + "⠀⠀⠀⠀⣀⣠⣤⣴⣿⣿⣿⡿⠂⢠⣿⣿⡄⠐⢿⣿⣿⣿⣦⣤⣄⡀⠀⠀⠀⠀\n"
+            + "⠀⠀⠀⠀⠈⠉⠛⠛⠛⠛⠉⠀⢀⣾⣿⣿⣷⡀⠀⠉⠛⠛⠛⠛⠉⠁⠀⠀⠀⠀\n"
+            + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
+            + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠛⠻⠟⠛⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
+            + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
+            + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
+        System.out.println("-----------------------");
     }
 }
