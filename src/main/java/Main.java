@@ -18,7 +18,6 @@ public class Main {
         locations = gson.fromJson(reader, Location[].class);
         }
 
-
         // set current location to the first location in the array
         Location currentLocation = locations[0];
 
@@ -55,7 +54,7 @@ public class Main {
                 Commands.roomDescription();
 
                 // display items in room
-
+                Commands.showItem();
 
                 // Ask player to input something
                 System.out.println("What would you like to do?");
