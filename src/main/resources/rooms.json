@@ -1,0 +1,116 @@
+[
+  {
+    "name": "Level 1 The Gate of Trials",
+    "directions": {
+      "north": "Armory",
+      "south": "Main Room"
+    },
+    "description": "You're at the entrance of the dungeon, Collect all 3 statues to open the door to the holy grail",
+    "puzzle": false,
+    "items": {
+      "name": "potion",
+      "description": "Found in the Potion Room, restores health when consumed.",
+      "location": "Potion Room",
+      "type": "health",
+      "use": "consume",
+      "action": "You drink the potion and feel healed",
+      "modifier": ""
+    }
+  },
+  {
+    "name": "Armory",
+    "directions": {
+      "east": "Enemy Room",
+      "west": "Riddle Room"
+    },
+    "description": "You found a sword, which boosts your attack power by 15 HP.",
+    "puzzle": false,
+    "items": {
+      "name": "Sword",
+      "description": "A melee weapon found in the Armory Room, used for attacking enemies.",
+      "location": "Armory",
+      "type": "weapon",
+      "use": "attack",
+      "action": "You strike the enemy and feel the power",
+      "modifier": ""
+    }
+  },
+  {
+    "name": "Enemy Room",
+    "directions": {
+      "west": "Armory",
+      "north": "Potion Room"
+    }
+  },
+  {
+    "name": "Potion Room",
+    "directions": {
+      "south": "Enemy Room",
+      "west": "Boss Room"
+    },
+    "description": "You find a room filled with various potions that could aid you in your journey",
+    "puzzle": false,
+    "items": {
+      "name": "potion",
+      "description": "Found in the Potion Room, restores health when consumed.",
+      "location": "Potion Room",
+      "type": "health",
+      "use": "consume",
+      "action": "You drink the potion and feel healed",
+      "modifier": ""
+    }
+  },
+  {
+    "name": "Key Room",
+    "directions": {
+      "south": "Riddle Room"
+    },
+    "description": "You come across a room with a shiny key on a pedestal. However, as soon as you grab it, the room starts filling with poisonous gas!",
+    "items": {
+      "name": "potion",
+      "description": "Found in the Potion Room, restores health when consumed.",
+      "location": "Potion Room",
+      "type": "health",
+      "use": "consume",
+      "action": "You drink the potion and feel healed",
+      "modifier": ""
+    }
+  },
+  {
+    "name": "Riddle Room",
+    "directions": {
+      "north": "Key Room",
+      "east": "Armory"
+    },
+    "description": "You enter a room filled with riddles, but beware, each wrong answer triggers a trap!",
+    "puzzle": true,
+    "items": {
+      "name": "potion",
+      "description": "Found in the Potion Room, restores health when consumed.",
+      "location": "Potion Room",
+      "type": "health",
+      "use": "consume",
+      "action": "You drink the potion and feel healed",
+      "modifier": ""
+    }
+  },
+  {
+    "name": "Boss Room",
+    "directions": {
+      "north": "1st piece of the Holy Grail",
+      "east": "Potion Room"
+    },
+    "description": "Congratulations! You've reached the final challenge. A fierce Chimera stands between you and a piece of the holy grail. Defeat it to claim your prize!",
+    "puzzle": false,
+    "enemy": "Chimera",
+    "items": {
+      "name": "potion",
+      "description": "Found in the Potion Room, restores health when consumed.",
+      "location": "Potion Room",
+      "type": "health",
+      "use": "consume",
+      "action": "You drink the potion and feel healed",
+      "modifier": ""
+    }
+  }
+]
