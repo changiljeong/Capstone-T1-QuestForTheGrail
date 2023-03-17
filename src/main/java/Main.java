@@ -18,6 +18,7 @@ public class Main {
         locations = gson.fromJson(reader, Location[].class);
         }
 
+
         // set current location to the first location in the array
         Location currentLocation = locations[0];
 

@@ -26,6 +26,7 @@ public class Location {
         return items;
     }
 
+
     public Map<String, String> getDirections() {
         return directions;
     }
