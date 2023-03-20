@@ -58,20 +58,6 @@ public class Commands {
                 }
                 break;
 
-//            case "get":
-//                // handle get command
-//                Map<String, String> items1 = currentLocation.getItems();
-//                List<String> inventory1 = player.getInventory();
-//                if (noun.equals("")) {
-//                    System.out.println("There is nothing here");
-//                } else if (items1.containsValue(noun)) {
-//                    inventory1.add(items1.toString());
-//                    items1.remove(items1);
-//                } else {
-//                    System.out.println("There is no " + noun);
-//                }
-//                break;
-
             case "help":
                 // handle get command
                 System.out.println("Commands:"
@@ -79,6 +65,11 @@ public class Commands {
                     + "\n" + "Inspect - Inspect at something"
                     + "\n" + "Get - pick up stuff"
                     + "\n" + "Help - see commands again");
+                break;
+
+            default:
+                System.out.println("Invalid command. Type 'help' for a list of available commands.");
+                break;
         }
     }
 
