@@ -23,11 +23,11 @@ public class Commands {
         }
 
         switch (verb) {
-            case "inspect":
+            case "look":
                 Map<String, String> items = currentLocation.getItems();
                 List<String> inventory = player.getInventory();
                 if (noun.equals("")) {
-                    System.out.println("inspect what?");
+                    System.out.println("Look what?");
                 } else if (items.containsValue(noun) || inventory.contains(noun)) {
                     System.out.println(items.get("description"));
                 } else {
@@ -62,7 +62,7 @@ public class Commands {
                 // handle get command
                 System.out.println("Commands:"
                     + "\n" + "Go - move around"
-                    + "\n" + "Inspect - Inspect at something"
+                    + "\n" + "Look - Look at something"
                     + "\n" + "Get - pick up stuff"
                     + "\n" + "Help - see commands again");
                 break;
@@ -102,7 +102,7 @@ public class Commands {
         System.out.println("--------------------------------------");
         System.out.println("Commands:"
             + "\n" + "Go - move around"
-            + "\n" + "Inspect - Inspect at something"
+            + "\n" + "Look - Look at something"
             + "\n" + "Get - pick up stuff"
             + "\n" + "Help - see commands again");
         System.out.println("--------------------------------------");
