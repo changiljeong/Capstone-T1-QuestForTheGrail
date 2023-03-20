@@ -33,7 +33,6 @@ public class Commands {
                 } else {
                     System.out.println("Their is no " + noun + ".");
                 }
-
                 break;
 
 
@@ -56,6 +55,23 @@ public class Commands {
                         System.out.println("You can't go in that direction.");
                     }
                 }
+                break;
+
+            case "get" :
+                // handle get command
+                Map<String, String> roomItem = currentLocation.getItems();
+                List<String> myInventory = player.getInventory();
+                if (noun.equals("")) {
+                    System.out.println("get what?");
+                } else if (roomItem.containsValue(noun)) {
+                    myInventory.add(roomItem.get("name"));
+                    currentLocation.getItems().remove("name");
+                    System.out.println("You got a " + noun + "!");
+                } else {
+                    System.out.println("There is no " + noun);
+                }
+
+
                 break;
 
             case "help":
@@ -87,13 +103,15 @@ public class Commands {
         System.out.println("--------------------------------------");
     }
 
+
     public static void showItem() {
         Map<String, String> items = currentLocation.getItems();
-        if (items.isEmpty()) {
-            return;
-        } else {
+        if (items.containsKey("name")) {
             System.out.println("You see a " + currentLocation.getItems().get("name") + ".");
             System.out.println("--------------------------------------");
+        } else {
+            return;
+
         }
     }
 
