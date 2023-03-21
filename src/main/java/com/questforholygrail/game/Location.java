@@ -8,6 +8,11 @@ public class Location {
     private String description;
     private Map<String, String> directions;
     private List<Item> items;
+    private List<NPC> npc;
+
+    public List<NPC> getNpc() {
+        return npc;
+    }
 
     public String getName() {
         return name;

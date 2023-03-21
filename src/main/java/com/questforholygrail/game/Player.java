@@ -6,8 +6,9 @@ import java.util.List;
 public class Player {
     private String name;
     private int health;
-    private List<String> inventory;
+    private List<Item> inventory;
     private Location location;
+    private List<String> inventory1;
 
     public Player(String name, int health, Location location) {
         this.name = name;
@@ -28,7 +29,7 @@ public class Player {
         this.health = health;
     }
 
-    public List<String> getInventory() {
+    public List<Item> getInventory() {
         return inventory;
     }
 
