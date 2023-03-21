@@ -6,15 +6,10 @@ import java.util.Map;
 public class Location {
     private String name;
     private String description;
-    private Map<String, String>items;
     private Map<String, String> directions;
+    private List<Item> items;
 
-    public Location(String name, String description, Map<String, String> items, Map<String, String> directions) {
-        this.name = name;
-        this.description = description;
-        this.items = items;
-        this.directions = directions;
-    }
+    public Location() {}
 
     public String getName() {
         return name;
@@ -24,12 +19,9 @@ public class Location {
         return description;
     }
 
-    public Map<String, String> getItems() {
+    public List<Item> getItems() {
         return items;
     }
-
-
-
 
     public Map<String, String> getDirections() {
         return directions;
