@@ -57,6 +57,9 @@ public class Main {
                 // displays room description
                 Commands.roomDescription();
 
+                // displays npc in room
+                Commands.showNPC();
+
                 // display items in room
                 Commands.showItem();
 

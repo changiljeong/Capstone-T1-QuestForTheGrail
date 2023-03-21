@@ -5,7 +5,14 @@
       "east": "Chimera's Grotto Entrance"
     },
     "description": "The gate that leads to the holy grail is locked! The path to the Chimera's Grotto has opened to the east.",
-    "items": []
+    "items": [],
+    "npc": [{
+      "name": "Wizard",
+      "action": {
+        "look" : "See what he has to say...",
+        "talk" : "It's dangerous to go alone! Look for a weapon!"
+      }
+    }]
   },
   {
     "name": "Chimera's Grotto Entrance",
@@ -14,7 +21,8 @@
       "north": "Armory"
     },
     "description": "You're in the entrance of the grotto. You should find something to defend yourself with...",
-    "items": []
+    "items": [],
+    "npc": []
   },
   {
     "name": "Armory",
@@ -28,10 +36,12 @@
         "name": "sword",
         "action": {
           "look": "A melee weapon found in the Armory Room, used for attacking enemies.",
-          "get": "You got a sword!"
+          "get": "You got a sword!",
+          "drop": "You dropped the sword"
         }
       }
-    ]
+    ],
+    "npc": []
   },
   {
     "name": "Goblin's Lair",
@@ -40,7 +50,8 @@
       "north": "Sanctuary"
     },
     "description": "You see a mob of goblin's getting ready to attack you!",
-    "items": []
+    "items": [],
+    "npc": []
   },
   {
     "name": "Sanctuary",
@@ -57,7 +68,8 @@
           "get": "You got a potion!"
         }
       }
-    ]
+    ],
+    "npc": []
   },
   {
     "name": "Key Room",
@@ -73,7 +85,8 @@
           "get": "You got a key! Use it to unlock a door in this dungeon."
         }
       }
-    ]
+    ],
+    "npc": []
   },
   {
     "name": "Goblin's Game Room",
@@ -83,7 +96,8 @@
     },
     "description": "You enter a room filled with riddles, but beware, each wrong answer triggers a trap!",
     "puzzle": true,
-    "items": []
+    "items": [],
+    "npc": []
   },
   {
     "name": "Boss Room",
@@ -93,13 +107,14 @@
     },
     "description": "Congratulations! You've reached the final challenge. A fierce Chimera stands between you and a piece of the holy grail. Defeat it to claim your prize!",
     "enemy": "Chimera",
-    "items": []
+    "items": [],
+    "npc": []
   },
   {
     "name": "Grotto Treasure Room",
     "directions": {
       "south": "Boss Room",
-      "north": "The Gate of Trials"
+      "portal": "The Gate of Trials"
     },
     "description": "You've found the first piece of the Trial Key!",
     "items": [
@@ -110,7 +125,8 @@
           "get": "You got the Grotto key!"
         }
       }
-    ]
+    ],
+    "npc": []
   }
 ]
 

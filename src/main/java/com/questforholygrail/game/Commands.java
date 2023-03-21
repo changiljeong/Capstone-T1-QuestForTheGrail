@@ -25,19 +25,30 @@ public class Commands {
         switch (verb) {
             case "look":
                 List<Item> itemList = currentLocation.getItems();
-                List<String> inventory = player.getInventory();
+                List<NPC> npcList = currentLocation.getNpc();
                 if (noun.equals("")) {
                     System.out.println("Look at what?");
-                } else {
-                    boolean itemFound = false;
-                    for (Item element : itemList) {
-                        if (element.getName().equalsIgnoreCase(noun) || inventory.contains(noun)) {
-                            System.out.println(element.getAction().get("look"));
-                            itemFound = true;
+                    break;
+                }
+                boolean itemFound1 = false;
+                for (Item item : itemList) {
+                    if (item.getName().equalsIgnoreCase(noun)) {
+                        System.out.println(item.getAction().get("look"));
+                        itemFound1 = true;
+                        break;
+                    }
+                }
+                if (!itemFound1) {
+                    boolean npcFound = false;
+                    for (NPC npc : npcList) {
+                        if (npc.getName().equalsIgnoreCase(noun)) {
+                            System.out.println(npc.getAction().get("look"));
+                            npcFound = true;
+                            break;
                         }
                     }
-                    if (!itemFound) {
-                        System.out.println("There is no " + noun + ".");
+                    if (!npcFound) {
+                        System.out.println("There is no " + noun + " or one here.");
                     }
                 }
                 break;
@@ -65,7 +76,7 @@ public class Commands {
             case "get" :
                 // handle get command
                 List<Item> roomItem = currentLocation.getItems();
-                List<String> myInventory = player.getInventory();
+                List<Item> myInventory = player.getInventory();
                 if (noun.equals("")) {
                     System.out.println("Get what?");
                 } else {
@@ -73,7 +84,7 @@ public class Commands {
                     for (Item element : roomItem) {
                         if (element.getName().equalsIgnoreCase(noun)) {
                             itemFound = true;
-                            myInventory.add(element.getName());
+                            myInventory.add(element);
                             roomItem.remove(element);
                             System.out.println(element.getAction().get("get"));
                             break;
@@ -85,11 +96,50 @@ public class Commands {
                 }
                 break;
 
+            case "drop" :
+                // handle drop command
+                List<Item> myInventory1 = player.getInventory();
+                List<Item> room = currentLocation.getItems();
+                if (noun.equals("")) {
+                    System.out.println("Drop what?");
+                } else {
+                    for (Item inventory1 : myInventory1) {
+                        if (inventory1.getName().equalsIgnoreCase(noun)) {
+                            myInventory1.remove(inventory1);
+                            room.add(inventory1);
+                            System.out.println(inventory1.getAction().get("drop"));
+                            break;
+                        }
+                    }
+                }
+                break;
+
+            case "talk" :
+                // handle talk command
+                List<NPC> npc = currentLocation.getNpc();
+                if (noun.equals("")) {
+                    System.out.println("Talk to who?");
+                } else {
+                    boolean npcFound = false;
+                    for (NPC element : npc) {
+                        if (element.getName().equalsIgnoreCase(noun)) {
+                            npcFound = true;
+                            System.out.println(element.getAction().get("talk"));
+                        }
+                    }
+                    if (!npcFound) {
+                        System.out.println("Who is " + noun + "?");
+                    }
+                }
+
+                break;
+
             case "help":
                 // handle get command
                 System.out.println("Commands:"
                     + "\n" + "Go - move around"
                     + "\n" + "Look - Look at something"
+                    + "\n" + "Talk - Talk to someone"
                     + "\n" + "Get - pick up stuff"
                     + "\n" + "Help - see commands again");
                 break;
@@ -115,9 +165,19 @@ public class Commands {
         System.out.println("--------------------------------------");
     }
 
+    public static void showNPC() {
+        List<NPC> npcList = currentLocation.getNpc();
+        if (npcList.isEmpty()) {
+            return;
+        } else {
+            for (NPC element : npcList) {
+                System.out.println("You see a " + element.getName());
+                System.out.println("--------------------------------------");
+            }
+        }
+    }
 
     public static void showItem() {
-
         List<Item> itemList = currentLocation.getItems();
         if (itemList.isEmpty()) {
             return;
@@ -135,6 +195,7 @@ public class Commands {
         System.out.println("Commands:"
             + "\n" + "Go - Move around"
             + "\n" + "Look - Look at something"
+            + "\n" + "Talk - Talk to someone"
             + "\n" + "Get - Pick up stuff"
             + "\n" + "Help - See commands again");
         System.out.println("--------------------------------------");
