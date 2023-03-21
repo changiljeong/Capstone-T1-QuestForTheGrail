@@ -18,6 +18,9 @@ public class Main {
 
             Gson gson = new Gson();
             locations = gson.fromJson(reader, Location[].class);
+            System.out.println(locations[0].getDirections());
+            System.out.println(locations[2].getItems().get(0).getName() + " printing item name name");
+            System.out.println(locations[2].getItems().get(0).getDescription() + " printing item name description");
         }
 
 

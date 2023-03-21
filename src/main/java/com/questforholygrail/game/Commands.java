@@ -24,14 +24,23 @@ public class Commands {
 
         switch (verb) {
             case "look":
-                Map<String, String> items = currentLocation.getItems();
+                List<Item> itemList = currentLocation.getItems();
                 List<String> inventory = player.getInventory();
                 if (noun.equals("")) {
                     System.out.println("Look what?");
-                } else if (items.containsValue(noun) || inventory.contains(noun)) {
-                    System.out.println(items.get("description"));
                 } else {
-                    System.out.println("Their is no " + noun + ".");
+                    for (Item element : itemList) {
+                        if (element.getName().equals(noun) || inventory.contains(noun)) {
+                            // Can we do here for having 2 items?
+                            System.out.println("You see an item: " + element.getName() + "with description of : " + element.getDescription());
+                            System.out.println("---------------------");
+                        }
+
+                        // Does not print out...
+                        else {
+                            System.out.println("Their is no " + noun + ".");
+                        }
+                    }
                 }
                 break;
 
@@ -56,23 +65,23 @@ public class Commands {
                     }
                 }
                 break;
-
-            case "get" :
-                // handle get command
-                Map<String, String> roomItem = currentLocation.getItems();
-                List<String> myInventory = player.getInventory();
-                if (noun.equals("")) {
-                    System.out.println("get what?");
-                } else if (roomItem.containsValue(noun)) {
-                    myInventory.add(roomItem.get("name"));
-                    currentLocation.getItems().remove("name");
-                    System.out.println("You got a " + noun + "!");
-                } else {
-                    System.out.println("There is no " + noun);
-                }
-
-
-                break;
+//
+//            case "get" :
+//                // handle get command
+//                Map<String, String> roomItem = currentLocation.getItems();
+//                List<String> myInventory = player.getInventory();
+//                if (noun.equals("")) {
+//                    System.out.println("get what?");
+//                } else if (roomItem.containsValue(noun)) {
+//                    myInventory.add(roomItem.get("name"));
+//                    currentLocation.getItems().remove("name");
+//                    System.out.println("You got a " + noun + "!");
+//                } else {
+//                    System.out.println("There is no " + noun);
+//                }
+//
+//
+//                break;
 
             case "help":
                 // handle get command
@@ -105,13 +114,14 @@ public class Commands {
 
 
     public static void showItem() {
-        Map<String, String> items = currentLocation.getItems();
-        if (items.containsKey("name")) {
-            System.out.println("You see a " + currentLocation.getItems().get("name") + ".");
-            System.out.println("--------------------------------------");
-        } else {
-            return;
 
+        List<Item> itemList = currentLocation.getItems();
+        if (itemList.isEmpty()) {
+            System.out.println("There is no items here");
+        } else {
+            for (Item element : itemList) {
+                System.out.println("You see the item name of " + element.getName());
+            }
         }
     }
 
