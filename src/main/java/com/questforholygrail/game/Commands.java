@@ -27,23 +27,20 @@ public class Commands {
                 List<Item> itemList = currentLocation.getItems();
                 List<String> inventory = player.getInventory();
                 if (noun.equals("")) {
-                    System.out.println("Look what?");
+                    System.out.println("Look at what?");
                 } else {
+                    boolean itemFound = false;
                     for (Item element : itemList) {
-                        if (element.getName().equals(noun) || inventory.contains(noun)) {
-                            // Can we do here for having 2 items?
-                            System.out.println("You see an item: " + element.getName() + "with description of : " + element.getDescription());
-                            System.out.println("---------------------");
+                        if (element.getName().equalsIgnoreCase(noun) || inventory.contains(noun)) {
+                            System.out.println(element.getAction().get("look"));
+                            itemFound = true;
                         }
-
-                        // Does not print out...
-                        else {
-                            System.out.println("Their is no " + noun + ".");
-                        }
+                    }
+                    if (!itemFound) {
+                        System.out.println("There is no " + noun + ".");
                     }
                 }
                 break;
-
 
             case "go":
                 // handle "go" command
@@ -57,7 +54,6 @@ public class Commands {
                             if (location.getName().equals(nextLocationName)) {
                                 currentLocation = location;
                                 player.setLocation(currentLocation);
-
                             }
                         }
                     } else {
@@ -65,23 +61,29 @@ public class Commands {
                     }
                 }
                 break;
-//
-//            case "get" :
-//                // handle get command
-//                Map<String, String> roomItem = currentLocation.getItems();
-//                List<String> myInventory = player.getInventory();
-//                if (noun.equals("")) {
-//                    System.out.println("get what?");
-//                } else if (roomItem.containsValue(noun)) {
-//                    myInventory.add(roomItem.get("name"));
-//                    currentLocation.getItems().remove("name");
-//                    System.out.println("You got a " + noun + "!");
-//                } else {
-//                    System.out.println("There is no " + noun);
-//                }
-//
-//
-//                break;
+
+            case "get" :
+                // handle get command
+                List<Item> roomItem = currentLocation.getItems();
+                List<String> myInventory = player.getInventory();
+                if (noun.equals("")) {
+                    System.out.println("Get what?");
+                } else {
+                    boolean itemFound = false;
+                    for (Item element : roomItem) {
+                        if (element.getName().equalsIgnoreCase(noun)) {
+                            itemFound = true;
+                            myInventory.add(element.getName());
+                            roomItem.remove(element);
+                            System.out.println(element.getAction().get("get"));
+                            break;
+                        }
+                    }
+                    if (!itemFound) {
+                        System.out.println("There is no " + noun + ".");
+                    }
+                }
+                break;
 
             case "help":
                 // handle get command
@@ -92,6 +94,7 @@ public class Commands {
                     + "\n" + "Help - see commands again");
                 break;
 
+            // default case to validate user input
             default:
                 System.out.println("Invalid command. Type 'help' for a list of available commands.");
                 break;
@@ -117,10 +120,11 @@ public class Commands {
 
         List<Item> itemList = currentLocation.getItems();
         if (itemList.isEmpty()) {
-            System.out.println("There is no items here");
+            return;
         } else {
             for (Item element : itemList) {
-                System.out.println("You see the item name of " + element.getName());
+                System.out.println("You see a " + element.getName());
+                System.out.println("--------------------------------------");
             }
         }
     }
@@ -129,10 +133,10 @@ public class Commands {
         //Display commands
         System.out.println("--------------------------------------");
         System.out.println("Commands:"
-            + "\n" + "Go - move around"
+            + "\n" + "Go - Move around"
             + "\n" + "Look - Look at something"
-            + "\n" + "Get - pick up stuff"
-            + "\n" + "Help - see commands again");
+            + "\n" + "Get - Pick up stuff"
+            + "\n" + "Help - See commands again");
         System.out.println("--------------------------------------");
 
         System.out.println("Let the adventure begin!");

@@ -9,8 +9,6 @@ public class Location {
     private Map<String, String> directions;
     private List<Item> items;
 
-    public Location() {}
-
     public String getName() {
         return name;
     }
@@ -26,8 +24,6 @@ public class Location {
     public Map<String, String> getDirections() {
         return directions;
     }
-
-
 
 }
 
