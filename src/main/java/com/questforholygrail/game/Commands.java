@@ -156,7 +156,12 @@ public class Commands {
         System.out.println("Location: " + currentLocation.getName());
         System.out.println("Directions: " + currentLocation.getDirections().keySet());
         System.out.println("Health: " + player.getHealth());
-        System.out.println("Inventory: " + player.getInventory());
+
+        System.out.print("Item Inventory: " );
+        for (Item element : player.getInventory()) {
+            System.out.print(" +" + element.getName());
+        }
+        System.out.println(" ");
         System.out.println("--------------------------------------");
     }
 
@@ -234,4 +239,5 @@ public class Commands {
             + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
         System.out.println("-----------------------");
     }
+
 }

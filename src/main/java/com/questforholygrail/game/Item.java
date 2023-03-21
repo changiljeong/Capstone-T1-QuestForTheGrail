@@ -35,4 +35,12 @@ public class Item {
     this.items = items;
   }
 
+  @Override
+  public String toString() {
+    return "Item{" +
+        "name='" + name + '\'' +
+        ", action=" + action +
+        ", items=" + items +
+        '}';
+  }
 }

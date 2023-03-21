@@ -8,8 +8,10 @@
     "items": [],
     "npc": [{
       "name": "Wizard",
+      "description": "A spooky wizard who's willing to talk something.",
+      "tip" : "The adventurer can try to talk for possible helpful tips of winning the game.",
       "action": {
-        "look" : "See what he has to say...",
+        "look" : "Try to talk to him and see what he has to say...",
         "talk" : "It's dangerous to go alone! Look for a weapon!"
       }
     }]
@@ -108,7 +110,15 @@
     "description": "Congratulations! You've reached the final challenge. A fierce Chimera stands between you and a piece of the holy grail. Defeat it to claim your prize!",
     "enemy": "Chimera",
     "items": [],
-    "npc": []
+    "npc": [{
+      "name": "Chimera",
+      "description": "A monstrous creature with the head of a lion, body of a goat, tail of a serpent, and has deadly breath of fire.",
+      "tip" : "The adventurer must stay focus and use every trick to defeat this fearsome foe and claim the ultimate prize",
+      "action": {
+        "look" : "Try to talk to Chimera and see what she has to say!",
+        "talk" : "Pretty (well tiny bit) impressed that you made it up here. Good luck passing me through hahahaha."
+      }
+    }]
   },
   {
     "name": "Grotto Treasure Room",
