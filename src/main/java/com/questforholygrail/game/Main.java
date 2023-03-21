@@ -18,9 +18,6 @@ public class Main {
 
             Gson gson = new Gson();
             locations = gson.fromJson(reader, Location[].class);
-            System.out.println(locations[0].getDirections());
-            System.out.println(locations[2].getItems().get(0).getName() + " printing item name name");
-            System.out.println(locations[2].getItems().get(0).getDescription() + " printing item name description");
         }
 
 
@@ -45,6 +42,7 @@ public class Main {
             System.out.println("Would you like to start a new game? (y/n)");
             choice = scanner.nextLine();
         } while (!choice.equals("y") && !choice.equals("n"));
+
         if (choice.equals("y")) {
 
             // print out intro
