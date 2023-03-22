@@ -51,9 +51,6 @@ public class Main {
             // Game loop
             while (true) {
 
-
-
-
                 // displays location, player health and inventory, updates accordingly.
                 Commands.showStatus();
 

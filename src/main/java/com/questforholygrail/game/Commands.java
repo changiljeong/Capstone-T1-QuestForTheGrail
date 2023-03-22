@@ -24,25 +24,31 @@ public class Commands {
             noun = words[1].toLowerCase();
         }
 
-
-
         switch (verb) {
             case "look":
                 List<Item> itemList = currentLocation.getItems();
                 List<NPC> npcList = currentLocation.getNpc();
+                List<Item> inventory2 = player.getInventory();
                 if (noun.equals("")) {
                     System.out.println("Look at what?");
                     break;
                 }
-                boolean itemFound1 = false;
+                boolean itemFound = false;
                 for (Item item : itemList) {
                     if (item.getName().equalsIgnoreCase(noun)) {
                         System.out.println(item.getAction().get("look"));
-                        itemFound1 = true;
+                        itemFound = true;
                         break;
                     }
                 }
-                if (!itemFound1) {
+                for (Item item : inventory2) {
+                    if (item.getName().equalsIgnoreCase(noun)) {
+                        System.out.println(item.getAction().get("look"));
+                        itemFound = true;
+                        break;
+                    }
+                }
+                if (!itemFound) {
                     boolean npcFound = false;
                     for (NPC npc : npcList) {
                         if (npc.getName().equalsIgnoreCase(noun)) {
@@ -52,7 +58,7 @@ public class Commands {
                         }
                     }
                     if (!npcFound) {
-                        System.out.println("There is no " + noun + " or one here.");
+                        System.out.println("There is no " + noun + ".");
                     }
                 }
                 break;
@@ -67,8 +73,24 @@ public class Commands {
                         String nextLocationName = directions.get(noun);
                         for (Location location : Main.locations) {
                             if (location.getName().equals(nextLocationName)) {
+                                if (location.isLocked()) {
+                                    List<Item> inventory = player.getInventory();
+                                    boolean hasKey = false;
+                                    for (Item item : inventory) {
+                                        if (item.getName().equals("key")) {
+                                            hasKey = true;
+                                            System.out.println("The door unlocked!");
+                                            break;
+                                        }
+                                    }
+                                    if (!hasKey) {
+                                        System.out.println("This door is locked...");
+                                        break;
+                                    }
+                                }
                                 currentLocation = location;
                                 player.setLocation(currentLocation);
+                                currentLocation.setLocked(false);
                             }
                         }
                     } else {
@@ -84,17 +106,17 @@ public class Commands {
                 if (noun.equals("")) {
                     System.out.println("Get what?");
                 } else {
-                    boolean itemFound = false;
+                    boolean itemFound1 = false;
                     for (Item element : roomItem) {
                         if (element.getName().equalsIgnoreCase(noun)) {
-                            itemFound = true;
+                            itemFound1 = true;
                             myInventory.add(element);
                             roomItem.remove(element);
                             System.out.println(element.getAction().get("get"));
                             break;
                         }
                     }
-                    if (!itemFound) {
+                    if (!itemFound1) {
                         System.out.println("There is no " + noun + ".");
                     }
                 }
@@ -107,13 +129,42 @@ public class Commands {
                 if (noun.equals("")) {
                     System.out.println("Drop what?");
                 } else {
+                    boolean itemFound2 = false;
                     for (Item inventory1 : myInventory1) {
                         if (inventory1.getName().equalsIgnoreCase(noun)) {
+                            itemFound2 = true;
                             myInventory1.remove(inventory1);
                             room.add(inventory1);
                             System.out.println(inventory1.getAction().get("drop"));
                             break;
                         }
+                    }
+                    if (!itemFound2) {
+                        System.out.println("You can't drop that.");
+                    }
+                }
+                break;
+
+            case "use" :
+                // handle use command for potion
+                List<Item> myInventory2 = player.getInventory();
+                int health = player.getHealth();
+                if (noun.equals("")) {
+                    System.out.println("Use what?");
+                } else {
+                    boolean potionFound = false;
+                    for (Item item : myInventory2) {
+                        if (item.getName().equalsIgnoreCase("potion")) {
+                            potionFound = true;
+                            health += 50;
+                            player.setHealth(health);
+                            myInventory2.remove(item);
+                            System.out.println(item.getAction().get("use"));
+                            break;
+                        }
+                    }
+                    if (!potionFound) {
+                        System.out.println("You can only use potions.");
                     }
                 }
                 break;
@@ -135,17 +186,18 @@ public class Commands {
                         System.out.println("Who is " + noun + "?");
                     }
                 }
-
                 break;
 
             case "help":
                 // handle get command
                 System.out.println("Commands:"
-                    + "\n" + "Go - move around"
+                    + "\n" + "Go - Move around"
                     + "\n" + "Look - Look at something"
                     + "\n" + "Talk - Talk to someone"
-                    + "\n" + "Get - pick up stuff"
-                    + "\n" + "Help - see commands again");
+                    + "\n" + "Use - Use your potion to heal your wounds"
+                    + "\n" + "Get - Pick up items"
+                    + "\n" + "Drop - Drop items"
+                    + "\n" + "Help - See commands again");
                 break;
 
             // default case to validate user input
@@ -156,7 +208,6 @@ public class Commands {
     }
 
     public static void playRiddle() {
-
         if (currentLocation.getName().equals("Goblin's Game Room")) {
             int guessCounter = 0;
             Scanner scanner = new Scanner(System.in);
@@ -186,19 +237,14 @@ public class Commands {
             }
         }}
 
-
-
     public static void showStatus() {
         System.out.println("--------------------------------------");
         System.out.println("Location: " + currentLocation.getName());
         System.out.println("Directions: " + currentLocation.getDirections().keySet());
         System.out.println("Health: " + player.getHealth());
-
-
-
-        System.out.print("Item Inventory: " );
+        System.out.print("Inventory: " );
         for (Item element : player.getInventory()) {
-            System.out.print(" +" + element.getName());
+            System.out.print("[" + element.getName() + "]");
         }
         System.out.println(" ");
         System.out.println("--------------------------------------");
@@ -240,7 +286,9 @@ public class Commands {
             + "\n" + "Go - Move around"
             + "\n" + "Look - Look at something"
             + "\n" + "Talk - Talk to someone"
-            + "\n" + "Get - Pick up stuff"
+            + "\n" + "Use - Use your potion to heal your wounds"
+            + "\n" + "Get - Pick up items"
+            + "\n" + "Drop - Drop items"
             + "\n" + "Help - See commands again");
         System.out.println("--------------------------------------");
 
@@ -261,22 +309,6 @@ public class Commands {
     public static void gameTitle() {
         System.out.println("-----------------------");
         System.out.println("Quest For The Holy Grail");
-        System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
-            + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
-            + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
-            + "⠀⠀⠀⣦⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⢀⣤⠀⠀⠀\n"
-            + "⠀⠀⠀⢿⣷⣄⠀⠀⠀⠀⣴⠟⠛⠛⠉⠉⠛⠛⠻⣦⠀⠀⠀⠀⣠⣾⡿⠀⠀⠀\n"
-            + "⠀⠀⠀⠸⣿⣿⣦⣄⠀⠀⣿⣦⣤⣄⣀⣀⣠⣤⣶⣿⠀⠀⣠⣼⣿⣿⠃⠀⠀⠀\n"
-            + "⠀⢠⣄⡀⠙⢿⣿⣿⣷⡀⢻⣿⣿⣿⣿⣿⣿⣿⣿⡟⢀⣾⣿⣿⡿⠋⢀⣠⠄⠀\n"
-            + "⠀⠀⠻⣿⣿⣶⣿⣿⣿⣧⠈⢿⣿⣿⣿⣿⣿⣿⡿⠁⣼⣿⣿⣿⣶⣿⣿⠏⠀⠀\n"
-            + "⠀⠀⠀⠈⠻⢿⣿⣿⣿⣿⣧⡈⠻⢿⣿⣿⡿⠟⢀⣾⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀\n"
-            + "⠀⠀⠀⠀⣀⣠⣤⣴⣿⣿⣿⡿⠂⢠⣿⣿⡄⠐⢿⣿⣿⣿⣦⣤⣄⡀⠀⠀⠀⠀\n"
-            + "⠀⠀⠀⠀⠈⠉⠛⠛⠛⠛⠉⠀⢀⣾⣿⣿⣷⡀⠀⠉⠛⠛⠛⠛⠉⠁⠀⠀⠀⠀\n"
-            + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
-            + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠛⠻⠟⠛⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
-            + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
-            + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
-        System.out.println("-----------------------");
     }
 
 }
