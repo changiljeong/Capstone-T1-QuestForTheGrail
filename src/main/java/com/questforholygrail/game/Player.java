@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
+
     private String name;
     private int health;
-
-
-
     private List<Item> inventory;
     private Location location;
-    private List<String> inventory1;
 
     public Player(String name, int health, Location location) {
         this.name = name;
@@ -51,7 +48,6 @@ public class Player {
             ", health=" + health +
             ", inventory=" + inventory +
             ", location=" + location +
-            ", inventory1=" + inventory1 +
             '}';
     }
 }

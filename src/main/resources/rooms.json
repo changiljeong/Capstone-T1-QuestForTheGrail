@@ -135,7 +135,7 @@
       "north": "Grotto Treasure Room",
       "east": "Sanctuary"
     },
-    "description": "Congratulations! You've reached the final challenge. A fierce Chimera stands between you and a piece of the holy grail. Defeat it to claim your prize!",
+    "description": "A fierce Chimera stands between you and a piece of the holy grail.",
     "puzzle": false,
     "enemy": "Chimera",
     "items": [],
