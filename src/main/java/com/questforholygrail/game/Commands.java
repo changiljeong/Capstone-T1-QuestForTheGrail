@@ -63,8 +63,23 @@ public class Commands {
                         String nextLocationName = directions.get(noun);
                         for (Location location : Main.locations) {
                             if (location.getName().equals(nextLocationName)) {
+                                if (location.isLocked()) {
+                                    List<Item> inventory = player.getInventory();
+                                    boolean hasKey = false;
+                                    for (Item item : inventory) {
+                                        if (item.getName().equals("key")) {
+                                            hasKey = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!hasKey) {
+                                        System.out.println("The door is locked...");
+                                        break;
+                                    }
+                                }
                                 currentLocation = location;
                                 player.setLocation(currentLocation);
+                                currentLocation.setLocked(false);
                             }
                         }
                     } else {
@@ -156,10 +171,9 @@ public class Commands {
         System.out.println("Location: " + currentLocation.getName());
         System.out.println("Directions: " + currentLocation.getDirections().keySet());
         System.out.println("Health: " + player.getHealth());
-
-        System.out.print("Item Inventory: " );
+        System.out.print("Inventory: " );
         for (Item element : player.getInventory()) {
-            System.out.print(" +" + element.getName());
+            System.out.print("[" + element.getName() + "]");
         }
         System.out.println(" ");
         System.out.println("--------------------------------------");

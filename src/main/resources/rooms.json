@@ -14,7 +14,8 @@
         "look" : "Try to talk to him and see what he has to say...",
         "talk" : "It's dangerous to go alone! Look for a weapon!"
       }
-    }]
+    }],
+    "locked": false
   },
   {
     "name": "Chimera's Grotto Entrance",
@@ -24,7 +25,8 @@
     },
     "description": "You're in the entrance of the grotto. You should find something to defend yourself with...",
     "items": [],
-    "npc": []
+    "npc": [],
+    "locked": false
   },
   {
     "name": "Armory",
@@ -43,7 +45,8 @@
         }
       }
     ],
-    "npc": []
+    "npc": [],
+    "locked": false
   },
   {
     "name": "Goblin's Lair",
@@ -53,7 +56,8 @@
     },
     "description": "You see a mob of goblin's getting ready to attack you!",
     "items": [],
-    "npc": []
+    "npc": [],
+    "locked": false
   },
   {
     "name": "Sanctuary",
@@ -71,7 +75,8 @@
         }
       }
     ],
-    "npc": []
+    "npc": [],
+    "locked": false
   },
   {
     "name": "Key Room",
@@ -88,7 +93,8 @@
         }
       }
     ],
-    "npc": []
+    "npc": [],
+    "locked": false
   },
   {
     "name": "Goblin's Game Room",
@@ -99,13 +105,14 @@
     "description": "You enter a room filled with riddles, but beware, each wrong answer triggers a trap!",
     "puzzle": true,
     "items": [],
-    "npc": []
+    "npc": [],
+    "locked": false
   },
   {
     "name": "Boss Room",
     "directions": {
       "north": "Grotto Treasure Room",
-      "east": "Potion Room"
+      "east": "Sanctuary"
     },
     "description": "Congratulations! You've reached the final challenge. A fierce Chimera stands between you and a piece of the holy grail. Defeat it to claim your prize!",
     "enemy": "Chimera",
@@ -118,7 +125,8 @@
         "look" : "Try to talk to Chimera and see what she has to say!",
         "talk" : "Pretty (well tiny bit) impressed that you made it up here. Good luck passing me through hahahaha."
       }
-    }]
+    }],
+    "locked": true
   },
   {
     "name": "Grotto Treasure Room",
@@ -136,7 +144,8 @@
         }
       }
     ],
-    "npc": []
+    "npc": [],
+    "locked": false
   }
 ]
 
