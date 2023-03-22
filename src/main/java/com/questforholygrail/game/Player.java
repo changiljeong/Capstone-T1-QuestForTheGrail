@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
+
     private String name;
     private int health;
-    private List<String> inventory;
+    private List<Item> inventory;
     private Location location;
 
     public Player(String name, int health, Location location) {
@@ -28,7 +29,7 @@ public class Player {
         this.health = health;
     }
 
-    public List<String> getInventory() {
+    public List<Item> getInventory() {
         return inventory;
     }
 
@@ -40,5 +41,15 @@ public class Player {
         this.location = location;
     }
 
+    @Override
+    public String toString() {
+        return "Player{" +
+            "name='" + name + '\'' +
+            ", health=" + health +
+            ", inventory=" + inventory +
+            ", location=" + location +
+            '}';
+    }
 }
+
 

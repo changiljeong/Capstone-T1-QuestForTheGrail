@@ -42,6 +42,7 @@ public class Main {
             System.out.println("Would you like to start a new game? (y/n)");
             choice = scanner.nextLine();
         } while (!choice.equals("y") && !choice.equals("n"));
+
         if (choice.equals("y")) {
 
             // print out intro
@@ -53,8 +54,14 @@ public class Main {
                 // displays location, player health and inventory, updates accordingly.
                 Commands.showStatus();
 
+                // Riddle game
+                Commands.playRiddle();
+
                 // displays room description
                 Commands.roomDescription();
+
+                // displays npc in room
+                Commands.showNPC();
 
                 // display items in room
                 Commands.showItem();

@@ -6,14 +6,27 @@ import java.util.Map;
 public class Location {
     private String name;
     private String description;
-    private Map<String, String>items;
     private Map<String, String> directions;
+    private List<Item> items;
+    private List<NPC> npc;
+    private Map<String, String> riddles;
+    private boolean puzzle;
+    boolean locked;
 
-    public Location(String name, String description, Map<String, String> items, Map<String, String> directions) {
-        this.name = name;
-        this.description = description;
-        this.items = items;
-        this.directions = directions;
+    public List<NPC> getNpc() {
+        return npc;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public Map<String, String> getRiddles() {
+        return riddles;
     }
 
     public String getName() {
@@ -24,16 +37,22 @@ public class Location {
         return description;
     }
 
-    public Map<String, String> getItems() {
+    public List<Item> getItems() {
         return items;
+    }
+
+    public boolean isPuzzle() {
+        return puzzle;
+    }
+
+    public void setPuzzle(boolean puzzle) {
+        this.puzzle = puzzle;
     }
 
 
     public Map<String, String> getDirections() {
         return directions;
     }
-
-
 
 }
 
