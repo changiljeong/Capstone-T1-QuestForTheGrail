@@ -1,7 +1,9 @@
 package com.questforholygrail.game;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Commands {
 
@@ -21,6 +23,8 @@ public class Commands {
         if (words.length > 1) {
             noun = words[1].toLowerCase();
         }
+
+
 
         switch (verb) {
             case "look":
@@ -151,11 +155,46 @@ public class Commands {
         }
     }
 
+    public static void playRiddle() {
+
+        if (currentLocation.getName().equals("Goblin's Game Room")) {
+            int guessCounter = 0;
+            Scanner scanner = new Scanner(System.in);
+            while(currentLocation.isPuzzle()) {
+                System.out.println("<<Riddle Room Question>>>: " + currentLocation.getRiddles().get("question") + "?");
+                String guess = scanner.nextLine().toLowerCase();
+
+                if (guessCounter>=2) {
+                    for (Location location : Main.locations) {
+                        if (location.getName().equals("The Gate of Trials")) {
+                            System.out.println(currentLocation.getRiddles().get("lost"));
+                            currentLocation = location;
+                            player.setLocation(currentLocation);
+                            break;
+                        }
+                    }
+                    showStatus();
+                    break;
+                } else if (!guess.equals("fire")) {
+                    guessCounter++;
+                    System.out.println(currentLocation.getRiddles().get("incorrect") + " You guessed " + guessCounter + " time wrong out of 3 tries.");
+                } else {
+                    System.out.println(currentLocation.getRiddles().get("correct") + " Hint: " + currentLocation.getDirections().keySet() );
+                    currentLocation.setPuzzle(false);
+                    break;
+                }
+            }
+        }}
+
+
+
     public static void showStatus() {
         System.out.println("--------------------------------------");
         System.out.println("Location: " + currentLocation.getName());
         System.out.println("Directions: " + currentLocation.getDirections().keySet());
         System.out.println("Health: " + player.getHealth());
+
+
 
         System.out.print("Item Inventory: " );
         for (Item element : player.getInventory()) {
