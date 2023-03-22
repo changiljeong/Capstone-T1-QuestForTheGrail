@@ -71,7 +71,8 @@
         "name": "potion",
         "action": {
           "look": "Used to heal your wounds.",
-          "get": "You got a potion!"
+          "get": "You got a potion!",
+          "use": "You gained some health!"
         }
       }
     ],

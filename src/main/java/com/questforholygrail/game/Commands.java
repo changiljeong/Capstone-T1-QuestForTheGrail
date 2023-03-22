@@ -143,6 +143,30 @@ public class Commands {
                 }
                 break;
 
+            case "use" :
+                // handle use command for potion
+                List<Item> myInventory2 = player.getInventory();
+                int health = player.getHealth();
+                if (noun.equals("")) {
+                    System.out.println("Use what?");
+                } else {
+                    boolean potionFound = false;
+                    for (Item item : myInventory2) {
+                        if (item.getName().equalsIgnoreCase("potion")) {
+                            potionFound = true;
+                            health += 50;
+                            player.setHealth(health);
+                            myInventory2.remove(item);
+                            System.out.println(item.getAction().get("use"));
+                            break;
+                        }
+                    }
+                    if (!potionFound) {
+                        System.out.println("You can only use potions.");
+                    }
+                }
+                break;
+
             case "talk" :
                 // handle talk command
                 List<NPC> npc = currentLocation.getNpc();
@@ -160,17 +184,18 @@ public class Commands {
                         System.out.println("Who is " + noun + "?");
                     }
                 }
-
                 break;
 
             case "help":
                 // handle get command
                 System.out.println("Commands:"
-                    + "\n" + "Go - move around"
+                    + "\n" + "Go - Move around"
                     + "\n" + "Look - Look at something"
                     + "\n" + "Talk - Talk to someone"
-                    + "\n" + "Get - pick up stuff"
-                    + "\n" + "Help - see commands again");
+                    + "\n" + "Use - Use your potion to heal your wounds"
+                    + "\n" + "Get - Pick up items"
+                    + "\n" + "Drop - Drop items"
+                    + "\n" + "Help - See commands again");
                 break;
 
             // default case to validate user input
@@ -229,7 +254,9 @@ public class Commands {
             + "\n" + "Go - Move around"
             + "\n" + "Look - Look at something"
             + "\n" + "Talk - Talk to someone"
-            + "\n" + "Get - Pick up stuff"
+            + "\n" + "Use - Use your potion to heal your wounds"
+            + "\n" + "Get - Pick up items"
+            + "\n" + "Drop - Drop items"
             + "\n" + "Help - See commands again");
         System.out.println("--------------------------------------");
 
