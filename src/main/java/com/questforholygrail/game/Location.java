@@ -9,6 +9,8 @@ public class Location {
     private Map<String, String> directions;
     private List<Item> items;
     private List<NPC> npc;
+    private Map<String, String> riddles;
+    private boolean puzzle;
     boolean locked;
 
     public List<NPC> getNpc() {
@@ -23,6 +25,10 @@ public class Location {
         this.locked = locked;
     }
 
+    public Map<String, String> getRiddles() {
+        return riddles;
+    }
+
     public String getName() {
         return name;
     }
@@ -34,6 +40,15 @@ public class Location {
     public List<Item> getItems() {
         return items;
     }
+
+    public boolean isPuzzle() {
+        return puzzle;
+    }
+
+    public void setPuzzle(boolean puzzle) {
+        this.puzzle = puzzle;
+    }
+
 
     public Map<String, String> getDirections() {
         return directions;

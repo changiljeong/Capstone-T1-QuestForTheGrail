@@ -51,8 +51,14 @@ public class Main {
             // Game loop
             while (true) {
 
+
+
+
                 // displays location, player health and inventory, updates accordingly.
                 Commands.showStatus();
+
+                // Riddle game
+                Commands.playRiddle();
 
                 // displays room description
                 Commands.roomDescription();
