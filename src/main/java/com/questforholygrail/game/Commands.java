@@ -26,19 +26,27 @@ public class Commands {
             case "look":
                 List<Item> itemList = currentLocation.getItems();
                 List<NPC> npcList = currentLocation.getNpc();
+                List<Item> inventory2 = player.getInventory();
                 if (noun.equals("")) {
                     System.out.println("Look at what?");
                     break;
                 }
-                boolean itemFound1 = false;
+                boolean itemFound = false;
                 for (Item item : itemList) {
                     if (item.getName().equalsIgnoreCase(noun)) {
                         System.out.println(item.getAction().get("look"));
-                        itemFound1 = true;
+                        itemFound = true;
                         break;
                     }
                 }
-                if (!itemFound1) {
+                for (Item item : inventory2) {
+                    if (item.getName().equalsIgnoreCase(noun)) {
+                        System.out.println(item.getAction().get("look"));
+                        itemFound = true;
+                        break;
+                    }
+                }
+                if (!itemFound) {
                     boolean npcFound = false;
                     for (NPC npc : npcList) {
                         if (npc.getName().equalsIgnoreCase(noun)) {
@@ -48,7 +56,7 @@ public class Commands {
                         }
                     }
                     if (!npcFound) {
-                        System.out.println("There is no " + noun + " or one here.");
+                        System.out.println("There is no " + noun + ".");
                     }
                 }
                 break;
@@ -69,11 +77,12 @@ public class Commands {
                                     for (Item item : inventory) {
                                         if (item.getName().equals("key")) {
                                             hasKey = true;
+                                            System.out.println("The door unlocked!");
                                             break;
                                         }
                                     }
                                     if (!hasKey) {
-                                        System.out.println("The door is locked...");
+                                        System.out.println("This door is locked...");
                                         break;
                                     }
                                 }
@@ -95,17 +104,17 @@ public class Commands {
                 if (noun.equals("")) {
                     System.out.println("Get what?");
                 } else {
-                    boolean itemFound = false;
+                    boolean itemFound1 = false;
                     for (Item element : roomItem) {
                         if (element.getName().equalsIgnoreCase(noun)) {
-                            itemFound = true;
+                            itemFound1 = true;
                             myInventory.add(element);
                             roomItem.remove(element);
                             System.out.println(element.getAction().get("get"));
                             break;
                         }
                     }
-                    if (!itemFound) {
+                    if (!itemFound1) {
                         System.out.println("There is no " + noun + ".");
                     }
                 }
@@ -118,13 +127,18 @@ public class Commands {
                 if (noun.equals("")) {
                     System.out.println("Drop what?");
                 } else {
+                    boolean itemFound2 = false;
                     for (Item inventory1 : myInventory1) {
                         if (inventory1.getName().equalsIgnoreCase(noun)) {
+                            itemFound2 = true;
                             myInventory1.remove(inventory1);
                             room.add(inventory1);
                             System.out.println(inventory1.getAction().get("drop"));
                             break;
                         }
+                    }
+                    if (!itemFound2) {
+                        System.out.println("You can't drop that.");
                     }
                 }
                 break;
