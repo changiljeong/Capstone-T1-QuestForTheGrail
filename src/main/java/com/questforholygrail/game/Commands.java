@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Commands {
 
     private static Player player;
+   // private static NPC npc;
     private static Location currentLocation;
 
     public Commands(Player player, Location currentLocation) {
@@ -138,34 +139,32 @@ public class Commands {
 
                 break;
 
-            case "attack":
-                List<NPC> npcs = currentLocation.getNpc();
-                if (noun.equals("")) {
-                    System.out.println("Attack who?");
-                } else {
-                    boolean NpcFound = false;
-                    for (NPC npc1 : npcs) {
-                        if (npc1.getName().equalsIgnoreCase(noun)) {
-                            NpcFound = true;
-                            int damage = player.attack();
-                            npc1.takeDamage(damage);
-                            System.out.println("You attack the " + npc1.getName() + " with your " + player.getWeapon() + " and deal " + damage + " damage!");
-                            if (npc1.isDead()) {
-                                System.out.println("You have defeated the " + npc1.getName() + "!");
-                                npcs.remove(npc1);
-                                currentLocation.removeNpc(npc1);
-                            } else {
-                                BattleSequence battle = new BattleSequence(player, npc1);
-                                battle.start();
-                            }
-                            break;
-                        }
-                    }
-                    if (!NpcFound) {
-                        System.out.println("There is no " + noun + " to attack.");
-                    }
-                }
-                break;
+//            case "attack":
+//                List<NPC> npcs = currentLocation.getNpc();
+//                NPC npc = new NPC()
+//
+//                if (noun.equals("")) {
+//                    System.out.println("Attack who?");
+//                } else {
+//                    boolean NpcFound = false;
+//                    int playerHealth = player.getHealth();
+//                    int NPCHealth = npc.getHealth();
+//                    for (NPC npc1 : npcs) {
+//                        if (npc1.getName().equalsIgnoreCase(noun)) {
+//                            NpcFound = true;
+//                            if (playerHealth > 0) {
+//                                BattleSequence battle = new BattleSequence(player, npc1);
+//                                battle.start();
+//                            } else if (NPCHealth <= 0) {
+//                                npcs.remove(npc1);
+//                            }
+//                        }
+//                    }
+//                    if (!NpcFound) {
+//                        System.out.println("There is no " + noun + " to attack.");
+//                    }
+//                }
+//                break;
 
             case "help":
                 // handle get command

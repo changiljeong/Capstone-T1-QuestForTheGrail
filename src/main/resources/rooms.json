@@ -60,7 +60,16 @@
     "description": "You see a mob of goblin's getting ready to attack you!",
     "puzzle": false,
     "items": [],
-    "npc": [],
+    "npc": [{
+      "name": "Goblin",
+      "description": "",
+      "tip" : "The adventurer can try to talk for possible helpful tips of winning the game.",
+      "action": {
+        "look" : "Try to talk to him and see what he has to say...",
+        "talk" : "It's dangerous to go alone! Look for a weapon!"
+      }
+    }]
+    ,
     "riddles" : {}
   },
   {

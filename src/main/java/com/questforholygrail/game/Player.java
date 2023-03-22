@@ -11,7 +11,7 @@ public class Player {
     private Location location;
     private List<String> inventory1;
     private int attackPower;
-    private boolean isDead;
+
 
     public Player(String name, int health, Location location) {
         this.name = name;
@@ -19,7 +19,7 @@ public class Player {
         this.inventory = new ArrayList<>();
         this.location = location;
         this.attackPower = 25;
-        this.isDead = false;
+
     }
 
     public String getName() {
@@ -61,9 +61,6 @@ public class Player {
             return;
         }
         health -= NpcAttack;
-        if (health <= 0) {
-            isDead = true;
-        }
     }
 
     public int getAttackPower() {
@@ -74,13 +71,6 @@ public class Player {
         this.attackPower = attackPower;
     }
 
-    public boolean isDead() {
-        return isDead;
-    }
-
-    public void setDead(boolean dead) {
-        isDead = dead;
-    }
 
 }
 
