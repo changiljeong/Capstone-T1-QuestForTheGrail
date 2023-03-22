@@ -20,7 +20,6 @@ public class Main {
             locations = gson.fromJson(reader, Location[].class);
         }
 
-
         // set current location to the first location in the array
         Location currentLocation = locations[0];
 
@@ -73,7 +72,6 @@ public class Main {
                 if (command.equals("quit")) {
                     System.out.println("Quitting game...");
                     break;
-
                 }
             }
         }
@@ -87,9 +85,8 @@ public class Main {
     @Override
     public String toString() {
         return "Commands{" +
-            "player=" + player +
-            "locations" + locations +
-            "locations" + Main.locations +
-            '}';
+                "player=" + player +
+                ", locations=" + locations +
+                '}';
     }
 }

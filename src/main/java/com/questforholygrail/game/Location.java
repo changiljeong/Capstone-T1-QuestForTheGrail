@@ -30,5 +30,7 @@ public class Location {
         return directions;
     }
 
+    public void removeNpc(NPC npc) {
+    }
 }
 

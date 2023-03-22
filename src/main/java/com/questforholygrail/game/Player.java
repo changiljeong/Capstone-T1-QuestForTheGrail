@@ -2,19 +2,24 @@ package com.questforholygrail.game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Player {
-    private String name;
+    private final String name;
     private int health;
-    private List<Item> inventory;
+    private final List<Item> inventory;
     private Location location;
     private List<String> inventory1;
+    private int attackPower;
+    private boolean isDead;
 
     public Player(String name, int health, Location location) {
         this.name = name;
-        this.health = health;
+        this.health = 100;
         this.inventory = new ArrayList<>();
         this.location = location;
+        this.attackPower = 25;
+        this.isDead = false;
     }
 
     public String getName() {
@@ -39,6 +44,42 @@ public class Player {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public int attack() {
+        // generate a random damage value between 1 and 25
+        int damage = new Random().nextInt(25) + 1;
+        return damage;
+    }
+
+    Object getWeapon() {
+        return null;
+    }
+
+    public void takeDamage(int NpcAttack) {
+        if (NpcAttack < 0) {
+            return;
+        }
+        health -= NpcAttack;
+        if (health <= 0) {
+            isDead = true;
+        }
+    }
+
+    public int getAttackPower() {
+        return attackPower;
+    }
+
+    public void setAttackPower(int attackPower) {
+        this.attackPower = attackPower;
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
     }
 
 }
