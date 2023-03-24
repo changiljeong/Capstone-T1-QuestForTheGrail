@@ -23,11 +23,10 @@ public class Main {
             locations = gson.fromJson(reader, Location[].class);
         }
 
-        sound.soundLoad();
-
-
         // set current location to the first location in the array
         Location currentLocation = locations[0];
+
+        sound.soundLoad();
 
         // create a new player with starting values
         Player player = new Player(100, 10, currentLocation, false);
