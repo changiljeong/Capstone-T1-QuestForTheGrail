@@ -1,4 +1,6 @@
 package com.questforholygrail.game;
+import static com.questforholygrail.game.Commands.currentLocation;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;

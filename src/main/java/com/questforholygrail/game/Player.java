@@ -10,13 +10,15 @@ public class Player {
     private int attack;
     private List<Item> inventory;
     private Location location;
+    private boolean win;
 
-    public Player(String name, int health, int attack, Location location) {
+    public Player(String name, int health, int attack, Location location, boolean win) {
         this.name = name;
         this.health = health;
         this.inventory = new ArrayList<>();
         this.location = location;
         this.attack = attack;
+        this.win = win;
     }
 
     public int getAttack() {
@@ -31,6 +33,20 @@ public class Player {
 
     public void setAttack(int attack) {
         this.attack = attack;
+    }
+
+    public boolean isWin() {
+        for (Item item : inventory) {
+            if (item.getName().equals("grotto-key")) {
+                win = true;
+                break;
+            }
+        }
+        return win;
+    }
+
+    public void setWin(boolean win) {
+        this.win = win;
     }
 
     public String getName() {

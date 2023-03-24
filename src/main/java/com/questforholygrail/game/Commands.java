@@ -1,14 +1,13 @@
 package com.questforholygrail.game;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Commands {
 
     private static Player player;
-    private static Location currentLocation;
+    static Location currentLocation;
 
     public Commands(Player player, Location currentLocation) {
         Commands.player = player;
@@ -192,16 +191,23 @@ public class Commands {
 
             case "sound" :
                 // handle sound command
-                if (noun.equals("")) {
-                    System.out.println("You can use following commands Sound On/Off/Start/Stop.");
-                } else if (noun.equals("up")) {
-                    Sound.increaseSound();
-                } else if (noun.equals("down")) {
-                    Sound.reduceSound();
-                } else if (noun.equals("stop")) {
-                    Sound.stopSound();
-                } else if (noun.equals("start")) {
-                    Sound.playSound();
+                switch (noun) {
+                    case "":
+                        System.out.println(
+                            "You can use following commands Sound On/Off/Start/Stop.");
+                        break;
+                    case "up":
+                        Sound.increaseSound();
+                        break;
+                    case "down":
+                        Sound.reduceSound();
+                        break;
+                    case "stop":
+                        Sound.stopSound();
+                        break;
+                    case "start":
+                        Sound.playSound();
+                        break;
                 }
                 break;
 

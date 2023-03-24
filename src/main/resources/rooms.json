@@ -38,7 +38,8 @@
     "name": "Armory",
     "directions": {
       "east": "Goblin's Lair",
-      "west": "Goblin's Game Room"
+      "west": "Goblin's Game Room",
+      "south": "Chimera's Grotto Entrance"
     },
     "description": "You hear monsterous screams deep in the dungeon...",
     "puzzle": false,
@@ -69,7 +70,7 @@
     "npc": [{
       "name": "Goblin",
       "health": 75,
-      "attack": 40
+      "attack": 10
     }],
     "riddles" : {},
     "locked": false,

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -28,7 +29,7 @@ public class Main {
         Location currentLocation = locations[0];
 
         // create a new player with starting values
-        player = new Player("Player", 100, 10, currentLocation);
+        player = new Player("Player", 100, 10, currentLocation, false);
 
         Commands parser = new Commands(player, currentLocation);
 
@@ -81,7 +82,11 @@ public class Main {
                 if (command.equals("quit")) {
                     System.out.println("Quitting game...");
                     break;
+                }
 
+                if (player.isWin()) {
+                    System.out.println("The End...");
+                    break;
                 }
             }
         }
