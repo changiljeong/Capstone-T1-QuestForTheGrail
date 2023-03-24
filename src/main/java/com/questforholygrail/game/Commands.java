@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Commands {
 
     private static Player player;
-    private static Location currentLocation;
+    static Location currentLocation;
 
     public Commands(Player player, Location currentLocation) {
         Commands.player = player;
@@ -16,7 +16,10 @@ public class Commands {
     }
 
     public void parseCommand(String command) {
-        String[] words = command.split(" ");
+
+        // adjust regex for one or more white spaces \s+
+        // line 22 command.trim().split("\\s+")
+        String[] words = command.trim().split("\\s+");
         String verb = words[0].toLowerCase();
         String noun = "";
 
@@ -70,6 +73,7 @@ public class Commands {
                 } else {
                     Map<String, String> directions = currentLocation.getDirections();
                     if (directions.containsKey(noun)) {
+
                         String nextLocationName = directions.get(noun);
                         for (Location location : Main.locations) {
                             if (location.getName().equals(nextLocationName)) {
@@ -336,6 +340,9 @@ public class Commands {
 
     public static void roomDescription() {
         System.out.println(currentLocation.getDescription());
+
+        Main.sound.soundFXLoad(player);
+
         System.out.println("--------------------------------------");
     }
 

@@ -6,6 +6,8 @@ public class Item {
 
   private String name;
   private Map<String, String> action;
+
+  // consider removing since it will be mostly single item.
   private List<Item> items;
 
   //Empty constructor. Add parameters as needed.
@@ -27,10 +29,11 @@ public class Item {
     this.name = name;
   }
 
+  // same
   public List<Item> getItems() {
     return items;
   }
-
+// same
   public void setItems(List<Item> items) {
     this.items = items;
   }
