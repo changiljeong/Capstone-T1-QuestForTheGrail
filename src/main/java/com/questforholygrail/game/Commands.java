@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Random;
+
 
 public class Commands {
 
@@ -231,10 +233,15 @@ public class Commands {
         List<NPC> npcList1 = currentLocation.getNpc();
         int playerHealth = player.getHealth();
         int playerAttack = player.getAttack();
+        Random random = new Random();
+
         while (currentLocation.isBattle()) {
             for (NPC element : npcList1) {
                 int enemyHealth = element.getHealth();
                 int enemyAttack = element.getAttack();
+                int min = 10;
+                int npcRandomAttack = (int)(Math.random() * (enemyAttack - min + 1) + min);
+                int playerRandomAttack = (int)(Math.random() * (playerAttack - min + 1) + min);
                 System.out.println(element.getName());
                 System.out.println("--------------------------------------");
                 System.out.println("Player HP: " + playerHealth);
@@ -245,10 +252,10 @@ public class Commands {
                 if (!input.equals("attack")) {
                     System.out.println("You have to attack!");
                 } else {
-                    enemyHealth = enemyHealth - playerAttack;
+                    enemyHealth = enemyHealth - playerRandomAttack;
                     element.setHealth(enemyHealth);
                     System.out.println("--------------------------------------");
-                    System.out.println("You attack and did " + playerAttack + " damage!");
+                    System.out.println("You attack and did " + playerRandomAttack + " damage!");
                     if (enemyHealth <= 0) {
                         player.setHealth(playerHealth);
                         showStatus();
@@ -258,9 +265,9 @@ public class Commands {
                         npcList1.remove(element);
                         break;
                     } else {
-                        playerHealth = playerHealth - enemyAttack;
+                        playerHealth = playerHealth - npcRandomAttack;
                         player.setHealth(playerHealth);
-                        System.out.println("They attacked and did " + enemyAttack + " damage!");
+                        System.out.println("They attacked and did " + npcRandomAttack + " damage!");
                         System.out.println("--------------------------------------");
                         if (playerHealth <= 0) {
                             for (Location location : Main.locations) {
@@ -284,6 +291,7 @@ public class Commands {
             }
         }
     }
+
 
     public static void playRiddle() {
         if (currentLocation.getName().equals("Goblin's Game Room")) {
