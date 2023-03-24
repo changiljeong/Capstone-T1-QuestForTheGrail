@@ -12,6 +12,15 @@ public class Location {
     private Map<String, String> riddles;
     private boolean puzzle;
     boolean locked;
+    boolean battle;
+
+    public boolean isBattle() {
+        return battle;
+    }
+
+    public void setBattle(boolean battle) {
+        this.battle = battle;
+    }
 
     public List<NPC> getNpc() {
         return npc;

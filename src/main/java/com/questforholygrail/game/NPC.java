@@ -9,21 +9,13 @@ public class NPC {
     private String dialogue;
     private List<NPC> npc;
     private Map<String, String> action;
+    private int health;
+    private int attack;
 
-    public Map<String, String> getAction() {
-        return action;
-    }
-
-    public void setAction(Map<String, String> action) {
-        this.action = action;
-    }
-
-    public List<NPC> getNpc() {
-        return npc;
-    }
-
-    public void setNpc(List<NPC> npc) {
-        this.npc = npc;
+    public NPC(String name, int health, int attack) {
+        this.name = name;
+        this.health = health;
+        this.attack = attack;
     }
 
     public String getName() {
@@ -40,5 +32,37 @@ public class NPC {
 
     public void setDialogue(String dialogue) {
         this.dialogue = dialogue;
+    }
+
+    public List<NPC> getNpc() {
+        return npc;
+    }
+
+    public void setNpc(List<NPC> npc) {
+        this.npc = npc;
+    }
+
+    public Map<String, String> getAction() {
+        return action;
+    }
+
+    public void setAction(Map<String, String> action) {
+        this.action = action;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
     }
 }
