@@ -188,6 +188,22 @@ public class Commands {
                 }
                 break;
 
+
+            case "sound" :
+                // handle sound command
+                if (noun.equals("")) {
+                    System.out.println("You can use following commands Sound On/Off/Start/Stop.");
+                } else if (noun.equals("up")) {
+                    Sound.increaseSound();
+                } else if (noun.equals("down")) {
+                    Sound.reduceSound();
+                } else if (noun.equals("stop")) {
+                    Sound.stopSound();
+                } else if (noun.equals("start")) {
+                    Sound.playSound();
+                }
+                break;
+
             case "help":
                 // handle get command
                 System.out.println("Commands:"
@@ -197,7 +213,8 @@ public class Commands {
                     + "\n" + "Use - Use your potion to heal your wounds"
                     + "\n" + "Get - Pick up items"
                     + "\n" + "Drop - Drop items"
-                    + "\n" + "Help - See commands again");
+                    + "\n" + "Help - See commands again"
+                    + "\n" + "Sound - Can Up/Down/Start/Stop");
                 break;
 
             // default case to validate user input
@@ -289,7 +306,8 @@ public class Commands {
             + "\n" + "Use - Use your potion to heal your wounds"
             + "\n" + "Get - Pick up items"
             + "\n" + "Drop - Drop items"
-            + "\n" + "Help - See commands again");
+            + "\n" + "Help - See commands again"
+            + "\n" + "Sound - Can Up/Down/Start/Stop");
         System.out.println("--------------------------------------");
 
         System.out.println("Let the adventure begin!");
