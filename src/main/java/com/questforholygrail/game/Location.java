@@ -11,9 +11,18 @@ public class Location {
     private List<NPC> npc;
     private Map<String, String> riddles;
     private boolean puzzle;
+    boolean locked;
 
     public List<NPC> getNpc() {
         return npc;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 
     public Map<String, String> getRiddles() {

@@ -16,6 +16,7 @@
         "talk" : "It's dangerous to go alone! Look for a weapon!"
       }
     }],
+    "locked": false,
     "riddles" : {}
   },
   {
@@ -28,6 +29,7 @@
     "puzzle": false,
     "items": [],
     "npc": [],
+    "locked": false,
     "riddles" : {}
   },
   {
@@ -49,6 +51,7 @@
       }
     ],
     "npc": [],
+    "locked": false,
     "riddles" : {}
   },
   {
@@ -60,17 +63,9 @@
     "description": "You see a mob of goblin's getting ready to attack you!",
     "puzzle": false,
     "items": [],
-    "npc": [{
-      "name": "Goblin",
-      "description": "",
-      "tip" : "The adventurer can try to talk for possible helpful tips of winning the game.",
-      "action": {
-        "look" : "Try to talk to him and see what he has to say...",
-        "talk" : "It's dangerous to go alone! Look for a weapon!"
-      }
-    }]
-    ,
-    "riddles" : {}
+    "npc": [],
+    "riddles" : {},
+    "locked": false
   },
   {
     "name": "Sanctuary",
@@ -85,11 +80,13 @@
         "name": "potion",
         "action": {
           "look": "Used to heal your wounds.",
-          "get": "You got a potion!"
+          "get": "You got a potion!",
+          "use": "You gained some health!"
         }
       }
     ],
     "npc": [],
+    "locked": false,
     "riddles" : {}
   },
   {
@@ -109,6 +106,7 @@
       }
     ],
     "npc": [],
+    "locked": false,
     "riddles" : {}
   },
   {
@@ -121,6 +119,7 @@
     "puzzle": true,
     "items": [],
     "npc": [],
+    "locked": false,
     "riddles" :
     {
       "question": "I am not alive, but I grow; I don't have lungs, but I need air; I don't have a mouth, but I need water to live. What am I",
@@ -134,9 +133,9 @@
     "name": "Boss Room",
     "directions": {
       "north": "Grotto Treasure Room",
-      "east": "Potion Room"
+      "east": "Sanctuary"
     },
-    "description": "Congratulations! You've reached the final challenge. A fierce Chimera stands between you and a piece of the holy grail. Defeat it to claim your prize!",
+    "description": "A fierce Chimera stands between you and a piece of the holy grail.",
     "puzzle": false,
     "enemy": "Chimera",
     "items": [],
@@ -149,6 +148,7 @@
         "talk" : "Pretty (well tiny bit) impressed that you made it up here. Good luck passing me through hahahaha."
       }
     }],
+    "locked": true,
     "riddles" : {}
   },
   {
@@ -169,6 +169,7 @@
       }
     ],
     "npc": [],
+    "locked": false,
     "riddles" : {}
   }
 ]

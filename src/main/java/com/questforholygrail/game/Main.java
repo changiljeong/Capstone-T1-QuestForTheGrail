@@ -9,9 +9,10 @@ import java.util.Scanner;
 public class Main {
     private static Player player;
     static Location[] locations;
+    static Sound sound = new Sound();
 
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         try(Reader reader = new InputStreamReader(Main.class.getClassLoader().getResourceAsStream("rooms.json"))) {
@@ -19,6 +20,9 @@ public class Main {
             Gson gson = new Gson();
             locations = gson.fromJson(reader, Location[].class);
         }
+
+        sound.soundLoad();
+
 
         // set current location to the first location in the array
         Location currentLocation = locations[0];
@@ -50,9 +54,6 @@ public class Main {
             // Game loop
             while (true) {
 
-
-
-
                 // displays location, player health and inventory, updates accordingly.
                 Commands.showStatus();
 
@@ -78,6 +79,7 @@ public class Main {
                 if (command.equals("quit")) {
                     System.out.println("Quitting game...");
                     break;
+
                 }
             }
         }
@@ -91,8 +93,9 @@ public class Main {
     @Override
     public String toString() {
         return "Commands{" +
-                "player=" + player +
-                ", locations=" + locations +
-                '}';
+            "player=" + player +
+            "locations" + locations +
+            "locations" + Main.locations +
+            '}';
     }
 }
