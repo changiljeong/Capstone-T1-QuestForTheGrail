@@ -213,6 +213,7 @@ public class Commands {
 
             case "help":
                 // handle get command
+                System.out.println("--------------------------------------");
                 System.out.println("Commands:"
                     + "\n" + "Go - Move around"
                     + "\n" + "Look - Look at something"
@@ -220,8 +221,12 @@ public class Commands {
                     + "\n" + "Use - Use your potion to heal your wounds"
                     + "\n" + "Get - Pick up items"
                     + "\n" + "Drop - Drop items"
-                    + "\n" + "Help - See commands again"
                     + "\n" + "Sound - Can Up/Down/Start/Stop");
+                System.out.println("--------------------------------------");
+                System.out.println("Battle:"
+                    + "\n" + "Attack - Attack an enemy"
+                    + "\n" + "Heal - Use your potion");
+                System.out.println("--------------------------------------");
                 break;
 
             // default case to validate user input
@@ -234,13 +239,13 @@ public class Commands {
 
     public static void battle() {
         Scanner scanner = new Scanner(System.in);
-        List<NPC> npcList1 = currentLocation.getNpc();
-        List<Item> myInventory3 = player.getInventory();
-        int playerHealth = player.getHealth();
-        int playerAttack = player.getAttack();
-        int min = 10;
-        int playerRandomAttack = (int)(Math.random() * (playerAttack - min + 1) + min);
         while (currentLocation.isBattle()) {
+            List<NPC> npcList1 = currentLocation.getNpc();
+            List<Item> myInventory3 = player.getInventory();
+            int playerHealth = player.getHealth();
+            int playerAttack = player.getAttack();
+            int min = 10;
+            int playerRandomAttack = (int)(Math.random() * (playerAttack - min + 1) + min);
             for (NPC element : npcList1) {
                 int enemyHealth = element.getHealth();
                 int enemyAttack = element.getAttack();
@@ -316,11 +321,9 @@ public class Commands {
             int guessCounter = 0;
             Scanner scanner = new Scanner(System.in);
             while (currentLocation.isPuzzle()) {
-                System.out.println(
-                    "This room has a riddle:" + currentLocation.getRiddles().get("question")
-                        + "?");
+                System.out.println("This room has a riddle: ");
+                System.out.println(currentLocation.getRiddles().get("question"));
                 String guess = scanner.nextLine().toLowerCase();
-
                 if (guessCounter >= 2) {
                     for (Location location : Main.locations) {
                         if (location.getName().equals("The Gate of Trials")) {
@@ -399,8 +402,13 @@ public class Commands {
             + "\n" + "Use - Use your potion to heal your wounds"
             + "\n" + "Get - Pick up items"
             + "\n" + "Drop - Drop items"
-            + "\n" + "Help - See commands again"
             + "\n" + "Sound - Can Up/Down/Start/Stop");
+        System.out.println("--------------------------------------");
+        System.out.println("Battle:"
+                + "\n" + "Attack - Attack an enemy"
+                + "\n" + "Heal - Use your potion");
+        System.out.println("--------------------------------------");
+        System.out.println("Type \"help\" to see the list of commands again.");
         System.out.println("--------------------------------------");
 
         System.out.println("Let the adventure begin!");
