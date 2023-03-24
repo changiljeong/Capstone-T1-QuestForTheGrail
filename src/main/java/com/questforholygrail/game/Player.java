@@ -24,7 +24,7 @@ public class Player {
     public int getAttack() {
         for (Item item : inventory) {
             if (item.getName().equals("sword")) {
-                attack = 30;
+                attack = 30; // add 30 points to the base attack
                 break;
             }
         }

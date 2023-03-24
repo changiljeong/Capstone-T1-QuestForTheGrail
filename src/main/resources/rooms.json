@@ -70,7 +70,7 @@
     "npc": [{
       "name": "Goblin",
       "health": 75,
-      "attack": 10
+      "attack": 20
     }],
     "riddles" : {},
     "locked": false,
