@@ -25,7 +25,7 @@ public class Main {
         Location currentLocation = locations[0];
 
         // create a new player with starting values
-        player = new Player("Player", 100, currentLocation);
+        player = new Player("Player", 100, 10, currentLocation);
 
         Commands parser = new Commands(player, currentLocation);
 
@@ -56,6 +56,8 @@ public class Main {
 
                 // Riddle game
                 Commands.playRiddle();
+
+                Commands.battle();
 
                 // displays room description
                 Commands.roomDescription();

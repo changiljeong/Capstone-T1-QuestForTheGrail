@@ -80,6 +80,7 @@ public class Commands {
                                         if (item.getName().equals("key")) {
                                             hasKey = true;
                                             System.out.println("The door unlocked!");
+                                            inventory.remove(item);
                                             break;
                                         }
                                     }
@@ -99,7 +100,7 @@ public class Commands {
                 }
                 break;
 
-            case "get" :
+            case "get":
                 // handle get command
                 List<Item> roomItem = currentLocation.getItems();
                 List<Item> myInventory = player.getInventory();
@@ -122,7 +123,7 @@ public class Commands {
                 }
                 break;
 
-            case "drop" :
+            case "drop":
                 // handle drop command
                 List<Item> myInventory1 = player.getInventory();
                 List<Item> room = currentLocation.getItems();
@@ -145,7 +146,7 @@ public class Commands {
                 }
                 break;
 
-            case "use" :
+            case "use":
                 // handle use command for potion
                 List<Item> myInventory2 = player.getInventory();
                 int health = player.getHealth();
@@ -169,7 +170,7 @@ public class Commands {
                 }
                 break;
 
-            case "talk" :
+            case "talk":
                 // handle talk command
                 List<NPC> npc = currentLocation.getNpc();
                 if (noun.equals("")) {
@@ -202,8 +203,68 @@ public class Commands {
 
             // default case to validate user input
             default:
-                System.out.println("Invalid command. Type 'help' for a list of available commands.");
+                System.out.println(
+                    "Invalid command. Type 'help' for a list of available commands.");
                 break;
+        }
+    }
+
+    public static void battle() {
+        Scanner scanner = new Scanner(System.in);
+        List<NPC> npcList1 = currentLocation.getNpc();
+        int playerHealth = player.getHealth();
+        int playerAttack = player.getAttack();
+        while (currentLocation.isBattle()) {
+            for (NPC element : npcList1) {
+                int enemyHealth = element.getHealth();
+                int enemyAttack = element.getAttack();
+                System.out.println(element.getName());
+                System.out.println("--------------------------------------");
+                System.out.println("Player HP: " + playerHealth);
+                System.out.println("Enemy HP: " + enemyHealth);
+                System.out.println("--------------------------------------");
+                System.out.println("You're being attacked!");
+                String input = scanner.nextLine().toLowerCase();
+                if (!input.equals("attack")) {
+                    System.out.println("You have to attack!");
+                } else {
+                    enemyHealth = enemyHealth - playerAttack;
+                    element.setHealth(enemyHealth);
+                    System.out.println("--------------------------------------");
+                    System.out.println("You attack and did " + playerAttack + " damage!");
+                    if (enemyHealth <= 0) {
+                        player.setHealth(playerHealth);
+                        showStatus();
+                        System.out.println("You defeated the enemy!");
+                        System.out.println("--------------------------------------");
+                        currentLocation.setBattle(false);
+                        npcList1.remove(element);
+                        break;
+                    } else {
+                        playerHealth = playerHealth - enemyAttack;
+                        player.setHealth(playerHealth);
+                        System.out.println("They attacked and did " + enemyAttack + " damage!");
+                        System.out.println("--------------------------------------");
+                        if (playerHealth <= 0) {
+                            for (Location location : Main.locations) {
+                                if (location.getName().equals("The Gate of Trials")) {
+                                    System.out.println("You lost");
+                                    currentLocation = location;
+                                    player.setHealth(100);
+                                    if (element.getName().equals("Goblin")) {
+                                        element.setHealth(75);
+                                    } else if (element.getName().equals("Chimera")) {
+                                        element.setHealth(100);
+                                    }
+                                    player.setLocation(currentLocation);
+                                    showStatus();
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -211,11 +272,13 @@ public class Commands {
         if (currentLocation.getName().equals("Goblin's Game Room")) {
             int guessCounter = 0;
             Scanner scanner = new Scanner(System.in);
-            while(currentLocation.isPuzzle()) {
-                System.out.println("<<Riddle Room Question>>>: " + currentLocation.getRiddles().get("question") + "?");
+            while (currentLocation.isPuzzle()) {
+                System.out.println(
+                    "This room has a riddle:" + currentLocation.getRiddles().get("question")
+                        + "?");
                 String guess = scanner.nextLine().toLowerCase();
 
-                if (guessCounter>=2) {
+                if (guessCounter >= 2) {
                     for (Location location : Main.locations) {
                         if (location.getName().equals("The Gate of Trials")) {
                             System.out.println(currentLocation.getRiddles().get("lost"));
@@ -228,21 +291,25 @@ public class Commands {
                     break;
                 } else if (!guess.equals("fire")) {
                     guessCounter++;
-                    System.out.println(currentLocation.getRiddles().get("incorrect") + " You guessed " + guessCounter + " time wrong out of 3 tries.");
+                    System.out.println(
+                        currentLocation.getRiddles().get("incorrect") + " You guessed "
+                            + guessCounter + " time wrong out of 3 tries.");
                 } else {
-                    System.out.println(currentLocation.getRiddles().get("correct") + " Hint: " + currentLocation.getDirections().keySet() );
+                    showStatus();
+                    System.out.println(currentLocation.getRiddles().get("correct"));
                     currentLocation.setPuzzle(false);
                     break;
                 }
             }
-        }}
+        }
+    }
 
     public static void showStatus() {
         System.out.println("--------------------------------------");
         System.out.println("Location: " + currentLocation.getName());
         System.out.println("Directions: " + currentLocation.getDirections().keySet());
         System.out.println("Health: " + player.getHealth());
-        System.out.print("Inventory: " );
+        System.out.print("Inventory: ");
         for (Item element : player.getInventory()) {
             System.out.print("[" + element.getName() + "]");
         }

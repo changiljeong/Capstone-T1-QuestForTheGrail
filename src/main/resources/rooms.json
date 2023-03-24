@@ -17,7 +17,8 @@
       }
     }],
     "locked": false,
-    "riddles" : {}
+    "riddles" : {},
+    "battle": false
   },
   {
     "name": "Chimera's Grotto Entrance",
@@ -30,7 +31,8 @@
     "items": [],
     "npc": [],
     "locked": false,
-    "riddles" : {}
+    "riddles" : {},
+    "battle": false
   },
   {
     "name": "Armory",
@@ -52,7 +54,8 @@
     ],
     "npc": [],
     "locked": false,
-    "riddles" : {}
+    "riddles" : {},
+    "battle": false
   },
   {
     "name": "Goblin's Lair",
@@ -60,12 +63,17 @@
       "west": "Armory",
       "north": "Sanctuary"
     },
-    "description": "You see a mob of goblin's getting ready to attack you!",
+    "description": "You cleared the path",
     "puzzle": false,
     "items": [],
-    "npc": [],
+    "npc": [{
+      "name": "Goblin",
+      "health": 75,
+      "attack": 40
+    }],
     "riddles" : {},
-    "locked": false
+    "locked": false,
+    "battle": true
   },
   {
     "name": "Sanctuary",
@@ -87,7 +95,8 @@
     ],
     "npc": [],
     "locked": false,
-    "riddles" : {}
+    "riddles" : {},
+    "battle": false
   },
   {
     "name": "Key Room",
@@ -107,7 +116,8 @@
     ],
     "npc": [],
     "locked": false,
-    "riddles" : {}
+    "riddles" : {},
+    "battle": false
   },
   {
     "name": "Goblin's Game Room",
@@ -127,7 +137,8 @@
       "correct" : "Great job! You can go to different direction(s) now.",
       "incorrect" : "Hmm. That's not the correct answer. Let's try again!",
       "lost" : "SORRY, you didn't make it! Taking you to the beginning of the game."
-    }
+    },
+    "battle": false
   },
   {
     "name": "Boss Room",
@@ -137,10 +148,11 @@
     },
     "description": "A fierce Chimera stands between you and a piece of the holy grail.",
     "puzzle": false,
-    "enemy": "Chimera",
     "items": [],
     "npc": [{
       "name": "Chimera",
+      "health": 100,
+      "attack": 30,
       "description": "A monstrous creature with the head of a lion, body of a goat, tail of a serpent, and has deadly breath of fire.",
       "tip" : "The adventurer must stay focus and use every trick to defeat this fearsome foe and claim the ultimate prize",
       "action": {
@@ -149,7 +161,8 @@
       }
     }],
     "locked": true,
-    "riddles" : {}
+    "riddles" : {},
+    "battle": true
   },
   {
     "name": "Grotto Treasure Room",
@@ -170,7 +183,8 @@
     ],
     "npc": [],
     "locked": false,
-    "riddles" : {}
+    "riddles" : {},
+    "battle": false
   }
 ]
 
