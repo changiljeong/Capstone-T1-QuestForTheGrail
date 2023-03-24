@@ -7,14 +7,30 @@ public class Player {
 
     private String name;
     private int health;
+    private int attack;
     private List<Item> inventory;
     private Location location;
 
-    public Player(String name, int health, Location location) {
+    public Player(String name, int health, int attack, Location location) {
         this.name = name;
         this.health = health;
         this.inventory = new ArrayList<>();
         this.location = location;
+        this.attack = attack;
+    }
+
+    public int getAttack() {
+        for (Item item : inventory) {
+            if (item.getName().equals("sword")) {
+                attack = 30;
+                break;
+            }
+        }
+        return attack;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
     }
 
     public String getName() {

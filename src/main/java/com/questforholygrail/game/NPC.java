@@ -1,49 +1,68 @@
 package com.questforholygrail.game;
+
+import java.util.List;
 import java.util.Map;
-import java.util.Random;
+
 public class NPC {
+
     private String name;
-    private String description;
-    private String tip;
-    Map<String, String> action;
+    private String dialogue;
+    private List<NPC> npc;
+    private Map<String, String> action;
     private int health;
-    private boolean isDead;
-    public NPC() {
-        this.health = 75;
-        isDead = false;
+    private int attack;
+
+    public NPC(String name, int health, int attack) {
+        this.name = name;
+        this.health = health;
+        this.attack = attack;
     }
-    public Map<String, String> getAction() {
-        return action;
-    }
-    public void setAction(Map<String, String> action) {
-        this.action = action;
-    }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
-    public int attack() {
-        // generate a random damage value between 1 and 25
-        int damage = new Random().nextInt(25) + 1;
-        return damage;
+
+    public String getDialogue() {
+        return dialogue;
     }
-    public void takeDamage(int PlayerAttack) {
-       if (health < 0) {           System.out.println("reached the if health is negative 0 statement of NPC");           return;        }        health -= PlayerAttack;
-        System.out.println("Remaining NPC health: " + health);
+
+    public void setDialogue(String dialogue) {
+        this.dialogue = dialogue;
     }
-    // Getters & Setters
+
+    public List<NPC> getNpc() {
+        return npc;
+    }
+
+    public void setNpc(List<NPC> npc) {
+        this.npc = npc;
+    }
+
+    public Map<String, String> getAction() {
+        return action;
+    }
+
+    public void setAction(Map<String, String> action) {
+        this.action = action;
+    }
+
     public int getHealth() {
         return health;
-}
+    }
+
     public void setHealth(int health) {
         this.health = health;
     }
-    public boolean isDead() {
-        return isDead;
+
+    public int getAttack() {
+        return attack;
     }
-    public void setDead(boolean dead) {
-        isDead = dead;
+
+    public void setAttack(int attack) {
+        this.attack = attack;
     }
 }
