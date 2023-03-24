@@ -59,7 +59,7 @@ public class Sound {
     String playerLocation = player.getLocation().getName();
 
     try {
-        if(playerLocation.equals("The Gate of Trials")) {
+        if(playerLocation.equals("Sanctuary")) {
           audioInputStreamFX = AudioSystem.getAudioInputStream(
               this.getClass().getClassLoader().getResourceAsStream("Wolf.wav"));
           clipFx = AudioSystem.getClip();

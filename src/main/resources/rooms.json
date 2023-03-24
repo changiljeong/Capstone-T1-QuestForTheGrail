@@ -133,11 +133,10 @@
     "locked": false,
     "riddles" :
     {
-      "question": "I am not alive, but I grow; I don't have lungs, but I need air; I don't have a mouth, but I need water to live. What am I",
+      "question": "I am not alive, but I grow; I don't have lungs, but I need air; I don't have a mouth, but I need water to live. What am I?",
       "answer" : "Fire",
       "correct" : "Great job! You can go to different direction(s) now.",
-      "incorrect" : "Hmm. That's not the correct answer. Let's try again!",
-      "lost" : "SORRY, you didn't make it! Taking you to the beginning of the game."
+      "incorrect" : "Hmm. That's not the correct answer. Let's try again!"
     },
     "battle": false
   },

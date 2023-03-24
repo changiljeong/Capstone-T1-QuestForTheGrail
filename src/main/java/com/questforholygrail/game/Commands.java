@@ -16,8 +16,6 @@ public class Commands {
 
     public void parseCommand(String command) {
 
-        // adjust regex for one or more white spaces \s+
-        // line 22 command.trim().split("\\s+")
         String[] words = command.trim().split("\\s+");
         String verb = words[0].toLowerCase();
         String noun = "";
@@ -303,17 +301,21 @@ public class Commands {
                         if (item.getName().equalsIgnoreCase("potion")) {
                             potionFound = true;
                             playerHealth += 50;
+                            player.setHealth(playerHealth);
                             myInventory3.remove(item);
                             System.out.println(item.getAction().get("use"));
+                            System.out.println("--------------------------------------");
                             break;
                         }
                     }
                     if (!potionFound) {
                         System.out.println("You don't have any potions!");
+                        System.out.println("--------------------------------------");
                         break;
                     }
                 } else {
                     System.out.println("You have to attack!");
+                    System.out.println("--------------------------------------");
                 }
             }
         }
@@ -325,13 +327,13 @@ public class Commands {
             int guessCounter = 0;
             Scanner scanner = new Scanner(System.in);
             while (currentLocation.isPuzzle()) {
-                System.out.println("This room has a riddle: ");
+                System.out.println("You're trapped!");
                 System.out.println(currentLocation.getRiddles().get("question"));
                 String guess = scanner.nextLine().toLowerCase();
-                if (guessCounter >= 2) {
+                if (guessCounter > 3) {
                     for (Location location : Main.locations) {
                         if (location.getName().equals("The Gate of Trials")) {
-                            System.out.println(currentLocation.getRiddles().get("lost"));
+                            System.out.println("Sorry! You lose!");
                             currentLocation = location;
                             player.setLocation(currentLocation);
                             break;
@@ -343,10 +345,10 @@ public class Commands {
                     guessCounter++;
                     System.out.println(
                         currentLocation.getRiddles().get("incorrect") + " You guessed "
-                            + guessCounter + " time wrong out of 3 tries.");
+                            + guessCounter + " time(s) wrong out of 3 tries.");
+                    System.out.println("--------------------------------------");
                 } else {
                     showStatus();
-                    System.out.println(currentLocation.getRiddles().get("correct"));
                     currentLocation.setPuzzle(false);
                     break;
                 }

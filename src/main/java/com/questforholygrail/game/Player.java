@@ -55,6 +55,10 @@ public class Player {
         this.location = location;
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
     @Override
     public String toString() {
         return "Player{" +
