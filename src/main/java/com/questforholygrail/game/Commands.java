@@ -3,8 +3,6 @@ package com.questforholygrail.game;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Random;
-
 
 public class Commands {
 
@@ -237,17 +235,16 @@ public class Commands {
     public static void battle() {
         Scanner scanner = new Scanner(System.in);
         List<NPC> npcList1 = currentLocation.getNpc();
+        List<Item> myInventory3 = player.getInventory();
         int playerHealth = player.getHealth();
         int playerAttack = player.getAttack();
-        Random random = new Random();
-
+        int min = 10;
+        int playerRandomAttack = (int)(Math.random() * (playerAttack - min + 1) + min);
         while (currentLocation.isBattle()) {
             for (NPC element : npcList1) {
                 int enemyHealth = element.getHealth();
                 int enemyAttack = element.getAttack();
-                int min = 10;
                 int npcRandomAttack = (int)(Math.random() * (enemyAttack - min + 1) + min);
-                int playerRandomAttack = (int)(Math.random() * (playerAttack - min + 1) + min);
                 System.out.println(element.getName());
                 System.out.println("--------------------------------------");
                 System.out.println("Player HP: " + playerHealth);
@@ -255,13 +252,11 @@ public class Commands {
                 System.out.println("--------------------------------------");
                 System.out.println("You're being attacked!");
                 String input = scanner.nextLine().toLowerCase();
-                if (!input.equals("attack")) {
-                    System.out.println("You have to attack!");
-                } else {
+                if (input.equals("attack")) {
                     enemyHealth = enemyHealth - playerRandomAttack;
                     element.setHealth(enemyHealth);
                     System.out.println("--------------------------------------");
-                    System.out.println("You attack and did " + playerRandomAttack + " damage!");
+                    System.out.println("You attack the enemy and did " + playerRandomAttack + " damage!");
                     if (enemyHealth <= 0) {
                         player.setHealth(playerHealth);
                         showStatus();
@@ -273,7 +268,7 @@ public class Commands {
                     } else {
                         playerHealth = playerHealth - npcRandomAttack;
                         player.setHealth(playerHealth);
-                        System.out.println("They attacked and did " + npcRandomAttack + " damage!");
+                        System.out.println("The enemy attacked you and did " + npcRandomAttack + " damage!");
                         System.out.println("--------------------------------------");
                         if (playerHealth <= 0) {
                             for (Location location : Main.locations) {
@@ -293,6 +288,23 @@ public class Commands {
                             }
                         }
                     }
+                } else if (input.equals("heal")) {
+                    boolean potionFound = false;
+                    for (Item item : myInventory3) {
+                        if (item.getName().equalsIgnoreCase("potion")) {
+                            potionFound = true;
+                            playerHealth += 50;
+                            myInventory3.remove(item);
+                            System.out.println(item.getAction().get("use"));
+                            break;
+                        }
+                    }
+                    if (!potionFound) {
+                        System.out.println("You don't have any potions!");
+                        break;
+                    }
+                } else {
+                    System.out.println("You have to attack!");
                 }
             }
         }

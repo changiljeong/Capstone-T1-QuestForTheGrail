@@ -4,11 +4,11 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
-    private static Player player;
+
     static Location[] locations;
     static Sound sound = new Sound();
 
@@ -16,7 +16,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
-        try(Reader reader = new InputStreamReader(Main.class.getClassLoader().getResourceAsStream("rooms.json"))) {
+        try(Reader reader = new InputStreamReader(
+            Objects.requireNonNull(Main.class.getClassLoader().getResourceAsStream("rooms.json")))) {
 
             Gson gson = new Gson();
             locations = gson.fromJson(reader, Location[].class);
@@ -29,7 +30,7 @@ public class Main {
         Location currentLocation = locations[0];
 
         // create a new player with starting values
-        player = new Player("Player", 100, 10, currentLocation, false);
+        Player player = new Player(100, 10, currentLocation, false);
 
         Commands parser = new Commands(player, currentLocation);
 
@@ -95,14 +96,5 @@ public class Main {
             System.out.println("Quitting game...");
             return;
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Commands{" +
-            "player=" + player +
-            "locations" + locations +
-            "locations" + Main.locations +
-            '}';
     }
 }

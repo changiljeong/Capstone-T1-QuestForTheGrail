@@ -11,7 +11,7 @@ class PlayerTest {
 
     @BeforeEach
     void setUp() {
-        player = new Player("Player", 100, 10, null, false);
+        player = new Player(100, 10, null, false);
     }
 
     @Test

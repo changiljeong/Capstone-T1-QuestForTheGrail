@@ -1,6 +1,6 @@
 package com.questforholygrail.game;
-import static com.questforholygrail.game.Commands.currentLocation;
 
+import java.util.Objects;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -14,7 +14,8 @@ public class Sound {
 
   public void soundLoad() {
     try {
-      audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResourceAsStream("DanseMacabre.wav"));
+      audioInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(
+          this.getClass().getClassLoader().getResourceAsStream("DanseMacabre.wav")));
       clip = AudioSystem.getClip();
       clip.open(audioInputStream);
       clip.loop(Clip.LOOP_CONTINUOUSLY);
