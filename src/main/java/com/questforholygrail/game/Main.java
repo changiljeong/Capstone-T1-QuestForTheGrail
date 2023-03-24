@@ -16,19 +16,21 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         try(Reader reader = new InputStreamReader(Main.class.getClassLoader().getResourceAsStream("rooms.json"))) {
-
             Gson gson = new Gson();
             locations = gson.fromJson(reader, Location[].class);
         }
 
-        sound.soundLoad();
-
-
         // set current location to the first location in the array
         Location currentLocation = locations[0];
 
+        sound.soundLoad();
+
         // create a new player with starting values
         player = new Player("Player", 100, 10, currentLocation);
+
+
+
+
 
         Commands parser = new Commands(player, currentLocation);
 
@@ -70,6 +72,9 @@ public class Main {
 
                 // display items in room
                 Commands.showItem();
+
+
+
 
                 // Ask player to input something
                 System.out.println("What would you like to do?");
