@@ -63,5 +63,9 @@ public class Location {
         return directions;
     }
 
-}
 
+    public void removeNPC(NPC defeatedNPC) {
+        npc.remove(defeatedNPC);
+    }
+
+}
