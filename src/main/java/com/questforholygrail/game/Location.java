@@ -58,14 +58,8 @@ public class Location {
         this.puzzle = puzzle;
     }
 
-
     public Map<String, String> getDirections() {
         return directions;
-    }
-
-
-    public void removeNPC(NPC defeatedNPC) {
-        npc.remove(defeatedNPC);
     }
 
 }

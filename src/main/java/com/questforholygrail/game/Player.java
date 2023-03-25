@@ -5,18 +5,18 @@ import java.util.List;
 
 public class Player {
 
-    private String name;
     private int health;
     private int attack;
-    private List<Item> inventory;
+    private final List<Item> inventory;
     private Location location;
+    private boolean win;
 
-    public Player(String name, int health, int attack, Location location) {
-        this.name = name;
+    public Player(int health, int attack, Location location, boolean win) {
         this.health = health;
         this.inventory = new ArrayList<>();
         this.location = location;
         this.attack = attack;
+        this.win = win;
     }
 
     public int getAttack() {
@@ -29,12 +29,14 @@ public class Player {
         return attack;
     }
 
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
-    public String getName() {
-        return name;
+    public boolean isWin() {
+        for (Item item : inventory) {
+            if (item.getName().equals("grotto-key")) {
+                win = true;
+                break;
+            }
+        }
+        return win;
     }
 
     public int getHealth() {
@@ -49,18 +51,17 @@ public class Player {
         return inventory;
     }
 
-    public Location getLocation() {
-        return location;
-    }
-
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public Location getLocation() {
+        return location;
     }
 
     @Override
     public String toString() {
         return "Player{" +
-            "name='" + name + '\'' +
             ", health=" + health +
             ", inventory=" + inventory +
             ", location=" + location +
