@@ -62,4 +62,11 @@ public class Location {
         return directions;
     }
 
+    public void removeNPC(NPC defeatedNPC) {
+        npc.remove(defeatedNPC);
+    }
+
+    public void setDirections(Map<String, String> expectedDirections) {
+        this.directions = expectedDirections;
+    }
 }
