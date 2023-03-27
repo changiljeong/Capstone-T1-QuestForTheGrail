@@ -20,7 +20,6 @@ public class Sound {
     try {
 
       audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResourceAsStream("DanseMacabre.wav"));
-      clip = AudioSystem.getClip();
       clip.open(audioInputStream);
       clip.loop(Clip.LOOP_CONTINUOUSLY);
       clip.start();
@@ -59,25 +58,14 @@ public class Sound {
     String playerLocation = player.getLocation().getName();
 
     try {
-        if(playerLocation.equals("Sanctuary")) {
+        if(playerLocation.equals("The Gate of Trials")) {
           audioInputStreamFX = AudioSystem.getAudioInputStream(
               this.getClass().getClassLoader().getResourceAsStream("Wolf.wav"));
           clipFx = AudioSystem.getClip();
           clipFx.open(audioInputStreamFX);
           clipFx.start();
-        } else if (playerLocation.equals("Chimera's Grotto Entrance")) {
+        } else if (playerLocation.equals("Temple of Trials")) {
           audioInputStreamFX = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResourceAsStream("Witch.wav"));
-          clipFx = AudioSystem.getClip();
-          clipFx.open(audioInputStreamFX);
-          clipFx.start();
-        } else if (playerLocation.equals("Armory")) {
-          audioInputStreamFX = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResourceAsStream("Scream.wav"));
-          clipFx = AudioSystem.getClip();
-          clipFx.open(audioInputStreamFX);
-          clipFx.start();
-        }
-        else if (playerLocation.equals("Key Room")) {
-          audioInputStreamFX = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResourceAsStream("Wind.wav"));
           clipFx = AudioSystem.getClip();
           clipFx.open(audioInputStreamFX);
           clipFx.start();

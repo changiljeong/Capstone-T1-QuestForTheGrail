@@ -283,11 +283,7 @@ public class Commands {
                                     System.out.println("You lost");
                                     currentLocation = location;
                                     player.setHealth(100);
-                                    if (element.getName().equals("Goblin")) {
-                                        element.setHealth(75);
-                                    } else if (element.getName().equals("Chimera")) {
-                                        element.setHealth(100);
-                                    }
+                                    element.setHealth(100);
                                     player.setLocation(currentLocation);
                                     showStatus();
                                     break;
@@ -323,7 +319,6 @@ public class Commands {
 
 
     public static void playRiddle() {
-        if (currentLocation.getName().equals("Goblin's Game Room")) {
             int guessCounter = 0;
             Scanner scanner = new Scanner(System.in);
             while (currentLocation.isPuzzle()) {
@@ -353,7 +348,6 @@ public class Commands {
                     break;
                 }
             }
-        }
     }
 
     public static void showStatus() {
@@ -372,7 +366,7 @@ public class Commands {
     public static void roomDescription() {
         System.out.println(currentLocation.getDescription());
 
-        Main.sound.soundFXLoad(player);
+//        Main.sound.soundFXLoad(player);
 
         System.out.println("--------------------------------------");
     }
@@ -428,15 +422,22 @@ public class Commands {
         System.out.println(
             "You walk into a dark, damp dungeon. You are in search of the holy grail.");
         System.out.println(
-            "The ancient dragon's minions has stolen the key to open the gate that leads to the Holy Grail!");
-        System.out.println(
-            "They broke the key into 3 pieces and scattered them throughout the dungeon!");
-        System.out.println("Find them to continue your journey towards the Holy Grail!");
+            "Monsters and traps are scattered throughout the rooms. Make your way to glory!");
     }
 
     public static void gameTitle() {
         System.out.println("-----------------------");
         System.out.println("Quest For The Holy Grail");
+        System.out.println("   _________\n"
+            + "  |o^o^o^o^o|\n"
+            + "  {   _!_   }\n"
+            + "   \\   !   /\n"
+            + "    `.   .'\n"
+            + "      )=(\n"
+            + "     ( + )\n"
+            + "      ) (\n"
+            + "  .--'   `--.\n"
+            + "  `---------'");
     }
 
 }

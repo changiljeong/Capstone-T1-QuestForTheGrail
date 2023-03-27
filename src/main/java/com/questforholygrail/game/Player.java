@@ -31,7 +31,7 @@ public class Player {
 
     public boolean isWin() {
         for (Item item : inventory) {
-            if (item.getName().equals("grotto-key")) {
+            if (item.getName().equals("holy-grail")) {
                 win = true;
                 break;
             }
