@@ -12,6 +12,15 @@ public class Location {
     private Map<String, String> riddles;
     private boolean puzzle;
     boolean locked;
+    boolean battle;
+
+    public boolean isBattle() {
+        return battle;
+    }
+
+    public void setBattle(boolean battle) {
+        this.battle = battle;
+    }
 
     public List<NPC> getNpc() {
         return npc;
@@ -49,10 +58,15 @@ public class Location {
         this.puzzle = puzzle;
     }
 
-
     public Map<String, String> getDirections() {
         return directions;
     }
 
-}
+    public void removeNPC(NPC defeatedNPC) {
+        npc.remove(defeatedNPC);
+    }
 
+    public void setDirections(Map<String, String> expectedDirections) {
+        this.directions = expectedDirections;
+    }
+}

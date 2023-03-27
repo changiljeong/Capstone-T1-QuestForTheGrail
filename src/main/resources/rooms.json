@@ -2,175 +2,280 @@
   {
     "name": "The Gate of Trials",
     "directions": {
-      "east": "Chimera's Grotto Entrance"
+      "north": "Temple of Trials"
     },
-    "description": "The gate that leads to the holy grail is locked! The path to the Chimera's Grotto has opened to the east.",
+    "description": "Complete the trials that lie ahead, for then you will find what you are looking for...",
+    "items": [{
+      "name": "sword",
+      "action": {
+        "look": "A melee weapon found in the Armory Room, used for attacking enemies.",
+        "get": "You got a sword!",
+        "drop": "You dropped the sword"
+      }
+    }],
+    "npc": [],
+    "riddles": {},
     "puzzle": false,
+    "locked": false,
+    "battle": false
+  },
+  {
+    "name": "Temple of Trials",
+    "directions": {
+      "north": "Ancient Path",
+      "east": "Chimera's Grotto",
+      "west": "Minotaur's Cave",
+      "south": "The Gate of Trials"
+    },
+    "description": "I hear monsterous screams ahead...",
     "items": [],
     "npc": [{
       "name": "Wizard",
-      "description": "A spooky wizard who's willing to talk something.",
-      "tip" : "The adventurer can try to talk for possible helpful tips of winning the game.",
       "action": {
-        "look" : "Try to talk to him and see what he has to say...",
-        "talk" : "It's dangerous to go alone! Look for a weapon!"
+        "look": "A mysterious wizard... maybe he could help us!",
+        "talk": "If you're looking for the Holy Grail, you'll need to fight your way through... heehee!"
       }
     }],
+    "riddles": {},
+    "puzzle": false,
     "locked": false,
-    "riddles" : {}
+    "battle": false
   },
   {
-    "name": "Chimera's Grotto Entrance",
+    "name": "Chimera's Grotto",
     "directions": {
-      "west": "The Gate of Trials",
-      "north": "Armory"
+      "west": "Temple of Trials",
+      "north": "Goblin's Lair",
+      "south": "Shrine",
+      "east": "Chimera Room"
     },
-    "description": "You're in the entrance of the grotto. You should find something to defend yourself with...",
-    "puzzle": false,
+    "description": "This area belongs to the mythical Chimera, A monstrous creature with the head of a lion, body of a goat, and tail of a serpent.",
     "items": [],
     "npc": [],
-    "locked": false,
-    "riddles" : {}
-  },
-  {
-    "name": "Armory",
-    "directions": {
-      "east": "Goblin's Lair",
-      "west": "Goblin's Game Room"
-    },
-    "description": "You hear monsterous screams deep in the dungeon...",
+    "riddles": {},
     "puzzle": false,
-    "items": [
-      {
-        "name": "sword",
-        "action": {
-          "look": "A melee weapon found in the Armory Room, used for attacking enemies.",
-          "get": "You got a sword!",
-          "drop": "You dropped the sword"
-        }
-      }
-    ],
-    "npc": [],
     "locked": false,
-    "riddles" : {}
+    "battle": false
   },
   {
     "name": "Goblin's Lair",
     "directions": {
-      "west": "Armory",
-      "north": "Sanctuary"
+      "south": "Chimera's Grotto"
     },
-    "description": "You see a mob of goblin's getting ready to attack you!",
-    "puzzle": false,
-    "items": [],
-    "npc": [],
-    "riddles" : {},
-    "locked": false
-  },
-  {
-    "name": "Sanctuary",
-    "directions": {
-      "south": "Goblin's Lair",
-      "west": "Boss Room"
-    },
-    "description": "You find a room filled with various potions that could aid you in your journey",
-    "puzzle": false,
-    "items": [
-      {
-        "name": "potion",
-        "action": {
-          "look": "Used to heal your wounds.",
-          "get": "You got a potion!",
-          "use": "You gained some health!"
-        }
-      }
-    ],
-    "npc": [],
-    "locked": false,
-    "riddles" : {}
-  },
-  {
-    "name": "Key Room",
-    "directions": {
-      "south": "Goblin's Game Room"
-    },
-    "description": "You come across a room with a shiny key on a pedestal. However, as soon as you grab it, the room starts filling with poisonous gas!",
-    "puzzle": false,
-    "items": [
-      {
-        "name": "key",
-        "action": {
-          "look": "Used to unlock doors.",
-          "get": "You got a key! Use it to unlock a door in this dungeon."
-        }
-      }
-    ],
-    "npc": [],
-    "locked": false,
-    "riddles" : {}
-  },
-  {
-    "name": "Goblin's Game Room",
-    "directions": {
-      "north": "Key Room",
-      "east": "Armory"
-    },
-    "description": "Congrats! You solved the riddle!",
-    "puzzle": true,
-    "items": [],
-    "npc": [],
-    "locked": false,
-    "riddles" :
-    {
-      "question": "I am not alive, but I grow; I don't have lungs, but I need air; I don't have a mouth, but I need water to live. What am I",
-      "answer" : "Fire",
-      "correct" : "Great job! You can go to different direction(s) now.",
-      "incorrect" : "Hmm. That's not the correct answer. Let's try again!",
-      "lost" : "SORRY, you didn't make it! Taking you to the beginning of the game."
-    }
-  },
-  {
-    "name": "Boss Room",
-    "directions": {
-      "north": "Grotto Treasure Room",
-      "east": "Sanctuary"
-    },
-    "description": "A fierce Chimera stands between you and a piece of the holy grail.",
-    "puzzle": false,
-    "enemy": "Chimera",
-    "items": [],
-    "npc": [{
-      "name": "Chimera",
-      "description": "A monstrous creature with the head of a lion, body of a goat, tail of a serpent, and has deadly breath of fire.",
-      "tip" : "The adventurer must stay focus and use every trick to defeat this fearsome foe and claim the ultimate prize",
+    "description": "You cleared the path.",
+    "items": [{
+      "name": "key",
       "action": {
-        "look" : "Try to talk to Chimera and see what she has to say!",
-        "talk" : "Pretty (well tiny bit) impressed that you made it up here. Good luck passing me through hahahaha."
+        "look": "Use to unlock doors.",
+        "get": "You got a key! Use it to unlock a door in this dungeon."
       }
     }],
-    "locked": true,
-    "riddles" : {}
-  },
-  {
-    "name": "Grotto Treasure Room",
-    "directions": {
-      "south": "Boss Room",
-      "portal": "The Gate of Trials"
-    },
-    "description": "You've found the first piece of the Trial Key!",
-    "puzzle": false,
-    "items": [
+    "npc": [
       {
-        "name": "grotto-key",
-        "action": {
-          "look": "It's the first key we need to get the Holy Grail!",
-          "get": "You got the Grotto key!"
-        }
+        "name": "Goblin",
+        "health": 100,
+        "attack": 15
       }
     ],
-    "npc": [],
+    "riddles": {},
+    "puzzle": false,
     "locked": false,
-    "riddles" : {}
+    "battle": true
+  },
+  {
+    "name": "Shrine",
+    "directions": {
+      "north": "Chimera's Grotto"
+    },
+    "description": "The shrine of past Heroes that took the trials.",
+    "items": [{
+      "name": "potion",
+      "action": {
+        "look": "Used to heal your wounds.",
+        "get": "You got a potion!",
+        "use": "You gained some health!"
+      }
+    }],
+    "npc": [{
+      "name": "Fairy",
+      "action": {
+        "look": "A magical fairy, see if they can help!",
+        "talk": "The Ancient Nasirax is one of the most powerful monsters in the land..."
+      }
+    }],
+    "riddles": {},
+    "puzzle": false,
+    "locked": false,
+    "battle": false
+  },
+  {
+    "name": "Chimera Room",
+    "directions": {
+      "west": "Chimera's Grotto"
+    },
+    "description": "You defeated the Chimera!",
+    "items": [{
+      "name": "potion",
+      "action": {
+        "look": "Used to heal your wounds.",
+        "get": "You got a potion!",
+        "use": "You gained some health!"
+      }
+    }],
+    "npc": [{
+      "name": "Chimera",
+      "health": 100,
+      "attack": 20
+    }],
+    "riddles": {},
+    "puzzle": false,
+    "locked": true,
+    "battle": true
+  },
+  {
+    "name": "Minotaur's Cave",
+    "directions": {
+      "north": "Minotaur Room",
+      "east": "Temple of Trials",
+      "west": "Library",
+      "south": "Summoning Room"
+    },
+    "description": "This area belongs to the mighty Minotaur, A powerful creature with the body of a man and the head of a bull.",
+    "items": [],
+    "npc": [],
+    "riddles": {},
+    "puzzle": false,
+    "locked": false,
+    "battle": false
+  },
+  {
+    "name": "Library",
+    "directions": {
+      "east": "Minotaur's Cave"
+    },
+    "description": "A big room with books",
+    "items": [{
+      "name": "key",
+      "action": {
+        "look": "Use to unlock doors.",
+        "get": "You got a key! Use it to unlock a door in this dungeon."
+      }
+    }],
+    "npc": [],
+    "riddles": {
+      "question": "I am not alive, but I grow; I don't have lungs, but I need air; I don't have a mouth, but I need water to live. What am I?",
+      "answer" : "Fire",
+      "correct" : "Great job! You can go to different direction(s) now.",
+      "incorrect" : "Hmm. That's not the correct answer. Let's try again!"
+    },
+    "puzzle": true,
+    "locked": false,
+    "battle": false
+  },
+  {
+    "name": "Summoning Room",
+    "directions": {
+      "north": "Minotaur's Cave"
+    },
+    "description": "You cleared the path.",
+    "items": [{
+      "name": "potion",
+      "action": {
+        "look": "Used to heal your wounds.",
+        "get": "You got a potion!",
+        "use": "You gained some health!"
+      }
+    }],
+    "npc": [{
+      "name": "Banshee",
+      "health": 100,
+      "attack": 15
+    }],
+    "riddles": {},
+    "puzzle": false,
+    "locked": false,
+    "battle": true
+  },
+  {
+    "name": "Minotaur Room",
+    "directions": {
+      "south": "Minotaur's Cave"
+    },
+    "description": "You defeated the Minotaur!",
+    "items": [{
+      "name": "potion",
+      "action": {
+        "look": "Used to heal your wounds.",
+        "get": "You got a potion!",
+        "use": "You gained some health!"
+      }
+    }],
+    "npc": [{
+      "name": "Minotaur",
+      "health": 100,
+      "attack": 17
+    }],
+    "riddles": {},
+    "puzzle": false,
+    "locked": false,
+    "battle": true
+  },
+  {
+    "name": "Nasirax Room",
+    "directions": {
+      "south": "Ancient Path",
+      "north": "Treasure Room"
+    },
+    "description": "You defeated the Ancient Dragon!",
+    "items": [],
+    "npc": [{
+      "name": "Ancient Nasirax",
+      "health": 100,
+      "attack": 25
+    }],
+    "riddles": {},
+    "puzzle": false,
+    "locked": false,
+    "battle": true
+  },
+  {
+    "name": "Ancient Path",
+    "directions": {
+      "south": "Temple of Trials",
+      "north": "Nasirax Room"
+    },
+    "description": "You hear something ahead...",
+    "items": [{
+      "name": "potion",
+      "action": {
+        "look": "Used to heal your wounds.",
+        "get": "You got a potion!",
+        "use": "You gained some health!"
+      }
+    }],
+    "npc": [],
+    "riddles": {},
+    "puzzle": false,
+    "locked": true,
+    "battle": false
+  },
+  {
+    "name": "Treasure Room",
+    "directions": {
+      "south": "Nasirax Room"
+    },
+    "description": "You made it passed your enemies and the ultimate treasure lies in front of you!",
+    "items": [{
+      "name": "holy-grail",
+      "action": {
+        "look": "The ultimate treasure! Claim it now!",
+        "get": "You got the Holy Grail! Congratulations!"
+      }
+    }],
+    "npc": [],
+    "riddles": {},
+    "puzzle": false,
+    "locked": false,
+    "battle": false
   }
 ]
-

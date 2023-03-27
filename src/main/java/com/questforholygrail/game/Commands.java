@@ -1,14 +1,13 @@
 package com.questforholygrail.game;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Commands {
 
     private static Player player;
-    private static Location currentLocation;
+    static Location currentLocation;
 
     public Commands(Player player, Location currentLocation) {
         Commands.player = player;
@@ -16,7 +15,8 @@ public class Commands {
     }
 
     public void parseCommand(String command) {
-        String[] words = command.split(" ");
+
+        String[] words = command.trim().split("\\s+");
         String verb = words[0].toLowerCase();
         String noun = "";
 
@@ -70,6 +70,7 @@ public class Commands {
                 } else {
                     Map<String, String> directions = currentLocation.getDirections();
                     if (directions.containsKey(noun)) {
+
                         String nextLocationName = directions.get(noun);
                         for (Location location : Main.locations) {
                             if (location.getName().equals(nextLocationName)) {
@@ -80,6 +81,7 @@ public class Commands {
                                         if (item.getName().equals("key")) {
                                             hasKey = true;
                                             System.out.println("The door unlocked!");
+                                            inventory.remove(item);
                                             break;
                                         }
                                     }
@@ -99,7 +101,7 @@ public class Commands {
                 }
                 break;
 
-            case "get" :
+            case "get":
                 // handle get command
                 List<Item> roomItem = currentLocation.getItems();
                 List<Item> myInventory = player.getInventory();
@@ -122,7 +124,7 @@ public class Commands {
                 }
                 break;
 
-            case "drop" :
+            case "drop":
                 // handle drop command
                 List<Item> myInventory1 = player.getInventory();
                 List<Item> room = currentLocation.getItems();
@@ -145,7 +147,7 @@ public class Commands {
                 }
                 break;
 
-            case "use" :
+            case "use":
                 // handle use command for potion
                 List<Item> myInventory2 = player.getInventory();
                 int health = player.getHealth();
@@ -169,7 +171,7 @@ public class Commands {
                 }
                 break;
 
-            case "talk" :
+            case "talk":
                 // handle talk command
                 List<NPC> npc = currentLocation.getNpc();
                 if (noun.equals("")) {
@@ -188,8 +190,32 @@ public class Commands {
                 }
                 break;
 
+
+            case "sound" :
+                // handle sound command
+                switch (noun) {
+                    case "":
+                        System.out.println(
+                            "You can use following commands Sound On/Off/Start/Stop.");
+                        break;
+                    case "up":
+                        Sound.increaseSound();
+                        break;
+                    case "down":
+                        Sound.reduceSound();
+                        break;
+                    case "stop":
+                        Sound.stopSound();
+                        break;
+                    case "start":
+                        Sound.playSound();
+                        break;
+                }
+                break;
+
             case "help":
                 // handle get command
+                System.out.println("--------------------------------------");
                 System.out.println("Commands:"
                     + "\n" + "Go - Move around"
                     + "\n" + "Look - Look at something"
@@ -197,28 +223,112 @@ public class Commands {
                     + "\n" + "Use - Use your potion to heal your wounds"
                     + "\n" + "Get - Pick up items"
                     + "\n" + "Drop - Drop items"
-                    + "\n" + "Help - See commands again");
+                    + "\n" + "Sound - Can Up/Down/Start/Stop");
+                System.out.println("--------------------------------------");
+                System.out.println("Battle:"
+                    + "\n" + "Attack - Attack an enemy"
+                    + "\n" + "Heal - Use your potion");
+                System.out.println("--------------------------------------");
                 break;
 
             // default case to validate user input
             default:
-                System.out.println("Invalid command. Type 'help' for a list of available commands.");
+                System.out.println(
+                    "Invalid command. Type 'help' for a list of available commands.");
                 break;
         }
     }
 
+    public static void battle() {
+        Scanner scanner = new Scanner(System.in);
+        while (currentLocation.isBattle()) {
+            List<NPC> npcList1 = currentLocation.getNpc();
+            List<Item> myInventory3 = player.getInventory();
+            int playerHealth = player.getHealth();
+            int playerAttack = player.getAttack();
+            int min = 10;
+            int playerRandomAttack = (int)(Math.random() * (playerAttack - min + 1) + min);
+            for (NPC element : npcList1) {
+                int enemyHealth = element.getHealth();
+                int enemyAttack = element.getAttack();
+                int npcRandomAttack = (int)(Math.random() * (enemyAttack - min + 1) + min);
+                System.out.println(element.getName());
+                System.out.println("--------------------------------------");
+                System.out.println("Player HP: " + playerHealth);
+                System.out.println("Enemy HP: " + enemyHealth);
+                System.out.println("--------------------------------------");
+                System.out.println("You're being attacked!");
+                String input = scanner.nextLine().toLowerCase();
+                if (input.equals("attack")) {
+                    enemyHealth = enemyHealth - playerRandomAttack;
+                    element.setHealth(enemyHealth);
+                    System.out.println("--------------------------------------");
+                    System.out.println("You attack the enemy and did " + playerRandomAttack + " damage!");
+                    if (enemyHealth <= 0) {
+                        player.setHealth(playerHealth);
+                        showStatus();
+                        System.out.println("You defeated the enemy!");
+                        System.out.println("--------------------------------------");
+                        currentLocation.setBattle(false);
+                        npcList1.remove(element);
+                        break;
+                    } else {
+                        playerHealth = playerHealth - npcRandomAttack;
+                        player.setHealth(playerHealth);
+                        System.out.println("The enemy attacked you and did " + npcRandomAttack + " damage!");
+                        System.out.println("--------------------------------------");
+                        if (playerHealth <= 0) {
+                            for (Location location : Main.locations) {
+                                if (location.getName().equals("The Gate of Trials")) {
+                                    System.out.println("You lost");
+                                    currentLocation = location;
+                                    player.setHealth(100);
+                                    element.setHealth(100);
+                                    player.setLocation(currentLocation);
+                                    showStatus();
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                } else if (input.equals("heal")) {
+                    boolean potionFound = false;
+                    for (Item item : myInventory3) {
+                        if (item.getName().equalsIgnoreCase("potion")) {
+                            potionFound = true;
+                            playerHealth += 50;
+                            player.setHealth(playerHealth);
+                            myInventory3.remove(item);
+                            System.out.println(item.getAction().get("use"));
+                            System.out.println("--------------------------------------");
+                            break;
+                        }
+                    }
+                    if (!potionFound) {
+                        System.out.println("You don't have any potions!");
+                        System.out.println("--------------------------------------");
+                        break;
+                    }
+                } else {
+                    System.out.println("You have to attack!");
+                    System.out.println("--------------------------------------");
+                }
+            }
+        }
+    }
+
+
     public static void playRiddle() {
-        if (currentLocation.getName().equals("Goblin's Game Room")) {
             int guessCounter = 0;
             Scanner scanner = new Scanner(System.in);
-            while(currentLocation.isPuzzle()) {
-                System.out.println("<<Riddle Room Question>>>: " + currentLocation.getRiddles().get("question") + "?");
+            while (currentLocation.isPuzzle()) {
+                System.out.println("You're trapped!");
+                System.out.println(currentLocation.getRiddles().get("question"));
                 String guess = scanner.nextLine().toLowerCase();
-
-                if (guessCounter>=2) {
+                if (guessCounter > 3) {
                     for (Location location : Main.locations) {
                         if (location.getName().equals("The Gate of Trials")) {
-                            System.out.println(currentLocation.getRiddles().get("lost"));
+                            System.out.println("Sorry! You lose!");
                             currentLocation = location;
                             player.setLocation(currentLocation);
                             break;
@@ -228,21 +338,24 @@ public class Commands {
                     break;
                 } else if (!guess.equals("fire")) {
                     guessCounter++;
-                    System.out.println(currentLocation.getRiddles().get("incorrect") + " You guessed " + guessCounter + " time wrong out of 3 tries.");
+                    System.out.println(
+                        currentLocation.getRiddles().get("incorrect") + " You guessed "
+                            + guessCounter + " time(s) wrong out of 3 tries.");
+                    System.out.println("--------------------------------------");
                 } else {
-                    System.out.println(currentLocation.getRiddles().get("correct") + " Hint: " + currentLocation.getDirections().keySet() );
+                    showStatus();
                     currentLocation.setPuzzle(false);
                     break;
                 }
             }
-        }}
+    }
 
     public static void showStatus() {
         System.out.println("--------------------------------------");
         System.out.println("Location: " + currentLocation.getName());
         System.out.println("Directions: " + currentLocation.getDirections().keySet());
         System.out.println("Health: " + player.getHealth());
-        System.out.print("Inventory: " );
+        System.out.print("Inventory: ");
         for (Item element : player.getInventory()) {
             System.out.print("[" + element.getName() + "]");
         }
@@ -252,6 +365,9 @@ public class Commands {
 
     public static void roomDescription() {
         System.out.println(currentLocation.getDescription());
+
+//        Main.sound.soundFXLoad(player);
+
         System.out.println("--------------------------------------");
     }
 
@@ -289,7 +405,13 @@ public class Commands {
             + "\n" + "Use - Use your potion to heal your wounds"
             + "\n" + "Get - Pick up items"
             + "\n" + "Drop - Drop items"
-            + "\n" + "Help - See commands again");
+            + "\n" + "Sound - Can Up/Down/Start/Stop");
+        System.out.println("--------------------------------------");
+        System.out.println("Battle:"
+                + "\n" + "Attack - Attack an enemy"
+                + "\n" + "Heal - Use your potion");
+        System.out.println("--------------------------------------");
+        System.out.println("Type \"help\" to see the list of commands again.");
         System.out.println("--------------------------------------");
 
         System.out.println("Let the adventure begin!");
@@ -300,15 +422,22 @@ public class Commands {
         System.out.println(
             "You walk into a dark, damp dungeon. You are in search of the holy grail.");
         System.out.println(
-            "The ancient dragon's minions has stolen the key to open the gate that leads to the Holy Grail!");
-        System.out.println(
-            "They broke the key into 3 pieces and scattered them throughout the dungeon!");
-        System.out.println("Find them to continue your journey towards the Holy Grail!");
+            "Monsters and traps are scattered throughout the rooms. Make your way to glory!");
     }
 
     public static void gameTitle() {
         System.out.println("-----------------------");
         System.out.println("Quest For The Holy Grail");
+        System.out.println("   _________\n"
+            + "  |o^o^o^o^o|\n"
+            + "  {   _!_   }\n"
+            + "   \\   !   /\n"
+            + "    `.   .'\n"
+            + "      )=(\n"
+            + "     ( + )\n"
+            + "      ) (\n"
+            + "  .--'   `--.\n"
+            + "  `---------'");
     }
 
 }
