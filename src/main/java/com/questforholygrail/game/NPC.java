@@ -10,6 +10,12 @@ public class NPC {
     private int health;
     private int attack;
 
+    public NPC(String name, int health, int attack) {
+        this.name = name;
+        this.health = health;
+        this.attack = attack;
+    }
+
     public String getName() {
         return name;
     }

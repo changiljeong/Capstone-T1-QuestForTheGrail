@@ -1,41 +1,49 @@
 package com.questforholygrail.game;
-import java.util.ArrayList;
-import java.util.List;
+import com.questforholygrail.game.UI.Display;
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.util.Objects;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
-import static com.questforholygrail.game.Commands.currentLocation;
 
 public class Sound {
 
-  public static AudioInputStream audioInputStream;
-  public static AudioInputStream audioInputStreamFX;
-  public static Clip clip;
-  public static Clip clipFx;
-  public static FloatControl gainControl;
-  Location locations;
+  private static AudioInputStream audioInputStream;
+  private static AudioInputStream audioInputStreamFX;
+  private static Clip clip;
+  private static Clip clipFx;
+  private static FloatControl gainControl;
+  private static InputStream bis;
+  private static boolean muted;
 
   public void soundLoad() {
     try {
 
-      audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResourceAsStream("DanseMacabre.wav"));
-      clip.open(audioInputStream);
-      clip.loop(Clip.LOOP_CONTINUOUSLY);
+      BufferedInputStream myStream = new BufferedInputStream(Objects.requireNonNull(
+          this.getClass().getClassLoader().getResourceAsStream("DanseMacabre.wav")));
+      AudioInputStream audio2 = AudioSystem.getAudioInputStream(myStream);
+
+      clip = AudioSystem.getClip();
+      clip.open(audio2);
       clip.start();
+      clip.loop(Clip.LOOP_CONTINUOUSLY);
     } catch (Exception ex) {
       ex.printStackTrace();
     }
   }
 
   public static void playSound() {
+    clip.setFramePosition(0);
     clip.start();
-    System.out.println("Sound is resumed playing.");
+    clip.loop(Clip.LOOP_CONTINUOUSLY);
+    Display.printScreenLn("Sound resumed playing.");
   }
 
   public static void stopSound() {
     clip.stop();
-    System.out.println("Sound is stopped playing.");
+    Display.printScreenLn("Sound stopped playing.");
   }
 
   public static void reduceSound() {
@@ -43,13 +51,13 @@ public class Sound {
 
     gainControl.setValue(-10.0f);
     // Reduce volume by 10 decibels.
-    System.out.println("Decrease volume by -10 decibels.");
+    Display.printScreenLn("Decrease volume by -10 decibels.");
   }
 
   public static void increaseSound() {
     gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
     gainControl.setValue(6.0f); // Increase volume by 6 decibels - Maximum allowed.
-    System.out.println("Increased volume by 6 decibels (maximum allowed). If needed more, please increase it from your hardware setting.");
+    Display.printScreenLn("Increased volume by 6 decibels (maximum allowed). If needed more, please increase it from your hardware setting.");
   }
 
   // --------------------------------------------------------------- //
@@ -59,16 +67,26 @@ public class Sound {
 
     try {
         if(playerLocation.equals("The Gate of Trials")) {
-          audioInputStreamFX = AudioSystem.getAudioInputStream(
-              this.getClass().getClassLoader().getResourceAsStream("Wolf.wav"));
+
+          BufferedInputStream myStream = new BufferedInputStream(Objects.requireNonNull(
+              this.getClass().getClassLoader().getResourceAsStream("Wolf.wav")));
+          AudioInputStream audioInputStreamFX = AudioSystem.getAudioInputStream(myStream);
+
           clipFx = AudioSystem.getClip();
           clipFx.open(audioInputStreamFX);
-          clipFx.start();
+          if (!isMuted()) {
+            clipFx.start();
+          }
         } else if (playerLocation.equals("Temple of Trials")) {
-          audioInputStreamFX = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResourceAsStream("Witch.wav"));
+          BufferedInputStream myStream = new BufferedInputStream(Objects.requireNonNull(
+              this.getClass().getClassLoader().getResourceAsStream("Witch.wav")));
+          AudioInputStream audioInputStreamFX = AudioSystem.getAudioInputStream(myStream);
+
           clipFx = AudioSystem.getClip();
           clipFx.open(audioInputStreamFX);
-          clipFx.start();
+          if (!isMuted()) {
+            clipFx.start();
+          }
         }
 
     } catch (Exception ex) {
@@ -78,22 +96,20 @@ public class Sound {
 
   public static void playSoundFX() {
     clipFx.start();
-    System.out.println("Sound is resumed playing.");
+    Display.printScreenLn("Sound resumed playing.");
   }
 
   public static void stopSoundFX() {
     clipFx.stop();
-    System.out.println("Sound is stopped playing.");
+    Display.printScreenLn("Sound stopped playing.");
   }
 
+  public static boolean isMuted() {
+    return muted;
+  }
 
-
-
-
-
-
-
-
-
+  public static void setMuted(boolean muted) {
+    Sound.muted = muted;
+  }
 
 }

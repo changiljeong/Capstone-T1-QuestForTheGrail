@@ -1,0 +1,5 @@
+{
+  "enterString": "Enter",
+  "startString": "Start",
+  "helpMessage": "Commands:\nGo - Move around\nLook - Look at something\nTalk - Talk to someone\n\"Use - Use your potion to heal your wounds\nGet - Pick up items\nDrop - Drop items\nEquip - Equip items\nQuit - quit game\n Battle: \nAttack - Attack an enemy\nHeal - Use your potion"
+}

@@ -10,7 +10,8 @@
       "action": {
         "look": "A melee weapon found in the Armory Room, used for attacking enemies.",
         "get": "You got a sword!",
-        "drop": "You dropped the sword"
+        "equip": "You wield the sword, feeling prepared for battle.",
+        "drop": "You dropped the sword to the floor."
       }
     }],
     "npc": [],
@@ -27,7 +28,7 @@
       "west": "Minotaur's Cave",
       "south": "The Gate of Trials"
     },
-    "description": "I hear monsterous screams ahead...",
+    "description": "I hear monstrous screams ahead...",
     "items": [],
     "npc": [{
       "name": "Wizard",
@@ -67,7 +68,8 @@
       "name": "key",
       "action": {
         "look": "Use to unlock doors.",
-        "get": "You got a key! Use it to unlock a door in this dungeon."
+        "get": "You got a key! Use it to unlock a door in this dungeon.",
+        "drop": "You drop the key to the floor."
       }
     }],
     "npc": [
@@ -93,7 +95,8 @@
       "action": {
         "look": "Used to heal your wounds.",
         "get": "You got a potion!",
-        "use": "You gained some health!"
+        "use": "You gained some health!",
+        "drop": "You drop the potion to the floor."
       }
     }],
     "npc": [{
@@ -119,7 +122,8 @@
       "action": {
         "look": "Used to heal your wounds.",
         "get": "You got a potion!",
-        "use": "You gained some health!"
+        "use": "You gained some health!",
+        "drop": "You drop the potion to the floor."
       }
     }],
     "npc": [{
@@ -158,12 +162,13 @@
       "name": "key",
       "action": {
         "look": "Use to unlock doors.",
-        "get": "You got a key! Use it to unlock a door in this dungeon."
+        "get": "You got a key! Use it to unlock a door in this dungeon.",
+        "drop": "You drop the key to the floor."
       }
     }],
     "npc": [],
     "riddles": {
-      "question": "I am not alive, but I grow; I don't have lungs, but I need air; I don't have a mouth, but I need water to live. What am I?",
+      "question": "I am not alive, but I grow; I don't have lungs, but I need air; I don't have a mouth, but water kills me. What am I? ",
       "answer" : "Fire",
       "correct" : "Great job! You can go to different direction(s) now.",
       "incorrect" : "Hmm. That's not the correct answer. Let's try again!"
@@ -183,7 +188,8 @@
       "action": {
         "look": "Used to heal your wounds.",
         "get": "You got a potion!",
-        "use": "You gained some health!"
+        "use": "You gained some health!",
+        "drop": "You drop the potion to the floor."
       }
     }],
     "npc": [{
@@ -207,7 +213,8 @@
       "action": {
         "look": "Used to heal your wounds.",
         "get": "You got a potion!",
-        "use": "You gained some health!"
+        "use": "You gained some health!",
+        "drop": "You drop the potion to the floor."
       }
     }],
     "npc": [{
@@ -250,7 +257,8 @@
       "action": {
         "look": "Used to heal your wounds.",
         "get": "You got a potion!",
-        "use": "You gained some health!"
+        "use": "You gained some health!",
+        "drop": "You drop the potion to the floor."
       }
     }],
     "npc": [],

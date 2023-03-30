@@ -10,6 +10,7 @@ public class Player {
     private final List<Item> inventory;
     private Location location;
     private boolean win;
+    private Item equippedItem;
 
     public Player(int health, int attack, Location location, boolean win) {
         this.health = health;
@@ -19,16 +20,15 @@ public class Player {
         this.win = win;
     }
 
+    //sets attack based on whether player has sword in inventory
     public int getAttack() {
-        for (Item item : inventory) {
-            if (item.getName().equals("sword")) {
-                attack = 30; // add 30 points to the base attack
-                break;
-            }
+        if (equippedItem.getName().equalsIgnoreCase("sword")){
+            attack = 30;
         }
         return attack;
     }
 
+    //defines requirements to win
     public boolean isWin() {
         for (Item item : inventory) {
             if (item.getName().equals("holy-grail")) {
@@ -59,6 +59,22 @@ public class Player {
         return location;
     }
 
+    public Item getEquippedItem() {
+        return equippedItem;
+    }
+
+    public void setEquippedItem(Item equippedItem) {
+        //stores currently equipped item in inventory, if applicable
+        if(this.equippedItem != null) {
+            inventory.add(this.equippedItem);
+        }
+        //equips item
+        this.equippedItem = equippedItem;
+        //removes equipped item from inventory
+        inventory.remove(equippedItem);
+    }
+
+    //formats player info string
     @Override
     public String toString() {
         return "Player{" +

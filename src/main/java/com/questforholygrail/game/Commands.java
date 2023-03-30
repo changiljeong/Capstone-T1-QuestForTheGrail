@@ -1,13 +1,14 @@
 package com.questforholygrail.game;
 
+import com.questforholygrail.game.UI.Display;
+import com.questforholygrail.game.UI.UserInput;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 public class Commands {
 
     private static Player player;
-    static Location currentLocation;
+    private static Location currentLocation;
 
     public Commands(Player player, Location currentLocation) {
         Commands.player = player;
@@ -15,88 +16,114 @@ public class Commands {
     }
 
     public void parseCommand(String command) {
+        //splits input at whitespaces
+        String[] words = command.trim().split(" ", 2);
 
-        String[] words = command.trim().split("\\s+");
+        //puts first input word into verb
         String verb = words[0].toLowerCase();
         String noun = "";
 
+        //assigns second word from input to noun (this could be an issue for multiple-word nouns)
         if (words.length > 1) {
             noun = words[1].toLowerCase();
         }
 
         switch (verb) {
             case "look":
+                //gets list of items and characters in current room, items in inventory
                 List<Item> itemList = currentLocation.getItems();
                 List<NPC> npcList = currentLocation.getNpc();
                 List<Item> inventory2 = player.getInventory();
+
+                //if noun is empty, asks user for noun
                 if (noun.equals("")) {
-                    System.out.println("Look at what?");
+                    Display.printScreenLn("Look at what?");
                     break;
                 }
                 boolean itemFound = false;
+
+                //checks room information
+                if(noun.equalsIgnoreCase(currentLocation.getName())) {
+                    Display.printScreenLn(currentLocation.getDescription());
+                }
+
+                //checks current location for item
                 for (Item item : itemList) {
                     if (item.getName().equalsIgnoreCase(noun)) {
-                        System.out.println(item.getAction().get("look"));
+                        Display.printScreenLn(item.getAction().get("look"));
                         itemFound = true;
                         break;
                     }
                 }
+
+                //checks player inventory for items
                 for (Item item : inventory2) {
                     if (item.getName().equalsIgnoreCase(noun)) {
-                        System.out.println(item.getAction().get("look"));
+                        Display.printScreenLn(item.getAction().get("look"));
                         itemFound = true;
                         break;
                     }
                 }
+
+                //if item isn't found, looks at characters in room
                 if (!itemFound) {
                     boolean npcFound = false;
                     for (NPC npc : npcList) {
                         if (npc.getName().equalsIgnoreCase(noun)) {
-                            System.out.println(npc.getAction().get("look"));
+                            Display.printScreenLn(npc.getAction().get("look"));
                             npcFound = true;
                             break;
                         }
                     }
+                    //if the NPC isn't found, tells player there's no (noun) there
                     if (!npcFound) {
-                        System.out.println("There is no " + noun + ".");
+                        Display.printScreenLn("You can't do that.");
                     }
                 }
                 break;
 
             case "go":
                 // handle "go" command
+                //if no noun, prompts player to add noun
                 if (noun.equals("")) {
-                    System.out.println("Go where?");
+                    Display.printScreenLn("Go where?");
                 } else {
+                    //gets possible exit directions from current location
                     Map<String, String> directions = currentLocation.getDirections();
+                    //if the noun is a valid direction for the current room, tries to change current location to the new location
                     if (directions.containsKey(noun)) {
 
                         String nextLocationName = directions.get(noun);
-                        for (Location location : Main.locations) {
+                        for (Location location : Main.getLocations()) {
                             if (location.getName().equals(nextLocationName)) {
+                                //if current location is locked, checks player's inventory for key
                                 if (location.isLocked()) {
                                     List<Item> inventory = player.getInventory();
                                     boolean hasKey = false;
                                     for (Item item : inventory) {
+                                        //if key, player unlocks the door and removes key from inventory
                                         if (item.getName().equals("key")) {
                                             hasKey = true;
-                                            System.out.println("The door unlocked!");
+                                            Display.printScreenLn("The door unlocked!");
                                             inventory.remove(item);
                                             break;
                                         }
                                     }
+                                    //if no key, player can't open the door, returns to calling method
                                     if (!hasKey) {
-                                        System.out.println("This door is locked...");
+                                        Display.printScreenLn("This door is locked...");
                                         break;
                                     }
                                 }
+                                //if door not locked/unlocked, currentLocation updates
                                 currentLocation = location;
                                 player.setLocation(currentLocation);
                                 currentLocation.setLocked(false);
                             }
                         }
                     } else {
-                        System.out.println("You can't go in that direction.");
+                        //if not valid direction, player is provided feedback
+                        Display.printScreenLn("You can't go in that direction.");
                     }
                 }
                 break;
@@ -105,21 +132,26 @@ public class Commands {
                 // handle get command
                 List<Item> roomItem = currentLocation.getItems();
                 List<Item> myInventory = player.getInventory();
+
+                //if no noun, provides feedback to player
                 if (noun.equals("")) {
-                    System.out.println("Get what?");
+                    Display.printScreenLn("Get what?");
                 } else {
                     boolean itemFound1 = false;
+                    //checks items in room for match to noun
                     for (Item element : roomItem) {
                         if (element.getName().equalsIgnoreCase(noun)) {
                             itemFound1 = true;
+                            //adds item to player inventory, removes from room item list
                             myInventory.add(element);
                             roomItem.remove(element);
-                            System.out.println(element.getAction().get("get"));
+                            Display.printScreenLn(element.getAction().get("get"));
                             break;
                         }
                     }
                     if (!itemFound1) {
-                        System.out.println("There is no " + noun + ".");
+                        //provides feedback to user if no match for noun found
+                        Display.printScreenLn("You can't do that.");
                     }
                 }
                 break;
@@ -128,21 +160,26 @@ public class Commands {
                 // handle drop command
                 List<Item> myInventory1 = player.getInventory();
                 List<Item> room = currentLocation.getItems();
+
+                //provides feedback to player if no noun provided
                 if (noun.equals("")) {
-                    System.out.println("Drop what?");
+                    Display.printScreenLn("Drop what?");
                 } else {
                     boolean itemFound2 = false;
+                    //checks inventory for item with matching name of noun
                     for (Item inventory1 : myInventory1) {
                         if (inventory1.getName().equalsIgnoreCase(noun)) {
                             itemFound2 = true;
+                            //if item found, removes item from player inventory and adds to room item list
                             myInventory1.remove(inventory1);
                             room.add(inventory1);
-                            System.out.println(inventory1.getAction().get("drop"));
+                            Display.printScreenLn(inventory1.getAction().get("drop"));
                             break;
                         }
                     }
+                    //if no match found, provides feedback to player
                     if (!itemFound2) {
-                        System.out.println("You can't drop that.");
+                        Display.printScreenLn("You can't drop that.");
                     }
                 }
                 break;
@@ -151,22 +188,29 @@ public class Commands {
                 // handle use command for potion
                 List<Item> myInventory2 = player.getInventory();
                 int health = player.getHealth();
+
+                //if no noun provided, gives feedback to player
                 if (noun.equals("")) {
-                    System.out.println("Use what?");
+                    Display.printScreenLn("Use what?");
                 } else {
                     boolean potionFound = false;
+                    //checks inventory for potion
                     for (Item item : myInventory2) {
                         if (item.getName().equalsIgnoreCase("potion")) {
+                            //if potion found, increases player heath, removes potion from inventory
                             potionFound = true;
                             health += 50;
                             player.setHealth(health);
                             myInventory2.remove(item);
-                            System.out.println(item.getAction().get("use"));
+                            Display.printScreenLn(item.getAction().get("use"));
                             break;
                         }
                     }
-                    if (!potionFound) {
-                        System.out.println("You can only use potions.");
+                    //if no potion found, provides feedback to player
+                    if (noun.equalsIgnoreCase("potion") && !potionFound) {
+                        Display.printScreenLn("You don't have any potions to use!");
+                    } else if (!noun.equalsIgnoreCase("potion") && !potionFound){
+                        Display.printScreenLn("The 'use' command can only be used on potions.");
                     }
                 }
                 break;
@@ -174,18 +218,22 @@ public class Commands {
             case "talk":
                 // handle talk command
                 List<NPC> npc = currentLocation.getNpc();
+                //if no noun provided, prompts user for noun
                 if (noun.equals("")) {
-                    System.out.println("Talk to who?");
+                    Display.printScreenLn("Talk to who?");
                 } else {
                     boolean npcFound = false;
+                    //checks room for NPC with name matching noun
                     for (NPC element : npc) {
                         if (element.getName().equalsIgnoreCase(noun)) {
                             npcFound = true;
-                            System.out.println(element.getAction().get("talk"));
+                            //if found, NPC talks
+                            Display.printScreenLn(element.getAction().get("talk"));
                         }
                     }
+                    //if not found, provides feedback to player
                     if (!npcFound) {
-                        System.out.println("Who is " + noun + "?");
+                        Display.printScreenLn("Who is " + noun + "?");
                     }
                 }
                 break;
@@ -195,7 +243,7 @@ public class Commands {
                 // handle sound command
                 switch (noun) {
                     case "":
-                        System.out.println(
+                        Display.printScreenLn(
                             "You can use following commands Sound On/Off/Start/Stop.");
                         break;
                     case "up":
@@ -205,9 +253,11 @@ public class Commands {
                         Sound.reduceSound();
                         break;
                     case "stop":
+                        Sound.setMuted(true);
                         Sound.stopSound();
                         break;
                     case "start":
+                        Sound.setMuted(false);
                         Sound.playSound();
                         break;
                 }
@@ -215,8 +265,8 @@ public class Commands {
 
             case "help":
                 // handle get command
-                System.out.println("--------------------------------------");
-                System.out.println("Commands:"
+                Display.printScreenLn("--------------------------------------");
+                Display.printScreenLn("Commands:"
                     + "\n" + "Go - Move around"
                     + "\n" + "Look - Look at something"
                     + "\n" + "Talk - Talk to someone"
@@ -224,63 +274,101 @@ public class Commands {
                     + "\n" + "Get - Pick up items"
                     + "\n" + "Drop - Drop items"
                     + "\n" + "Sound - Can Up/Down/Start/Stop");
-                System.out.println("--------------------------------------");
-                System.out.println("Battle:"
+                Display.printScreenLn("--------------------------------------");
+                Display.printScreenLn("Battle:"
                     + "\n" + "Attack - Attack an enemy"
                     + "\n" + "Heal - Use your potion");
-                System.out.println("--------------------------------------");
+                Display.printScreenLn("--------------------------------------");
+                break;
+            case "quit":
+                // if user entered 'quit', returns to Main to end main loop
+                break;
+
+            case "equip":
+                //if user enters 'equip'
+                if (noun.equals("")) {
+                    Display.printScreenLn("Equip what?");
+                } else {
+                    boolean matchedItem = false;
+                    for(Item item : player.getInventory()){
+                        if (item.getName().equalsIgnoreCase(noun)){
+                            matchedItem = true;
+                            if(item.getAction().containsKey("equip")){
+                                player.setEquippedItem(item);
+                                Display.printScreenLn(item.getAction().get("equip"));
+                            } else {
+                                Display.printScreenLn("You can't equip that!");
+                            }
+                            break;
+                        }
+                    }
+                    if(!matchedItem){
+                        Display.printScreenLn("You don't have that in your inventory.");
+                    }
+                }
                 break;
 
             // default case to validate user input
             default:
-                System.out.println(
+                Display.printScreenLn(
                     "Invalid command. Type 'help' for a list of available commands.");
                 break;
         }
     }
 
     public static void battle() {
-        Scanner scanner = new Scanner(System.in);
+
         while (currentLocation.isBattle()) {
             List<NPC> npcList1 = currentLocation.getNpc();
             List<Item> myInventory3 = player.getInventory();
             int playerHealth = player.getHealth();
             int playerAttack = player.getAttack();
+            //minimum attack
             int min = 10;
+            //calculates player's attack power
             int playerRandomAttack = (int)(Math.random() * (playerAttack - min + 1) + min);
+            //gets enemy info
             for (NPC element : npcList1) {
                 int enemyHealth = element.getHealth();
                 int enemyAttack = element.getAttack();
+                //calculates enemy attack power
                 int npcRandomAttack = (int)(Math.random() * (enemyAttack - min + 1) + min);
-                System.out.println(element.getName());
-                System.out.println("--------------------------------------");
-                System.out.println("Player HP: " + playerHealth);
-                System.out.println("Enemy HP: " + enemyHealth);
-                System.out.println("--------------------------------------");
-                System.out.println("You're being attacked!");
-                String input = scanner.nextLine().toLowerCase();
+                //prints battle update
+                Display.printScreenLn(element.getName());
+                Display.printScreenLn("--------------------------------------");
+                Display.printScreenLn("Player HP: " + playerHealth);
+                Display.printScreenLn("Enemy HP: " + enemyHealth);
+                Display.printScreenLn("--------------------------------------");
+                Display.printScreenLn("You're being attacked!");
+                //takes user input
+                String input = UserInput.getInput().toLowerCase();
                 if (input.equals("attack")) {
+                    //applies player's attack to enemy health
                     enemyHealth = enemyHealth - playerRandomAttack;
                     element.setHealth(enemyHealth);
-                    System.out.println("--------------------------------------");
-                    System.out.println("You attack the enemy and did " + playerRandomAttack + " damage!");
+                    Display.printScreenLn("--------------------------------------");
+                    Display.printScreenLn("You attack the enemy and did " + playerRandomAttack + " damage!");
                     if (enemyHealth <= 0) {
+                        //if enemy defeated, applies health changes to player
+                        //removes npc from room
                         player.setHealth(playerHealth);
                         showStatus();
-                        System.out.println("You defeated the enemy!");
-                        System.out.println("--------------------------------------");
+                        Display.printScreenLn("You defeated the enemy!");
+                        Display.printScreenLn("--------------------------------------");
                         currentLocation.setBattle(false);
                         npcList1.remove(element);
                         break;
                     } else {
+                        //if enemy not defeated, applies NPC attack to player health
                         playerHealth = playerHealth - npcRandomAttack;
                         player.setHealth(playerHealth);
-                        System.out.println("The enemy attacked you and did " + npcRandomAttack + " damage!");
-                        System.out.println("--------------------------------------");
+                        Display.printScreenLn("The enemy attacked you and did " + npcRandomAttack + " damage!");
+                        Display.printScreenLn("--------------------------------------");
                         if (playerHealth <= 0) {
-                            for (Location location : Main.locations) {
+                            //if player defeated, restarts player at beginning of game with full health
+                            for (Location location : Main.getLocations()) {
                                 if (location.getName().equals("The Gate of Trials")) {
-                                    System.out.println("You lost");
+                                    Display.printScreenLn("You lost");
                                     currentLocation = location;
                                     player.setHealth(100);
                                     element.setHealth(100);
@@ -293,25 +381,28 @@ public class Commands {
                     }
                 } else if (input.equals("heal")) {
                     boolean potionFound = false;
+                    //if player has potion, heals player and removes potion from inventory
                     for (Item item : myInventory3) {
                         if (item.getName().equalsIgnoreCase("potion")) {
                             potionFound = true;
                             playerHealth += 50;
                             player.setHealth(playerHealth);
                             myInventory3.remove(item);
-                            System.out.println(item.getAction().get("use"));
-                            System.out.println("--------------------------------------");
+                            Display.printScreenLn(item.getAction().get("use"));
+                            Display.printScreenLn("--------------------------------------");
                             break;
                         }
                     }
+                    //if player doesn't have potion, provides feedback to player
                     if (!potionFound) {
-                        System.out.println("You don't have any potions!");
-                        System.out.println("--------------------------------------");
+                        Display.printScreenLn("You don't have any potions!");
+                        Display.printScreenLn("--------------------------------------");
                         break;
                     }
                 } else {
-                    System.out.println("You have to attack!");
-                    System.out.println("--------------------------------------");
+                    //if player input was not "heal" or "attack", provides feedback to player
+                    Display.printScreenLn("You have to attack!");
+                    Display.printScreenLn("--------------------------------------");
                 }
             }
         }
@@ -320,15 +411,20 @@ public class Commands {
 
     public static void playRiddle() {
             int guessCounter = 0;
-            Scanner scanner = new Scanner(System.in);
+
             while (currentLocation.isPuzzle()) {
-                System.out.println("You're trapped!");
-                System.out.println(currentLocation.getRiddles().get("question"));
-                String guess = scanner.nextLine().toLowerCase();
-                if (guessCounter > 3) {
-                    for (Location location : Main.locations) {
+                Display.printScreenLn("You're trapped!");
+                //prints riddle
+                Display.printScreenLn(currentLocation.getRiddles().get("question"));
+                //increments guessCounter
+                guessCounter++;
+                //gets user input
+                String guess = UserInput.getInput().toLowerCase();
+                if (guessCounter == 3 && !guess.equals("fire")) {
+                    //if player is out of guesses, starts player at beginning
+                    for (Location location : Main.getLocations()) {
                         if (location.getName().equals("The Gate of Trials")) {
-                            System.out.println("Sorry! You lose!");
+                            Display.printScreenLn("Sorry! You lose!");
                             currentLocation = location;
                             player.setLocation(currentLocation);
                             break;
@@ -337,12 +433,14 @@ public class Commands {
                     showStatus();
                     break;
                 } else if (!guess.equals("fire")) {
-                    guessCounter++;
-                    System.out.println(
+                    //prints feedback to player
+                    Display.printScreenLn(
                         currentLocation.getRiddles().get("incorrect") + " You guessed "
                             + guessCounter + " time(s) wrong out of 3 tries.");
-                    System.out.println("--------------------------------------");
+                    Display.printScreenLn("--------------------------------------");
                 } else {
+                    //removes puzzle from room if guess was correct
+                    Display.printScreenLn("You've solved the riddle!");
                     showStatus();
                     currentLocation.setPuzzle(false);
                     break;
@@ -350,55 +448,60 @@ public class Commands {
             }
     }
 
+    //prints status widget
     public static void showStatus() {
-        System.out.println("--------------------------------------");
-        System.out.println("Location: " + currentLocation.getName());
-        System.out.println("Directions: " + currentLocation.getDirections().keySet());
-        System.out.println("Health: " + player.getHealth());
-        System.out.print("Inventory: ");
+        Display.printScreenLn("--------------------------------------");
+        Display.printScreenLn("Location: " + currentLocation.getName());
+        Display.printScreenLn("Directions: " + currentLocation.getDirections().keySet());
+        Display.printScreenLn("Health: " + player.getHealth());
+        Display.printScreen("Inventory: ");
         for (Item element : player.getInventory()) {
-            System.out.print("[" + element.getName() + "]");
+            Display.printScreen("[" + element.getName() + "]");
         }
-        System.out.println(" ");
-        System.out.println("--------------------------------------");
+        Display.printScreenLn(" ");
+        Display.printScreen("Equipped Item: ");
+        Display.printScreen((player.getEquippedItem() == null ? "": "[" +player.getEquippedItem().getName() + "]"));
+        Display.printScreenLn(" ");
+        Display.printScreenLn("--------------------------------------");
     }
 
+    //prints room description
     public static void roomDescription() {
-        System.out.println(currentLocation.getDescription());
-
-//        Main.sound.soundFXLoad(player);
-
-        System.out.println("--------------------------------------");
+        Main.getSound().soundFXLoad(player);
+        Display.printScreenLn("--------------------------------------");
     }
 
+    //prints NPCs in current room
     public static void showNPC() {
         List<NPC> npcList = currentLocation.getNpc();
         if (npcList.isEmpty()) {
             return;
         } else {
             for (NPC element : npcList) {
-                System.out.println("You see a " + element.getName());
-                System.out.println("--------------------------------------");
+                Display.printScreenLn("You see a " + element.getName());
+                Display.printScreenLn("--------------------------------------");
             }
         }
     }
 
+    //prints items in current room
     public static void showItem() {
         List<Item> itemList = currentLocation.getItems();
         if (itemList.isEmpty()) {
             return;
         } else {
             for (Item element : itemList) {
-                System.out.println("You see a " + element.getName());
-                System.out.println("--------------------------------------");
+                Display.printScreenLn("You see a " + element.getName());
+                Display.printScreenLn("--------------------------------------");
             }
         }
     }
 
+    //prints game intro
     public static void gameIntro() {
         //Display commands
-        System.out.println("--------------------------------------");
-        System.out.println("Commands:"
+        Display.printScreenLn("--------------------------------------");
+        Display.printScreenLn("Commands:"
             + "\n" + "Go - Move around"
             + "\n" + "Look - Look at something"
             + "\n" + "Talk - Talk to someone"
@@ -406,29 +509,30 @@ public class Commands {
             + "\n" + "Get - Pick up items"
             + "\n" + "Drop - Drop items"
             + "\n" + "Sound - Can Up/Down/Start/Stop");
-        System.out.println("--------------------------------------");
-        System.out.println("Battle:"
+        Display.printScreenLn("--------------------------------------");
+        Display.printScreenLn("Battle:"
                 + "\n" + "Attack - Attack an enemy"
                 + "\n" + "Heal - Use your potion");
-        System.out.println("--------------------------------------");
-        System.out.println("Type \"help\" to see the list of commands again.");
-        System.out.println("--------------------------------------");
+        Display.printScreenLn("--------------------------------------");
+        Display.printScreenLn("Type \"help\" to see the list of commands again.");
+        Display.printScreenLn("--------------------------------------");
 
-        System.out.println("Let the adventure begin!");
+        Display.printScreenLn("Let the adventure begin!");
 
         // Display basic information about the game
-        System.out.println(
+        Display.printScreenLn(
             "-------------------------------------------------------------------------------");
-        System.out.println(
+        Display.printScreenLn(
             "You walk into a dark, damp dungeon. You are in search of the holy grail.");
-        System.out.println(
+        Display.printScreenLn(
             "Monsters and traps are scattered throughout the rooms. Make your way to glory!");
     }
 
+    //prints game title
     public static void gameTitle() {
-        System.out.println("-----------------------");
-        System.out.println("Quest For The Holy Grail");
-        System.out.println("   _________\n"
+        Display.printScreenLn("-----------------------");
+        Display.printScreenLn("Quest For The Holy Grail");
+        Display.printScreenLn("   _________\n"
             + "  |o^o^o^o^o|\n"
             + "  {   _!_   }\n"
             + "   \\   !   /\n"
@@ -438,6 +542,14 @@ public class Commands {
             + "      ) (\n"
             + "  .--'   `--.\n"
             + "  `---------'");
+    }
+
+    public void soundOn(){
+
+    }
+
+    public void soundOff(){
+
     }
 
 }

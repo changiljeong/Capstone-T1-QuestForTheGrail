@@ -16,7 +16,7 @@ class PlayerTest {
     @Test
     void isWin_true() {
         Item item = new Item();
-        item.setName("grotto-key");
+        item.setName("holy-grail");
         player.getInventory().add(item);
         assertTrue(player.isWin());
     }
@@ -37,6 +37,6 @@ class PlayerTest {
 
     @Test
     void getAttack_noSword() {
-        assertEquals(20, player.getAttack());
+        assertEquals(10, player.getAttack());
     }
 }

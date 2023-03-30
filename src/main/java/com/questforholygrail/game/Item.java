@@ -19,6 +19,7 @@ public class Item {
     this.name = name;
   }
 
+  //formats item string
   @Override
   public String toString() {
     return "Item{" +

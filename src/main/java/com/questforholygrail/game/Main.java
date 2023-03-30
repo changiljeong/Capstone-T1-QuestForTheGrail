@@ -1,20 +1,23 @@
 package com.questforholygrail.game;
 
 import com.google.gson.Gson;
+import com.questforholygrail.game.UI.Display;
+import com.questforholygrail.game.UI.MainGameWindow;
+import com.questforholygrail.game.UI.UserInput;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Objects;
-import java.util.Scanner;
 
 public class Main {
 
-    static Location[] locations;
-    static Sound sound = new Sound();
+    private static Location[] locations;
+    private static Sound sound = new Sound();
 
 
     public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in);
+
+        MainGameWindow mgw = new MainGameWindow(1100, 800);
 
         try(Reader reader = new InputStreamReader(
             Objects.requireNonNull(Main.class.getClassLoader().getResourceAsStream("rooms.json")))) {
@@ -26,6 +29,8 @@ public class Main {
         // set current location to the first location in the array
         Location currentLocation = locations[0];
 
+        sound.soundLoad();
+
 
         // create a new player with starting values
         Player player = new Player(100, 10, currentLocation, false);
@@ -36,14 +41,14 @@ public class Main {
         Commands.gameTitle();
 
         // Wait for player to press enter
-        System.out.println("Press enter to start the game...");
-        scanner.nextLine();
+        Display.printScreenLn("Press enter to start the game...");
+        UserInput.getInput();
 
         // Ask player if they want to start a new game
         String choice;
         do {
-            System.out.println("Would you like to start a new game? (y/n)");
-            choice = scanner.nextLine();
+            Display.printScreenLn("Would you like to start a new game? (y/n)");
+            choice = UserInput.getInput();
         } while (!choice.equals("y") && !choice.equals("n"));
 
         if (choice.equals("y")) {
@@ -72,27 +77,42 @@ public class Main {
                 Commands.showItem();
 
                 // Ask player to input something
-                System.out.println("What would you like to do?");
-                System.out.print("> ");
-                String command = scanner.nextLine();
+                Display.printScreenLn("What would you like to do?");
+                Display.printScreen("> ");
+                String command = UserInput.getInput();
 
                 parser.parseCommand(command);
 
                 if (command.equals("quit")) {
-                    System.out.println("Quitting game...");
+                    Display.printScreenLn("Quitting game...");
                     break;
                 }
 
                 if (player.isWin()) {
-                    System.out.println("The End...");
+                    Display.printScreenLn("The End...");
                     break;
                 }
             }
         }
         // If player chooses not to start a new game, end the program
         else {
-            System.out.println("Quitting game...");
-            return;
+            Display.printScreenLn("Quitting game...");
         }
+    }
+
+    public static Location[] getLocations() {
+        return locations;
+    }
+
+    public static void setLocations(Location[] locations) {
+        Main.locations = locations;
+    }
+
+    public static Sound getSound() {
+        return sound;
+    }
+
+    public static void setSound(Sound sound) {
+        Main.sound = sound;
     }
 }
