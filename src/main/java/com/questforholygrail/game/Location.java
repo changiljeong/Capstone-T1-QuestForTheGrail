@@ -13,6 +13,10 @@ public class Location {
     private boolean puzzle;
     boolean locked;
     boolean battle;
+    private int maxY;
+    private int maxX;
+    private int minY;
+    private int minX;
 
     public boolean isBattle() {
         return battle;
@@ -68,5 +72,37 @@ public class Location {
 
     public void setDirections(Map<String, String> expectedDirections) {
         this.directions = expectedDirections;
+    }
+
+    public int getMaxY() {
+        return maxY;
+    }
+
+    public void setMaxY(int maxY) {
+        this.maxY = maxY;
+    }
+
+    public int getMaxX() {
+        return maxX;
+    }
+
+    public void setMaxX(int maxX) {
+        this.maxX = maxX;
+    }
+
+    public int getMinY() {
+        return minY;
+    }
+
+    public void setMinY(int minY) {
+        this.minY = minY;
+    }
+
+    public int getMinX() {
+        return minX;
+    }
+
+    public void setMinX(int minX) {
+        this.minX = minX;
     }
 }

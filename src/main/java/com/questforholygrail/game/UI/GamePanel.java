@@ -1,5 +1,9 @@
 package com.questforholygrail.game.UI;
 
+import com.questforholygrail.game.Commands;
+import com.questforholygrail.game.Location;
+import com.questforholygrail.game.Main;
+import com.questforholygrail.game.NPC;
 import com.questforholygrail.game.Player;
 import com.questforholygrail.game.object.SuperObject;
 import java.awt.Color;
@@ -8,7 +12,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
-//this class was created with the aid of RyiSnow's youtube tutorial for 2d Games
+//this class was created with the aid of RyiSnow's YouTube tutorial for 2d Games
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -22,30 +26,21 @@ public class GamePanel extends JPanel implements Runnable {
   private final int screenWidth = tileSize * maxScreenCol;
   private final int screenHeight = tileSize * maxScreenRow;
 
+
   //World setting
-  private final int maxWorldCol = 50;
-  private final int maxWorldRow = 50;
+  private final int maxWorldCol = 60;
+  private final int maxWorldRow = 70;
+
 
   private final int worldWidth = tileSize * maxWorldCol;
   private final int worldHeight = tileSize * maxWorldRow;
 
   private final double FPS = 60.0;
 
-  private TileManager tileManager = new TileManager(this);
-  KeyHandler keyHandler = new KeyHandler();
+  private final TileManager tileManager = new TileManager(this);
+  private final KeyHandler keyHandler = new KeyHandler();
   Thread gameThread;
 
-  public TileManager getTileManager() {
-    return tileManager;
-  }
-
-  public CollisionChecker getcChecker() {
-    return cChecker;
-  }
-
-  public void setcChecker(CollisionChecker cChecker) {
-    this.cChecker = cChecker;
-  }
 
   CollisionChecker cChecker = new CollisionChecker(this);
   private AssetSetter aSetter = new AssetSetter(this);
@@ -53,12 +48,6 @@ public class GamePanel extends JPanel implements Runnable {
   private Player player;
 
   private transient SuperObject[] obj = new SuperObject[4];
-
-
-  //initial player position (temporary)
-  int playerX = 100;
-  int playerY = 100;
-  int playerSpeed = 4;
 
   public GamePanel(){
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -75,6 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
   }
 
   public void startGameThread(){
+    AssetSetter.setNPC(this);
     gameThread = new Thread(this);
     gameThread.start();
   }
@@ -92,15 +82,24 @@ public class GamePanel extends JPanel implements Runnable {
   public void paintComponent(Graphics g){
      super.paintComponent(g);
      Graphics2D g2 = (Graphics2D) g;
-    // Tile Draw
+
+
      tileManager.draw(g2);
-     //Object draw
+
+
+    //handles NPCs
+    if(Commands.getCurrentLocation() != null && Commands.getCurrentLocation().getNpc().size() > 0){
+      for (NPC character : Commands.getCurrentLocation().getNpc()){
+        character.draw(g2, this);
+      }
+    }
+    //Object draw
     for(int i=0; i<getObj().length; i++){
       if(getObj()[i] != null){
         getObj()[i].draw(g2, this);
       }
     }
-    //Player draw
+
      player.draw(g2);
      g2.dispose();
 
@@ -115,6 +114,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     while(gameThread != null) {
 
+      updateLocation();
       update();
       repaint();
 
@@ -139,6 +139,22 @@ public class GamePanel extends JPanel implements Runnable {
     }
   }
 
+  private void updateLocation(){
+    if( player != null) {
+      int playerX = player.getWorldX();
+      int playerY = player.getWorldY();
+
+      //handles location change
+      for (Location loc : Main.getLocations()) {
+        if (playerX <= loc.getMaxX() * tileSize && playerX >= loc.getMinX() * tileSize
+            && playerY <= loc.getMaxY() * tileSize && playerY >= loc.getMinY() * tileSize) {
+          player.setLocation(loc);
+          Commands.setCurrentLocation(loc);
+          break;
+        }
+      }
+    }
+  }
   public int getOriginalTileSize() {
     return originalTileSize;
   }
@@ -189,5 +205,19 @@ public class GamePanel extends JPanel implements Runnable {
 
   public SuperObject[] getObj() {
     return obj;
+  }
+  public KeyHandler getKeyHandler() {
+    return keyHandler;
+  }
+  public TileManager getTileManager() {
+    return tileManager;
+  }
+
+  public CollisionChecker getcChecker() {
+    return cChecker;
+  }
+
+  public void setcChecker(CollisionChecker cChecker) {
+    this.cChecker = cChecker;
   }
 }

@@ -27,16 +27,16 @@ public class UtilityWidgetPanel extends JPanel {
     this.setBackground(Color.blue);
   }
 
-    private void helpButtonPressed(){
+  private void helpButtonPressed(){
 
-        HelpPopUp.displayHelpScreen(frame);
-        frame.getGame().requestFocus();
+    HelpPopUp.displayHelpScreen(frame);
+    frame.getGame().requestFocus();
 
-    }
+  }
 
-    private void settingsButtonPressed(){
-        settings.displaySettingsOptions();
-        frame.getGame().requestFocus();
-    }
+  private void settingsButtonPressed(){
+    settings.displaySettingsOptions();
+    frame.getGame().requestFocus();
+  }
 
 }

@@ -18,13 +18,17 @@
     "riddles": {},
     "puzzle": false,
     "locked": false,
-    "battle": false
+    "battle": false,
+     "maxY": 51,
+    "maxX": 33,
+    "minY": 41,
+    "minX": 18
   },
   {
     "name": "Temple of Trials",
     "directions": {
       "north": "Ancient Path",
-      "east": "Chimera's Grotto",
+      "east": "Griffin's Grotto",
       "west": "Minotaur's Cave",
       "south": "The Gate of Trials"
     },
@@ -35,33 +39,46 @@
       "action": {
         "look": "A mysterious wizard... maybe he could help us!",
         "talk": "If you're looking for the Holy Grail, you'll need to fight your way through... heehee!"
-      }
+      },
+      "idleFilepaths": ["/tiles/npc/wizard/left1.png","/tiles/npc/wizard/left2.png","/tiles/npc/wizard/right1.png","/tiles/npc/wizard/right2.png"],
+      "initialX": 25,
+      "initialY": 30,
+      "imageScaleX": 1,
+      "imageScaleY": 1
     }],
     "riddles": {},
     "puzzle": false,
     "locked": false,
-    "battle": false
+    "battle": false,
+    "maxY": 37,
+    "maxX": 33,
+    "minY": 26,
+    "minX": 18
   },
   {
-    "name": "Chimera's Grotto",
+    "name": "Griffin's Grotto",
     "directions": {
       "west": "Temple of Trials",
       "north": "Goblin's Lair",
       "south": "Shrine",
-      "east": "Chimera Room"
+      "east": "Griffin Room"
     },
-    "description": "This area belongs to the mythical Chimera, A monstrous creature with the head of a lion, body of a goat, and tail of a serpent.",
+    "description": "This area belongs to the mythical Griffin, a mythological creature with the head and wings of an eagle and the body of a lion.",
     "items": [],
     "npc": [],
     "riddles": {},
     "puzzle": false,
     "locked": false,
-    "battle": false
+    "battle": false,
+    "maxY": 0,
+    "maxX": 0,
+    "minY": 0,
+    "minX": 0
   },
   {
     "name": "Goblin's Lair",
     "directions": {
-      "south": "Chimera's Grotto"
+      "south": "Griffin's Grotto"
     },
     "description": "You cleared the path.",
     "items": [{
@@ -76,18 +93,27 @@
       {
         "name": "Goblin",
         "health": 100,
-        "attack": 15
+        "attack": 15,
+        "idleFilepaths": ["/tiles/npc/wizard/left1.png","/tiles/npc/wizard/left2.png","/tiles/npc/wizard/right1.png","/tiles/npc/wizard/right2.png"],
+        "initialX": 1,
+        "initialY": 1,
+        "imageScaleX": 1,
+        "imageScaleY": 1
       }
     ],
     "riddles": {},
     "puzzle": false,
     "locked": false,
-    "battle": true
+    "battle": true,
+    "maxY": 0,
+    "maxX": 0,
+    "minY": 0,
+    "minX": 0
   },
   {
     "name": "Shrine",
     "directions": {
-      "north": "Chimera's Grotto"
+      "north":"Griffin's Grotto"
     },
     "description": "The shrine of past Heroes that took the trials.",
     "items": [{
@@ -104,19 +130,29 @@
       "action": {
         "look": "A magical fairy, see if they can help!",
         "talk": "The Ancient Nasirax is one of the most powerful monsters in the land..."
-      }
+      },
+        "idleFilepaths": ["/tiles/npc/wizard/left1.png","/tiles/npc/wizard/left2.png","/tiles/npc/wizard/right1.png","/tiles/npc/wizard/right2.png"],
+        "initialX": 1,
+        "initialY": 1,
+      "imageScaleX": 1,
+      "imageScaleY": 1
+
     }],
     "riddles": {},
     "puzzle": false,
     "locked": false,
-    "battle": false
+    "battle": false,
+    "maxY": 0,
+    "maxX": 0,
+    "minY": 0,
+    "minX": 0
   },
   {
-    "name": "Chimera Room",
+    "name": "Griffin Room",
     "directions": {
-      "west": "Chimera's Grotto"
+      "west": "Griffin's Grotto"
     },
-    "description": "You defeated the Chimera!",
+    "description": "You defeated the Griffin!",
     "items": [{
       "name": "potion",
       "action": {
@@ -127,14 +163,23 @@
       }
     }],
     "npc": [{
-      "name": "Chimera",
+      "name": "Griffin",
       "health": 100,
-      "attack": 20
+      "attack": 20,
+      "idleFilepaths": ["/tiles/npc/griffin/left1.png","/tiles/npc/griffin/left2.png","/tiles/npc/griffin/right1.png","/tiles/npc/griffin/right2.png"],
+      "initialX": 1,
+      "initialY": 1,
+      "imageScaleX": 1,
+      "imageScaleY": 1
     }],
     "riddles": {},
     "puzzle": false,
     "locked": true,
-    "battle": true
+    "battle": true,
+    "maxY": 0,
+    "maxX": 0,
+    "minY": 0,
+    "minX": 0
   },
   {
     "name": "Minotaur's Cave",
@@ -150,7 +195,11 @@
     "riddles": {},
     "puzzle": false,
     "locked": false,
-    "battle": false
+    "battle": false,
+    "maxY": 38,
+    "maxX": 20,
+    "minY": 27,
+    "minX": 0
   },
   {
     "name": "Library",
@@ -175,7 +224,11 @@
     },
     "puzzle": true,
     "locked": false,
-    "battle": false
+    "battle": false,
+    "maxY": 0,
+    "maxX": 0,
+    "minY": 0,
+    "minX":0
   },
   {
     "name": "Summoning Room",
@@ -195,12 +248,21 @@
     "npc": [{
       "name": "Banshee",
       "health": 100,
-      "attack": 15
+      "attack": 15,
+      "idleFilepaths": ["/tiles/npc/banshee/left1.png","/tiles/npc/banshee/left2.png","/tiles/npc/banshee/right1.png","/tiles/npc/banshee/right2.png"],
+      "initialX": 10,
+      "initialY": 46,
+      "imageScaleX": 1,
+      "imageScaleY": 1
     }],
     "riddles": {},
     "puzzle": false,
     "locked": false,
-    "battle": true
+    "battle": true,
+    "maxY": 51,
+    "maxX": 20,
+    "minY": 41,
+    "minX": 0
   },
   {
     "name": "Minotaur Room",
@@ -220,12 +282,21 @@
     "npc": [{
       "name": "Minotaur",
       "health": 100,
-      "attack": 17
+      "attack": 17,
+      "idleFilepaths": ["/tiles/npc/minotaur/left1.png","/tiles/npc/minotaur/left2.png","/tiles/npc/minotaur/right1.png","/tiles/npc/minotaur/right2.png"],
+      "initialX": 10,
+      "initialY": 13,
+      "imageScaleX": 3,
+      "imageScaleY": 3
     }],
     "riddles": {},
     "puzzle": false,
     "locked": false,
-    "battle": true
+    "battle": true,
+    "maxY": 18,
+    "maxX": 20,
+    "minY": 10,
+    "minX": 0
   },
   {
     "name": "Nasirax Room",
@@ -238,12 +309,21 @@
     "npc": [{
       "name": "Ancient Nasirax",
       "health": 100,
-      "attack": 25
+      "attack": 25,
+      "idleFilepaths": ["/tiles/npc/dragon/left1.png","/tiles/npc/dragon/left2.png","/tiles/npc/dragon/right1.png","/tiles/npc/dragon/right2.png"],
+      "initialX": 20,
+      "initialY": 10,
+      "imageScaleX": 8,
+      "imageScaleY": 4
     }],
     "riddles": {},
     "puzzle": false,
     "locked": false,
-    "battle": true
+    "battle": true,
+    "maxY": 17,
+    "maxX": 33,
+    "minY": 9,
+    "minX": 16
   },
   {
     "name": "Ancient Path",
@@ -265,7 +345,11 @@
     "riddles": {},
     "puzzle": false,
     "locked": true,
-    "battle": false
+    "battle": false,
+    "maxY": 22,
+    "maxX": 31,
+    "minY": 18,
+    "minX":22
   },
   {
     "name": "Treasure Room",
@@ -284,6 +368,10 @@
     "riddles": {},
     "puzzle": false,
     "locked": false,
-    "battle": false
+    "battle": false,
+    "maxY":8,
+    "maxX":30 ,
+    "minY": 0,
+    "minX": 20
   }
 ]

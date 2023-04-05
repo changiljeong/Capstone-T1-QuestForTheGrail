@@ -9,6 +9,9 @@ public class KeyHandler implements KeyListener {
   private boolean downPressed;
   private boolean leftPressed;
   private boolean rightPressed;
+  private boolean attack;
+  private boolean heal;
+  private boolean talk;
 
 
   @Override
@@ -31,6 +34,15 @@ public class KeyHandler implements KeyListener {
     }
     if(code == KeyEvent.VK_RIGHT) {
       rightPressed = true;
+    }
+    if(code == KeyEvent.VK_A) {
+      attack = true;
+    }
+    if(code == KeyEvent.VK_H) {
+      heal = true;
+    }
+    if(code == KeyEvent.VK_T) {
+      talk = true;
     }
 
   }
@@ -68,5 +80,29 @@ public class KeyHandler implements KeyListener {
 
   public boolean isRightPressed() {
     return rightPressed;
+  }
+
+  public boolean isAttack() {
+    return attack;
+  }
+
+  public void setAttack(boolean attack) {
+    this.attack = attack;
+  }
+
+  public boolean isHeal() {
+    return heal;
+  }
+
+  public void setHeal(boolean heal) {
+    this.heal = heal;
+  }
+
+  public boolean isTalk() {
+    return talk;
+  }
+
+  public void setTalk(boolean talk) {
+    this.talk = talk;
   }
 }

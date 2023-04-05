@@ -15,7 +15,7 @@ public class Player extends Entity{
 
     private int health;
     private int attack;
-    private List<Item> inventory;
+    private List<Item> inventory = new ArrayList<>();
     private Location location;
     private boolean win;
     private Item equippedItem;

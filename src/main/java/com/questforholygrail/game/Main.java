@@ -15,6 +15,8 @@ public class Main {
 
     private static Location[] locations;
     private static Sound sound = new Sound();
+    private static boolean gui = false;
+    private static MainGameWindow gameWindow;
 
 //Must run GUI from here!!
     public static void main(String[] args) throws IOException {
@@ -31,7 +33,7 @@ public class Main {
         Location currentLocation = locations[0];
 
         sound.soundLoad();
-        MainGameWindow mgw = new MainGameWindow(968, 576);
+
 
         // create a new player with starting values
         Player player = new Player(100, 10, currentLocation, false);
@@ -47,58 +49,72 @@ public class Main {
 
         // Ask player if they want to start a new game
         String choice;
-        do {
-            Display.printScreenLn("Would you like to start a new game? (y/n)");
-            choice = UserInput.getInput();
-        } while (!choice.equals("y") && !choice.equals("n"));
+        Display.printScreenLn("Would you like to play the text game or video game? (text/video)");
+        choice = UserInput.getInput();
 
-        if (choice.equals("y")) {
+        if(!choice.equalsIgnoreCase("text")){
+            gui = true;
+            Main.setGameWindow(new MainGameWindow(968, 576));
+        } else {
+            do {
+                Display.printScreenLn("Would you like to start a new game? (y/n)");
+                choice = UserInput.getInput();
+            } while (!choice.equals("y") && !choice.equals("n"));
 
-            // print out intro
-            Commands.gameIntro();
+            if (choice.equals("y")) {
 
-            // Game loop
-            while (true) {
+                // print out intro
+                Commands.gameIntro();
 
-                // displays location, player health and inventory, updates accordingly.
-                Commands.showStatus();
+                // Game loop
+                while (true) {
 
-                // Riddle game
-                Commands.playRiddle();
+                    // displays location, player health and inventory, updates accordingly.
+                    Commands.showStatus();
 
-                Commands.battle();
+                    playGame();
 
-                // displays room description
-                Commands.roomDescription();
+                    // displays room description
+                    Commands.roomDescription();
 
-                // displays npc in room
-                Commands.showNPC();
+                    // displays npc in room
+                    Commands.showNPC();
 
-                // display items in room
-                Commands.showItem();
+                    // display items in room
+                    Commands.showItem();
 
-                // Ask player to input something
-                Display.printScreenLn("What would you like to do?");
-                Display.printScreen("> ");
-                String command = UserInput.getInput();
+                    // Ask player to input something
+                    Display.printScreenLn("What would you like to do?");
+                    Display.printScreen("> ");
+                    String command = UserInput.getInput();
 
-                parser.parseCommand(command);
+                    parser.parseCommand(command);
 
-                if (command.equals("quit")) {
-                    Display.printScreenLn("Quitting game...");
-                    break;
-                }
+                    if (command.equals("quit")) {
+                        Display.printScreenLn("Quitting game...");
+                        break;
+                    }
 
-                if (player.isWin()) {
-                    Display.printScreenLn("The End...");
-                    break;
+                    if (player.isWin()) {
+                        Display.printScreenLn("The End...");
+                        break;
+                    }
                 }
             }
+            // If player chooses not to start a new game, end the program
+            else {
+                Display.printScreenLn("Quitting game...");
+            }
         }
-        // If player chooses not to start a new game, end the program
-        else {
-            Display.printScreenLn("Quitting game...");
-        }
+
+
+    }
+
+    public static void playGame() {
+        // Riddle game
+        Commands.playRiddle();
+
+        Commands.battle();
     }
 
     public static Location[] getLocations() {
@@ -116,4 +132,21 @@ public class Main {
     public static void setSound(Sound sound) {
         Main.sound = sound;
     }
+
+    public static boolean isGui() {
+        return gui;
+    }
+
+    public static void setGui(boolean gui) {
+        Main.gui = gui;
+    }
+
+    public static MainGameWindow getGameWindow() {
+        return gameWindow;
+    }
+
+    public static void setGameWindow(MainGameWindow gameWindow) {
+        Main.gameWindow = gameWindow;
+    }
+
 }

@@ -10,23 +10,23 @@ public class Commands {
     private static Player player;
     private static Location currentLocation;
 
-    public Commands(Player player, Location currentLocation) {
-        Commands.player = player;
-        Commands.currentLocation = currentLocation;
+  public Commands(Player player, Location currentLocation) {
+    Commands.player = player;
+    Commands.currentLocation = currentLocation;
+  }
+
+  public void parseCommand(String command) {
+    //splits input at whitespaces
+    String[] words = command.trim().split(" ", 2);
+
+    //puts first input word into verb
+    String verb = words[0].toLowerCase();
+    String noun = "";
+
+    //assigns second word from input to noun (this could be an issue for multiple-word nouns)
+    if (words.length > 1) {
+      noun = words[1].toLowerCase();
     }
-
-    public void parseCommand(String command) {
-        //splits input at whitespaces
-        String[] words = command.trim().split(" ", 2);
-
-        //puts first input word into verb
-        String verb = words[0].toLowerCase();
-        String noun = "";
-
-        //assigns second word from input to noun (this could be an issue for multiple-word nouns)
-        if (words.length > 1) {
-            noun = words[1].toLowerCase();
-        }
 
         switch (verb) {
             case "look":
@@ -308,168 +308,222 @@ public class Commands {
                 }
                 break;
 
-            // default case to validate user input
-            default:
-                Display.printScreenLn(
-                    "Invalid command. Type 'help' for a list of available commands.");
-                break;
-        }
+      // default case to validate user input
+      default:
+        Display.printScreenLn(
+            "Invalid command. Type 'help' for a list of available commands.");
+        break;
     }
+  }
 
-    public static void battle() {
+  public static void battle() {
+    boolean won = false;
 
-        while (currentLocation.isBattle()) {
-            List<NPC> npcList1 = currentLocation.getNpc();
-            List<Item> myInventory3 = player.getInventory();
-            int playerHealth = player.getHealth();
-            int playerAttack = player.getAttack();
-            //minimum attack
-            int min = 10;
-            //calculates player's attack power
-            int playerRandomAttack = (int)(Math.random() * (playerAttack - min + 1) + min);
-            //gets enemy info
-            for (NPC element : npcList1) {
-                int enemyHealth = element.getHealth();
-                int enemyAttack = element.getAttack();
-                //calculates enemy attack power
-                int npcRandomAttack = (int)(Math.random() * (enemyAttack - min + 1) + min);
-                //prints battle update
-                Display.printScreenLn(element.getName());
-                Display.printScreenLn("--------------------------------------");
-                Display.printScreenLn("Player HP: " + playerHealth);
-                Display.printScreenLn("Enemy HP: " + enemyHealth);
-                Display.printScreenLn("--------------------------------------");
-                Display.printScreenLn("You're being attacked!");
-                //takes user input
-                String input = UserInput.getInput().toLowerCase();
-                if (input.equals("attack")) {
-                    //applies player's attack to enemy health
-                    enemyHealth = enemyHealth - playerRandomAttack;
-                    element.setHealth(enemyHealth);
-                    Display.printScreenLn("--------------------------------------");
-                    Display.printScreenLn("You attack the enemy and did " + playerRandomAttack + " damage!");
-                    if (enemyHealth <= 0) {
-                        //if enemy defeated, applies health changes to player
-                        //removes npc from room
-                        player.setHealth(playerHealth);
-                        showStatus();
-                        Display.printScreenLn("You defeated the enemy!");
-                        Display.printScreenLn("--------------------------------------");
-                        currentLocation.setBattle(false);
-                        npcList1.remove(element);
-                        break;
-                    } else {
-                        //if enemy not defeated, applies NPC attack to player health
-                        playerHealth = playerHealth - npcRandomAttack;
-                        player.setHealth(playerHealth);
-                        Display.printScreenLn("The enemy attacked you and did " + npcRandomAttack + " damage!");
-                        Display.printScreenLn("--------------------------------------");
-                        if (playerHealth <= 0) {
-                            //if player defeated, restarts player at beginning of game with full health
-                            for (Location location : Main.getLocations()) {
-                                if (location.getName().equals("The Gate of Trials")) {
-                                    Display.printScreenLn("You lost");
-                                    currentLocation = location;
-                                    player.setHealth(100);
-                                    element.setHealth(100);
-                                    player.setLocation(currentLocation);
-                                    showStatus();
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                } else if (input.equals("heal")) {
-                    boolean potionFound = false;
-                    //if player has potion, heals player and removes potion from inventory
-                    for (Item item : myInventory3) {
-                        if (item.getName().equalsIgnoreCase("potion")) {
-                            potionFound = true;
-                            playerHealth += 50;
-                            player.setHealth(playerHealth);
-                            myInventory3.remove(item);
-                            Display.printScreenLn(item.getAction().get("use"));
-                            Display.printScreenLn("--------------------------------------");
-                            break;
-                        }
-                    }
-                    //if player doesn't have potion, provides feedback to player
-                    if (!potionFound) {
-                        Display.printScreenLn("You don't have any potions!");
-                        Display.printScreenLn("--------------------------------------");
-                        break;
-                    }
-                } else {
-                    //if player input was not "heal" or "attack", provides feedback to player
-                    Display.printScreenLn("You have to attack!");
-                    Display.printScreenLn("--------------------------------------");
-                }
+    while (currentLocation.isBattle() && (!Main.isGui() || checkPlayerInRange())) {
+      System.out.println("gui:" + !Main.isGui());
+      System.out.println("range:" + checkPlayerInRange());
+      List<NPC> npcList1 = currentLocation.getNpc();
+      List<Item> myInventory3 = player.getInventory();
+
+      //gets enemy info
+      for (NPC element : npcList1) {
+        int playerHealth = player.getHealth();
+        int enemyHealth = element.getHealth();
+
+        if (!Main.isGui()) {
+          //prints battle update
+          Display.printScreenLn(element.getName());
+          Display.printScreenLn("--------------------------------------");
+          Display.printScreenLn("Player HP: " + playerHealth);
+          Display.printScreenLn("Enemy HP: " + enemyHealth);
+          Display.printScreenLn("--------------------------------------");
+          Display.printScreenLn("You're being attacked!");
+          //takes user input
+          String input = UserInput.getInput().toLowerCase();
+          if (input.equals("attack")) {
+            won = fight();
+
+          } else if (input.equals("heal")) {
+            boolean potionFound = heal();
+            if (!potionFound) {
+              break;
             }
+          } else {
+            //if player input was not "heal" or "attack", provides feedback to player
+            Display.printScreenLn("You have to attack!");
+            Display.printScreenLn("--------------------------------------");
+          }
         }
-    }
-
-
-    public static void playRiddle() {
-            int guessCounter = 0;
-
-            while (currentLocation.isPuzzle()) {
-                Display.printScreenLn("You're trapped!");
-                //prints riddle
-                Display.printScreenLn(currentLocation.getRiddles().get("question"));
-                //increments guessCounter
-                guessCounter++;
-                //gets user input
-                String guess = UserInput.getInput().toLowerCase();
-                if (guessCounter == 3 && !guess.equals("fire")) {
-                    //if player is out of guesses, starts player at beginning
-                    for (Location location : Main.getLocations()) {
-                        if (location.getName().equals("The Gate of Trials")) {
-                            Display.printScreenLn("Sorry! You lose!");
-                            currentLocation = location;
-                            player.setLocation(currentLocation);
-                            break;
-                        }
-                    }
-                    showStatus();
-                    break;
-                } else if (!guess.equals("fire")) {
-                    //prints feedback to player
-                    Display.printScreenLn(
-                        currentLocation.getRiddles().get("incorrect") + " You guessed "
-                            + guessCounter + " time(s) wrong out of 3 tries.");
-                    Display.printScreenLn("--------------------------------------");
-                } else {
-                    //removes puzzle from room if guess was correct
-                    Display.printScreenLn("You've solved the riddle!");
-                    showStatus();
-                    currentLocation.setPuzzle(false);
-                    break;
-                }
-            }
-    }
-
-    //prints status widget
-    public static void showStatus() {
-        Display.printScreenLn("--------------------------------------");
-        Display.printScreenLn("Location: " + currentLocation.getName());
-        Display.printScreenLn("Directions: " + currentLocation.getDirections().keySet());
-        Display.printScreenLn("Health: " + player.getHealth());
-        Display.printScreen("Inventory: ");
-        for (Item element : player.getInventory()) {
-            Display.printScreen("[" + element.getName() + "]");
+        if (Main.getGameWindow().getGame().getKeyHandler().isHeal()) {
+          heal();
+          Main.getGameWindow().getGame().getKeyHandler().setHeal(false);
+        } else if (Main.getGameWindow().getGame().getKeyHandler().isAttack()) {
+          won = fight();
+          Main.getGameWindow().getGame().getKeyHandler().setAttack(false);
         }
-        Display.printScreenLn(" ");
-        Display.printScreen("Equipped Item: ");
-        Display.printScreen((player.getEquippedItem() == null ? "": "[" +player.getEquippedItem().getName() + "]"));
-        Display.printScreenLn(" ");
-        Display.printScreenLn("--------------------------------------");
-    }
 
-    //prints room description
-    public static void roomDescription() {
-        Main.getSound().soundFXLoad(player);
-        Display.printScreenLn("--------------------------------------");
+      }
     }
+    if (won) {
+      currentLocation.getNpc().remove(0);
+    }
+  }
+
+
+  public static void playRiddle() {
+    int guessCounter = 0;
+
+    while (currentLocation.isPuzzle()) {
+      Display.printScreenLn("You're trapped!");
+      //prints riddle
+      Display.printScreenLn(currentLocation.getRiddles().get("question"));
+      //increments guessCounter
+      guessCounter++;
+      //gets user input
+      String guess = UserInput.getInput().toLowerCase();
+      if (guessCounter == 3 && !guess.equals("fire")) {
+        //if player is out of guesses, starts player at beginning
+        for (Location location : Main.getLocations()) {
+          if (location.getName().equals("The Gate of Trials")) {
+            Display.printScreenLn("Sorry! You lose!");
+            currentLocation = location;
+            player.setLocation(currentLocation);
+            break;
+          }
+        }
+        showStatus();
+        break;
+      } else if (!guess.equals("fire")) {
+        //prints feedback to player
+        Display.printScreenLn(
+            currentLocation.getRiddles().get("incorrect") + " You guessed "
+                + guessCounter + " time(s) wrong out of 3 tries.");
+        Display.printScreenLn("--------------------------------------");
+      } else {
+        //removes puzzle from room if guess was correct
+        Display.printScreenLn("You've solved the riddle!");
+        showStatus();
+        currentLocation.setPuzzle(false);
+        break;
+      }
+    }
+  }
+
+  public static boolean fight() {
+    boolean won = false;
+    int playerHealth = player.getHealth();
+    int playerAttack = player.getAttack();
+
+    NPC enemy = currentLocation.getNpc().get(0);
+
+    int enemyHealth = enemy.getHealth();
+    int enemyAttack = enemy.getAttack();
+
+    //minimum attack
+    int min = 10;
+    //calculates player's attack power
+    int playerRandomAttack = (int) (Math.random() * (playerAttack - min + 1) + min);
+
+    //calculates enemy attack power
+    int npcRandomAttack = (int) (Math.random() * (enemyAttack - min + 1) + min);
+
+    //applies player's attack to enemy health
+    enemyHealth = enemyHealth - playerRandomAttack;
+    enemy.setHealth(enemyHealth);
+    Display.printScreenLn("--------------------------------------");
+    Display.printScreenLn("You attack the enemy and did " + playerRandomAttack + " damage!");
+    if (enemyHealth <= 0) {
+      //if enemy defeated, applies health changes to player
+      //removes npc from room
+      player.setHealth(playerHealth);
+      showStatus();
+      Display.printScreenLn("You defeated the enemy!");
+      Display.printScreenLn("--------------------------------------");
+      currentLocation.setBattle(false);
+      won = true;
+    } else {
+      //if enemy not defeated, applies NPC attack to player health
+      playerHealth = playerHealth - npcRandomAttack;
+      player.setHealth(playerHealth);
+      Display.printScreenLn("The enemy attacked you and did " + npcRandomAttack + " damage!");
+      Display.printScreenLn("--------------------------------------");
+      if (playerHealth <= 0) {
+        //if player defeated, restarts player at beginning of game with full health
+        for (Location location : Main.getLocations()) {
+          if (location.getName().equals("The Gate of Trials")) {
+            Display.printScreenLn("You lost");
+            currentLocation = location;
+            player.setHealth(100);
+            enemy.setHealth(100);
+            player.setLocation(currentLocation);
+            showStatus();
+          }
+        }
+      }
+    }
+    return won;
+  }
+
+  public static boolean heal() {
+    List<Item> myInventory3 = player.getInventory();
+    int playerHealth = player.getHealth();
+    boolean potionFound = false;
+    //if player has potion, heals player and removes potion from inventory
+    for (Item item : myInventory3) {
+      if (item.getName().equalsIgnoreCase("potion")) {
+        potionFound = true;
+        playerHealth += 50;
+        player.setHealth(playerHealth);
+        myInventory3.remove(item);
+        Display.printScreenLn(item.getAction().get("use"));
+        Display.printScreenLn("--------------------------------------");
+        break;
+      }
+    }
+    //if player doesn't have potion, provides feedback to player
+    if (!potionFound) {
+      Display.printScreenLn("You don't have any potions!");
+      Display.printScreenLn("--------------------------------------");
+    }
+    return potionFound;
+  }
+
+  //prints status widget
+  public static void showStatus() {
+    Display.printScreenLn("--------------------------------------");
+    Display.printScreenLn("Location: " + currentLocation.getName());
+    Display.printScreenLn("Directions: " + currentLocation.getDirections().keySet());
+    Display.printScreenLn("Health: " + player.getHealth());
+    Display.printScreen("Inventory: ");
+    for (Item element : player.getInventory()) {
+      Display.printScreen("[" + element.getName() + "]");
+    }
+    Display.printScreenLn(" ");
+    Display.printScreen("Equipped Item: ");
+    Display.printScreen(
+        (player.getEquippedItem() == null ? "" : "[" + player.getEquippedItem().getName() + "]"));
+    Display.printScreenLn(" ");
+    Display.printScreenLn("--------------------------------------");
+  }
+
+  private static boolean checkPlayerInRange() {
+    player = Main.getGameWindow().getGame().getPlayer();
+    if (currentLocation.getNpc().size() > 0) {
+      NPC npc = currentLocation.getNpc().get(0);
+      int range = Main.getGameWindow().getGame().getTileSize();
+      return (player.getWorldX() <= (npc.getWorldX() + range) && player.getWorldX() >= (
+          npc.getWorldX() - range)) &&
+          (player.getWorldY() <= (npc.getWorldY() + range) && player.getWorldY() >= (
+              npc.getWorldY() - range));
+    }
+    return false;
+  }
+
+  //prints room description
+  public static void roomDescription() {
+    Main.getSound().soundFXLoad(player);
+    Display.printScreenLn("--------------------------------------");
+  }
 
     //prints NPCs in current room
     public static void showNPC() {
@@ -497,36 +551,36 @@ public class Commands {
         }
     }
 
-    //prints game intro
-    public static void gameIntro() {
-        //Display commands
-        Display.printScreenLn("--------------------------------------");
-        Display.printScreenLn("Commands:"
-            + "\n" + "Go - Move around"
-            + "\n" + "Look - Look at something"
-            + "\n" + "Talk - Talk to someone"
-            + "\n" + "Use - Use your potion to heal your wounds"
-            + "\n" + "Get - Pick up items"
-            + "\n" + "Drop - Drop items"
-            + "\n" + "Sound - Can Up/Down/Start/Stop");
-        Display.printScreenLn("--------------------------------------");
-        Display.printScreenLn("Battle:"
-                + "\n" + "Attack - Attack an enemy"
-                + "\n" + "Heal - Use your potion");
-        Display.printScreenLn("--------------------------------------");
-        Display.printScreenLn("Type \"help\" to see the list of commands again.");
-        Display.printScreenLn("--------------------------------------");
+  //prints game intro
+  public static void gameIntro() {
+    //Display commands
+    Display.printScreenLn("--------------------------------------");
+    Display.printScreenLn("Commands:"
+        + "\n" + "Go - Move around"
+        + "\n" + "Look - Look at something"
+        + "\n" + "Talk - Talk to someone"
+        + "\n" + "Use - Use your potion to heal your wounds"
+        + "\n" + "Get - Pick up items"
+        + "\n" + "Drop - Drop items"
+        + "\n" + "Sound - Can Up/Down/Start/Stop");
+    Display.printScreenLn("--------------------------------------");
+    Display.printScreenLn("Battle:"
+        + "\n" + "Attack - Attack an enemy"
+        + "\n" + "Heal - Use your potion");
+    Display.printScreenLn("--------------------------------------");
+    Display.printScreenLn("Type \"help\" to see the list of commands again.");
+    Display.printScreenLn("--------------------------------------");
 
-        Display.printScreenLn("Let the adventure begin!");
+    Display.printScreenLn("Let the adventure begin!");
 
-        // Display basic information about the game
-        Display.printScreenLn(
-            "-------------------------------------------------------------------------------");
-        Display.printScreenLn(
-            "You walk into a dark, damp dungeon. You are in search of the holy grail.");
-        Display.printScreenLn(
-            "Monsters and traps are scattered throughout the rooms. Make your way to glory!");
-    }
+    // Display basic information about the game
+    Display.printScreenLn(
+        "-------------------------------------------------------------------------------");
+    Display.printScreenLn(
+        "You walk into a dark, damp dungeon. You are in search of the holy grail.");
+    Display.printScreenLn(
+        "Monsters and traps are scattered throughout the rooms. Make your way to glory!");
+  }
 
     //prints game title
     public static void gameTitle() {
@@ -544,12 +598,11 @@ public class Commands {
             + "  `---------'");
     }
 
-    public void soundOn(){
+  public static Location getCurrentLocation() {
+    return currentLocation;
+  }
 
-    }
-
-    public void soundOff(){
-
-    }
-
+  public static void setCurrentLocation(Location currentLocation) {
+    Commands.currentLocation = currentLocation;
+  }
 }
