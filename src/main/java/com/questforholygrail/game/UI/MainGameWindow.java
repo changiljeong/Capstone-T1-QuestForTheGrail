@@ -63,6 +63,7 @@ public class MainGameWindow extends JFrame {
         });
         if(panelTwo == gameScreenPanel) {
             game.requestFocus();
+            game.setupGame();
             game.startGameThread();
         } else {
             getRootPane().getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "swapPanels");

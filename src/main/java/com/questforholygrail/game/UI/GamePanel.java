@@ -1,13 +1,14 @@
 package com.questforholygrail.game.UI;
 
 import com.questforholygrail.game.Player;
+import com.questforholygrail.game.object.SuperObject;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
-//this class was created with the aid of RyiSnow's YouTube tutorial for 2d Games
+//this class was created with the aid of RyiSnow's youtube tutorial for 2d Games
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -21,11 +22,9 @@ public class GamePanel extends JPanel implements Runnable {
   private final int screenWidth = tileSize * maxScreenCol;
   private final int screenHeight = tileSize * maxScreenRow;
 
-
   //World setting
-  private final int maxWorldCol = 34;
-  private final int maxWorldRow = 52;
-
+  private final int maxWorldCol = 50;
+  private final int maxWorldRow = 50;
 
   private final int worldWidth = tileSize * maxWorldCol;
   private final int worldHeight = tileSize * maxWorldRow;
@@ -49,8 +48,17 @@ public class GamePanel extends JPanel implements Runnable {
   }
 
   CollisionChecker cChecker = new CollisionChecker(this);
+  private AssetSetter aSetter = new AssetSetter(this);
 
   private Player player;
+
+  private transient SuperObject[] obj = new SuperObject[4];
+
+
+  //initial player position (temporary)
+  int playerX = 100;
+  int playerY = 100;
+  int playerSpeed = 4;
 
   public GamePanel(){
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -60,6 +68,10 @@ public class GamePanel extends JPanel implements Runnable {
     this.setFocusable(true);
     player = new Player(this, keyHandler);
 
+  }
+
+  public void setupGame(){
+    aSetter.setObject();
   }
 
   public void startGameThread(){
@@ -80,8 +92,15 @@ public class GamePanel extends JPanel implements Runnable {
   public void paintComponent(Graphics g){
      super.paintComponent(g);
      Graphics2D g2 = (Graphics2D) g;
-
+    // Tile Draw
      tileManager.draw(g2);
+     //Object draw
+    for(int i=0; i<getObj().length; i++){
+      if(getObj()[i] != null){
+        getObj()[i].draw(g2, this);
+      }
+    }
+    //Player draw
      player.draw(g2);
      g2.dispose();
 
@@ -162,5 +181,13 @@ public class GamePanel extends JPanel implements Runnable {
 
   public void setPlayer(Player player) {
     this.player = player;
+  }
+
+  public AssetSetter getaSetter() {
+    return aSetter;
+  }
+
+  public SuperObject[] getObj() {
+    return obj;
   }
 }

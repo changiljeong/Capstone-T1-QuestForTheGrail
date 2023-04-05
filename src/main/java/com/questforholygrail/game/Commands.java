@@ -544,4 +544,12 @@ public class Commands {
             + "  `---------'");
     }
 
+    public void soundOn(){
+
+    }
+
+    public void soundOff(){
+
+    }
+
 }

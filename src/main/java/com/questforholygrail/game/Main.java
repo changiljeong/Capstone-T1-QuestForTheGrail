@@ -21,7 +21,7 @@ public class Main {
 
 
         try(Reader reader = new InputStreamReader(
-                Objects.requireNonNull(Main.class.getClassLoader().getResourceAsStream("rooms.json")))) {
+            Objects.requireNonNull(Main.class.getClassLoader().getResourceAsStream("rooms.json")))) {
 
             Gson gson = new Gson();
             locations = gson.fromJson(reader, Location[].class);

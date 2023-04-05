@@ -35,6 +35,8 @@ public class Player extends Entity{
         Rectangle solidArea = new Rectangle();
         solidArea.setRect(8, 16, 32, 32);
         setSolidArea(solidArea);
+        setSolidAreaDefaultX((int)solidArea.getX());
+        setSolidAreaDefaultY((int)solidArea.getY());
 
         setDefaultValues();
         getPlayerImage();
@@ -64,8 +66,8 @@ public class Player extends Entity{
     }
 
     public void setDefaultValues(){
-        setWorldX(gp.getTileSize()*8);
-        setWorldY(gp.getTileSize()*26);
+        setWorldX(gp.getTileSize()* 8 );
+        setWorldY(gp.getTileSize() * 11);
         setSpeed(4);
         setDirection("down");
         setSpriteNum(1);
@@ -87,6 +89,10 @@ public class Player extends Entity{
 
             setCollisionOn(false);
             gp.getcChecker().checkTile(this);
+
+            //Check object collision
+            int objIndex = gp.getcChecker().checkObject(this, true);
+            pickUpObject(objIndex);
 
             //If collision is false; player can move
             if(isCollisionOn() == false){
@@ -142,6 +148,11 @@ public class Player extends Entity{
 
     }
 
+    public void pickUpObject(int i){
+        if( i != 999){
+            gp.getObj()[i] = null;
+        }
+    }
     public void draw(Graphics2D g2){
 
         BufferedImage image = null;
@@ -181,8 +192,7 @@ public class Player extends Entity{
                 }
                 break;
         }
-
-        g2.drawImage(image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+    g2.drawImage(image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
 
     }
 

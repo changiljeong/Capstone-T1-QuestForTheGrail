@@ -23,6 +23,8 @@ public class Entity {
   private transient int spriteNum;
 
   private transient Rectangle solidArea;
+
+  private transient int solidAreaDefaultX, getSolidAreaDefaultY;
   private boolean collisionOn = false;
 
   public int getWorldX() {
@@ -151,5 +153,21 @@ public class Entity {
 
   public void setCollisionOn(boolean collisionOn) {
     this.collisionOn = collisionOn;
+  }
+
+  public int getSolidAreaDefaultX() {
+    return solidAreaDefaultX;
+  }
+
+  public void setSolidAreaDefaultX(int solidAreaDefaultX) {
+    this.solidAreaDefaultX = solidAreaDefaultX;
+  }
+
+  public int getSolidAreaDefaultY() {
+    return getSolidAreaDefaultY;
+  }
+
+  public void setSolidAreaDefaultY(int getSolidAreaDefaultY) {
+    this.getSolidAreaDefaultY = getSolidAreaDefaultY;
   }
 }
