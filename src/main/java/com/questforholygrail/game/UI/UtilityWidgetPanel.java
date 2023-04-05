@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 
 public class UtilityWidgetPanel extends JPanel {
 
-    MainGameWindow frame;
-    SettingsPopUp settings;
+  MainGameWindow frame;
+  SettingsPopUp settings;
 
     public UtilityWidgetPanel(MainGameWindow frame){
         this.frame = frame;

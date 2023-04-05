@@ -244,7 +244,7 @@ public class Commands {
                 switch (noun) {
                     case "":
                         Display.printScreenLn(
-                                "You can use following commands Sound On/Off/Start/Stop.");
+                            "You can use following commands Sound On/Off/Start/Stop.");
                         break;
                     case "up":
                         Sound.increaseSound();
@@ -267,17 +267,17 @@ public class Commands {
                 // handle get command
                 Display.printScreenLn("--------------------------------------");
                 Display.printScreenLn("Commands:"
-                        + "\n" + "Go - Move around"
-                        + "\n" + "Look - Look at something"
-                        + "\n" + "Talk - Talk to someone"
-                        + "\n" + "Use - Use your potion to heal your wounds"
-                        + "\n" + "Get - Pick up items"
-                        + "\n" + "Drop - Drop items"
-                        + "\n" + "Sound - Can Up/Down/Start/Stop");
+                    + "\n" + "Go - Move around"
+                    + "\n" + "Look - Look at something"
+                    + "\n" + "Talk - Talk to someone"
+                    + "\n" + "Use - Use your potion to heal your wounds"
+                    + "\n" + "Get - Pick up items"
+                    + "\n" + "Drop - Drop items"
+                    + "\n" + "Sound - Can Up/Down/Start/Stop");
                 Display.printScreenLn("--------------------------------------");
                 Display.printScreenLn("Battle:"
-                        + "\n" + "Attack - Attack an enemy"
-                        + "\n" + "Heal - Use your potion");
+                    + "\n" + "Attack - Attack an enemy"
+                    + "\n" + "Heal - Use your potion");
                 Display.printScreenLn("--------------------------------------");
                 break;
             case "quit":
@@ -311,7 +311,7 @@ public class Commands {
             // default case to validate user input
             default:
                 Display.printScreenLn(
-                        "Invalid command. Type 'help' for a list of available commands.");
+                    "Invalid command. Type 'help' for a list of available commands.");
                 break;
         }
     }
@@ -410,42 +410,42 @@ public class Commands {
 
 
     public static void playRiddle() {
-        int guessCounter = 0;
+            int guessCounter = 0;
 
-        while (currentLocation.isPuzzle()) {
-            Display.printScreenLn("You're trapped!");
-            //prints riddle
-            Display.printScreenLn(currentLocation.getRiddles().get("question"));
-            //increments guessCounter
-            guessCounter++;
-            //gets user input
-            String guess = UserInput.getInput().toLowerCase();
-            if (guessCounter == 3 && !guess.equals("fire")) {
-                //if player is out of guesses, starts player at beginning
-                for (Location location : Main.getLocations()) {
-                    if (location.getName().equals("The Gate of Trials")) {
-                        Display.printScreenLn("Sorry! You lose!");
-                        currentLocation = location;
-                        player.setLocation(currentLocation);
-                        break;
+            while (currentLocation.isPuzzle()) {
+                Display.printScreenLn("You're trapped!");
+                //prints riddle
+                Display.printScreenLn(currentLocation.getRiddles().get("question"));
+                //increments guessCounter
+                guessCounter++;
+                //gets user input
+                String guess = UserInput.getInput().toLowerCase();
+                if (guessCounter == 3 && !guess.equals("fire")) {
+                    //if player is out of guesses, starts player at beginning
+                    for (Location location : Main.getLocations()) {
+                        if (location.getName().equals("The Gate of Trials")) {
+                            Display.printScreenLn("Sorry! You lose!");
+                            currentLocation = location;
+                            player.setLocation(currentLocation);
+                            break;
+                        }
                     }
-                }
-                showStatus();
-                break;
-            } else if (!guess.equals("fire")) {
-                //prints feedback to player
-                Display.printScreenLn(
+                    showStatus();
+                    break;
+                } else if (!guess.equals("fire")) {
+                    //prints feedback to player
+                    Display.printScreenLn(
                         currentLocation.getRiddles().get("incorrect") + " You guessed "
-                                + guessCounter + " time(s) wrong out of 3 tries.");
-                Display.printScreenLn("--------------------------------------");
-            } else {
-                //removes puzzle from room if guess was correct
-                Display.printScreenLn("You've solved the riddle!");
-                showStatus();
-                currentLocation.setPuzzle(false);
-                break;
+                            + guessCounter + " time(s) wrong out of 3 tries.");
+                    Display.printScreenLn("--------------------------------------");
+                } else {
+                    //removes puzzle from room if guess was correct
+                    Display.printScreenLn("You've solved the riddle!");
+                    showStatus();
+                    currentLocation.setPuzzle(false);
+                    break;
+                }
             }
-        }
     }
 
     //prints status widget
@@ -502,13 +502,13 @@ public class Commands {
         //Display commands
         Display.printScreenLn("--------------------------------------");
         Display.printScreenLn("Commands:"
-                + "\n" + "Go - Move around"
-                + "\n" + "Look - Look at something"
-                + "\n" + "Talk - Talk to someone"
-                + "\n" + "Use - Use your potion to heal your wounds"
-                + "\n" + "Get - Pick up items"
-                + "\n" + "Drop - Drop items"
-                + "\n" + "Sound - Can Up/Down/Start/Stop");
+            + "\n" + "Go - Move around"
+            + "\n" + "Look - Look at something"
+            + "\n" + "Talk - Talk to someone"
+            + "\n" + "Use - Use your potion to heal your wounds"
+            + "\n" + "Get - Pick up items"
+            + "\n" + "Drop - Drop items"
+            + "\n" + "Sound - Can Up/Down/Start/Stop");
         Display.printScreenLn("--------------------------------------");
         Display.printScreenLn("Battle:"
                 + "\n" + "Attack - Attack an enemy"
@@ -521,11 +521,11 @@ public class Commands {
 
         // Display basic information about the game
         Display.printScreenLn(
-                "-------------------------------------------------------------------------------");
+            "-------------------------------------------------------------------------------");
         Display.printScreenLn(
-                "You walk into a dark, damp dungeon. You are in search of the holy grail.");
+            "You walk into a dark, damp dungeon. You are in search of the holy grail.");
         Display.printScreenLn(
-                "Monsters and traps are scattered throughout the rooms. Make your way to glory!");
+            "Monsters and traps are scattered throughout the rooms. Make your way to glory!");
     }
 
     //prints game title
@@ -533,23 +533,15 @@ public class Commands {
         Display.printScreenLn("-----------------------");
         Display.printScreenLn("Quest For The Holy Grail");
         Display.printScreenLn("   _________\n"
-                + "  |o^o^o^o^o|\n"
-                + "  {   _!_   }\n"
-                + "   \\   !   /\n"
-                + "    `.   .'\n"
-                + "      )=(\n"
-                + "     ( + )\n"
-                + "      ) (\n"
-                + "  .--'   `--.\n"
-                + "  `---------'");
-    }
-
-    public void soundOn(){
-
-    }
-
-    public void soundOff(){
-
+            + "  |o^o^o^o^o|\n"
+            + "  {   _!_   }\n"
+            + "   \\   !   /\n"
+            + "    `.   .'\n"
+            + "      )=(\n"
+            + "     ( + )\n"
+            + "      ) (\n"
+            + "  .--'   `--.\n"
+            + "  `---------'");
     }
 
 }

@@ -16,7 +16,7 @@ public class Main {
     private static Location[] locations;
     private static Sound sound = new Sound();
 
-    //Must run GUI from here!!
+//Must run GUI from here!!
     public static void main(String[] args) throws IOException {
 
 
