@@ -18,16 +18,19 @@ public class MainGameWindow extends JFrame {
 
     private GameText gameText;
     private final JPanel gameScreenPanel = new JPanel();
+    private final GamePanel game = new GamePanel();
 
     // constructor
     public MainGameWindow(int width, int height) {
         loadGameTextJSON();
         setSize(width, height);
+        setResizable(false);
         JPanel titlePanel = new GameTitlePanel();
         JPanel introPanel = new GameIntroPanel();
         gameScreenPanel.setLayout(new BorderLayout());
         gameScreenPanel.setBackground(Color.black);
         gameScreenPanel.add(new UtilityWidgetPanel(this), BorderLayout.LINE_END);
+        gameScreenPanel.add(game);
         setUpTransition(titlePanel, introPanel);
         setVisible(true);
     }
@@ -44,6 +47,7 @@ public class MainGameWindow extends JFrame {
         }
     }
 
+
     private void setUpTransition(JPanel panelOne, JPanel panelTwo){
 
         add(panelOne);
@@ -57,9 +61,15 @@ public class MainGameWindow extends JFrame {
 
             }
         });
-        getRootPane().getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "swapPanels");
+        if(panelTwo == gameScreenPanel) {
+            game.requestFocus();
+            game.startGameThread();
+        } else {
+            getRootPane().getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "swapPanels");
+        }
 
     }
+
     public GameText getGameText() {
         return gameText;
     }
@@ -68,10 +78,14 @@ public class MainGameWindow extends JFrame {
         this.gameText = gameText;
     }
 
-//    // main method
-//    public static void main(String[] args){
-//        MainGameWindow mgw = new MainGameWindow(1100, 800);
-//    }
+    public JPanel getGameScreenPanel() {
+        return gameScreenPanel;
+    }
+
+    public GamePanel getGame() {
+        return game;
+    }
+
 
 
 }

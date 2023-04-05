@@ -3,7 +3,7 @@ package com.questforholygrail.game;
 import java.util.List;
 import java.util.Map;
 
-public class NPC {
+public class NPC extends Entity{
 
     private String name;
     private Map<String, String> action;

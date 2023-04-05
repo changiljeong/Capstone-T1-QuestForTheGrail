@@ -7,36 +7,36 @@ import javax.swing.JPanel;
 
 public class UtilityWidgetPanel extends JPanel {
 
-  MainGameWindow frame;
+    MainGameWindow frame;
+    SettingsPopUp settings;
 
-  public UtilityWidgetPanel(MainGameWindow frame){
-    this.frame = frame;
-    createButtons();
-    setBounds(0, 0, 100, 100);
-  }
+    public UtilityWidgetPanel(MainGameWindow frame){
+        this.frame = frame;
+        settings = new SettingsPopUp(frame);
+        createButtons();
+        setBounds(0, 0, 100, 100);
+    }
 
-  private void createButtons(){
-    JButton helpButton = new JButton("HELP");
-    JButton settingsButton = new JButton("SETTINGS");
-    JButton soundButton = new JButton("SOUND");
-    helpButton.addActionListener(e -> helpButtonPressed());
-    settingsButton.addActionListener(e -> settingsButtonPressed());
-    soundButton.addActionListener(e -> soundButtonPressed());
-    this.add(helpButton);
-    this.add(settingsButton);
-    this.add(soundButton);
-    this.setBackground(Color.blue);
-  }
+    private void createButtons(){
+        JButton helpButton = new JButton("HELP");
+        JButton settingsButton = new JButton("SETTINGS");
+        helpButton.addActionListener(e -> helpButtonPressed());
+        settingsButton.addActionListener(e -> settingsButtonPressed());
+        this.add(helpButton);
+        this.add(settingsButton);
+        this.setBackground(Color.blue);
+    }
 
-  private void helpButtonPressed(){
-    HelpPopUp.displayHelpScreen(frame);
-  }
+    private void helpButtonPressed(){
 
-  private void settingsButtonPressed(){
+        HelpPopUp.displayHelpScreen(frame);
+        frame.getGame().requestFocus();
 
-  }
-  private void soundButtonPressed(){
+    }
 
-  }
+    private void settingsButtonPressed(){
+        settings.displaySettingsOptions();
+        frame.getGame().requestFocus();
+    }
 
 }

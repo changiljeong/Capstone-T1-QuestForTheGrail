@@ -2,25 +2,26 @@ package com.questforholygrail.game;
 
 import com.google.gson.Gson;
 import com.questforholygrail.game.UI.Display;
+import com.questforholygrail.game.UI.GamePanel;
 import com.questforholygrail.game.UI.MainGameWindow;
 import com.questforholygrail.game.UI.UserInput;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Objects;
+import javax.swing.JFrame;
 
 public class Main {
 
     private static Location[] locations;
     private static Sound sound = new Sound();
 
-
+    //Must run GUI from here!!
     public static void main(String[] args) throws IOException {
 
-        MainGameWindow mgw = new MainGameWindow(1100, 800);
 
         try(Reader reader = new InputStreamReader(
-            Objects.requireNonNull(Main.class.getClassLoader().getResourceAsStream("rooms.json")))) {
+                Objects.requireNonNull(Main.class.getClassLoader().getResourceAsStream("rooms.json")))) {
 
             Gson gson = new Gson();
             locations = gson.fromJson(reader, Location[].class);
@@ -30,7 +31,7 @@ public class Main {
         Location currentLocation = locations[0];
 
         sound.soundLoad();
-
+        MainGameWindow mgw = new MainGameWindow(968, 576);
 
         // create a new player with starting values
         Player player = new Player(100, 10, currentLocation, false);
