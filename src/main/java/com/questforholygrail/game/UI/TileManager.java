@@ -19,7 +19,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[25];
+        tile = new Tile[30];
         mapTileNumber = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
 
         getTileImage();
@@ -202,6 +202,30 @@ public class TileManager {
                     ImageIO.read(Objects.requireNonNull(
                             getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/grayStoneRightSideWall.png"))));
             tile[23].setCollision(true);
+
+            tile[24] = new Tile();
+            tile[24].setImage(
+                    ImageIO.read(Objects.requireNonNull(
+                            getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/doorTopLeftWithTile.png"))));
+            tile[24].setCollision(false);
+
+            tile[25] = new Tile();
+            tile[25].setImage(
+                    ImageIO.read(Objects.requireNonNull(
+                            getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/doorTopRightWithTile.png"))));
+            tile[25].setCollision(false);
+
+            tile[26] = new Tile();
+            tile[26].setImage(
+                    ImageIO.read(Objects.requireNonNull(
+                            getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/doorBottomLeft.png"))));
+            tile[26].setCollision(false);
+
+            tile[27] = new Tile();
+            tile[27].setImage(
+                    ImageIO.read(Objects.requireNonNull(
+                            getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/doorBottomRight.png"))));
+            tile[27].setCollision(false);
 
         } catch (IOException e) {
             e.printStackTrace();

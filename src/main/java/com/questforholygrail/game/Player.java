@@ -66,8 +66,8 @@ public class Player extends Entity{
     }
 
     public void setDefaultValues(){
-        setWorldX(gp.getTileSize()* 8 );
-        setWorldY(gp.getTileSize() * 11);
+        setWorldX(gp.getTileSize()*  45);
+        setWorldY(gp.getTileSize() * 15);
         setSpeed(4);
         setDirection("down");
         setSpriteNum(1);
