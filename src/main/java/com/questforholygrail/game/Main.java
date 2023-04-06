@@ -74,6 +74,7 @@ public class Main {
 
                     playGame();
 
+                    Commands.playRiddle();
                     // displays room description
                     Commands.roomDescription();
 
@@ -112,7 +113,7 @@ public class Main {
 
     public static void playGame() {
         // Riddle game
-        Commands.playRiddle();
+
 
         Commands.battle();
     }

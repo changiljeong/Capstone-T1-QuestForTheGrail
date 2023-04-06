@@ -114,6 +114,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
     Commands.look();
     Commands.talk();
+    Commands.playRiddle();
     g2.dispose();
 
 

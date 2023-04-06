@@ -20,8 +20,10 @@ public class DialogScreen {
   }
 
 
-  public void drawDialogBox(){
+  public void drawDialogBox(boolean longDialog){
 
+    float textSize = (longDialog ? 22F:24F);
+    int spaceSize = (longDialog ? 30:40);
     //Window
     int x = gp.getTileSize()*2;
     int y = gp.getTileSize()/2;
@@ -30,13 +32,13 @@ public class DialogScreen {
 
     drawSubWindow(x, y, width, height);
 
-    g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 24F));
+    g2.setFont(g2.getFont().deriveFont(Font.PLAIN, textSize));
     x+=gp.getTileSize();
     y+=gp.getTileSize();
 
     for(String line: currentDialog.split("\n")){
       g2.drawString(line,x,y);
-      y+=40;
+      y+=spaceSize;
     }
 
 

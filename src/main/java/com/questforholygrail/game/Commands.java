@@ -373,41 +373,51 @@ public class Commands {
 
   public static void playRiddle() {
     int guessCounter = 0;
-
-    while (currentLocation.isPuzzle()) {
-      Display.printScreenLn("You're trapped!");
-      //prints riddle
-      Display.printScreenLn(currentLocation.getRiddles().get("question"));
-      //increments guessCounter
-      guessCounter++;
-      //gets user input
-      String guess = UserInput.getInput().toLowerCase();
-      if (guessCounter == 3 && !guess.equalsIgnoreCase("fire")) {
-        //if player is out of guesses, starts player at beginning
-        for (Location location : Main.getLocations()) {
-          if (location.getName().equalsIgnoreCase("The Gate of Trials")) {
-            Display.printScreenLn("Sorry! You lose!");
-            currentLocation = location;
-            player.setLocation(currentLocation);
-            break;
-          }
-        }
-        showStatus();
-        break;
-      } else if (!guess.equalsIgnoreCase("fire")) {
-        //prints feedback to player
-        Display.printScreenLn(
-            currentLocation.getRiddles().get("incorrect") + " You guessed "
-                + guessCounter + " time(s) wrong out of 3 tries.");
-        Display.printScreenLn("--------------------------------------");
-      } else {
-        //removes puzzle from room if guess was correct
-        Display.printScreenLn("You've solved the riddle!");
-        showStatus();
-        currentLocation.setPuzzle(false);
-        break;
-      }
+    if(currentLocation == null || !currentLocation.isPuzzle()) {
+      return;
     }
+    if(!Main.isGui()){
+      while (currentLocation.isPuzzle()) {
+        Display.printScreenLn("You're trapped!");
+        //prints riddle
+        Display.printScreenLn(currentLocation.getRiddles().get("question"));
+        //increments guessCounter
+        guessCounter++;
+        //gets user input
+        String guess = UserInput.getInput().toLowerCase();
+        if (guessCounter == 3 && !guess.equalsIgnoreCase("fire")) {
+          //if player is out of guesses, starts player at beginning
+          for (Location location : Main.getLocations()) {
+            if (location.getName().equalsIgnoreCase("The Gate of Trials")) {
+              Display.printScreenLn("Sorry! You lose!");
+              currentLocation = location;
+              player.setLocation(currentLocation);
+              break;
+            }
+          }
+          showStatus();
+          break;
+        } else if (!guess.equalsIgnoreCase("fire")) {
+          //prints feedback to player
+          Display.printScreenLn(
+              currentLocation.getRiddles().get("incorrect") + " You guessed "
+                  + guessCounter + " time(s) wrong out of 3 tries.");
+          Display.printScreenLn("--------------------------------------");
+        } else {
+          //removes puzzle from room if guess was correct
+          Display.printScreenLn("You've solved the riddle!");
+          showStatus();
+          currentLocation.setPuzzle(false);
+          break;
+        }
+      }
+    } else {
+      Main.getGameWindow().getGame().getKeyHandler().setExamine(false);
+      Main.getGameWindow().getGame().getKeyHandler().setTalk(false);
+      Main.getGameWindow().getGame().getDialog().setCurrentDialog("You're trapped!\n" + currentLocation.getRiddles().get("question"));
+      Main.getGameWindow().getGame().getDialog().drawDialogBox(true);
+    }
+
   }
 
   public static void look(){
@@ -416,14 +426,14 @@ public class Commands {
       if(checkPlayerInRangeOfNpc()){
         NPC npc = currentLocation.getNpc().get(0);
         Main.getGameWindow().getGame().getDialog().setCurrentDialog(npc.getName() + "\n" + npc.getAction().get("look"));
-        Main.getGameWindow().getGame().getDialog().drawDialogBox();
+        Main.getGameWindow().getGame().getDialog().drawDialogBox(false);
       } else if (checkPlayerInRangeOfObject()) {
         Item item = currentLocation.getItems().get(0);
         Main.getGameWindow().getGame().getDialog().setCurrentDialog(item.getName() + "\n" + item.getAction().get("look"));
-        Main.getGameWindow().getGame().getDialog().drawDialogBox();
+        Main.getGameWindow().getGame().getDialog().drawDialogBox(false);
       } else {
         Main.getGameWindow().getGame().getDialog().setCurrentDialog(currentLocation.getName() + "\n" + currentLocation.getDescription());
-        Main.getGameWindow().getGame().getDialog().drawDialogBox();
+        Main.getGameWindow().getGame().getDialog().drawDialogBox(false);
       }
     }
   }
@@ -432,7 +442,7 @@ public class Commands {
     if(Main.isGui() && checkPlayerInRangeOfNpc() && Main.getGameWindow().getGame().getKeyHandler().isTalk()){
       NPC npc = currentLocation.getNpc().get(0);
       Main.getGameWindow().getGame().getDialog().setCurrentDialog(npc.getName() + "\n" + npc.getAction().get("talk"));
-      Main.getGameWindow().getGame().getDialog().drawDialogBox();
+      Main.getGameWindow().getGame().getDialog().drawDialogBox(false);
     }
   }
 

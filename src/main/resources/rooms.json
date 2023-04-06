@@ -243,7 +243,7 @@
     }],
     "npc": [],
     "riddles": {
-      "question": "I am not alive, but I grow; I don't have lungs, \nbut I need air; I don't have a mouth, \nbut water kills me. What am I? ",
+      "question": "I am not alive, but I grow; \nI don't have lungs, but I need air; \nI don't have a mouth, but water kills me. \nWhat am I? ",
       "answer" : "Fire",
       "correct" : "Great job! You can go to different direction(s) now.",
       "incorrect" : "Hmm. That's not the correct answer. Let's try again!"
