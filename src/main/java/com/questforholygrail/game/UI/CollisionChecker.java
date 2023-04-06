@@ -73,7 +73,7 @@ public class CollisionChecker {
         gp.getObj()[i].getSolidArea().setLocation((int)(gp.getObj()[i].getWorldX() + gp.getObj()[i].getSolidArea().getX()), (int)(gp.getObj()[i].getWorldY() + gp.getObj()[i].getSolidArea().getY()));
         switch(entity.getDirection()){
           case "up":
-            entity.getSolidArea().setLocation((int)(entity.getSolidArea().getY() - entity.getSpeed()), (int)entity.getSolidArea().getX());
+            entity.getSolidArea().setLocation((int)entity.getSolidArea().getX(), (int)(entity.getSolidArea().getY() - entity.getSpeed()));
             if(entity.getSolidArea().intersects(gp.getObj()[i].getSolidArea())){
               if(gp.getObj()[i].isCollision() == true)
                 entity.setCollisionOn(true);
@@ -82,7 +82,7 @@ public class CollisionChecker {
             }
             break;
           case "down":
-            entity.getSolidArea().setLocation((int)(entity.getSolidArea().getY() + entity.getSpeed()), (int)entity.getSolidArea().getX());
+            entity.getSolidArea().setLocation((int)entity.getSolidArea().getX(), (int)(entity.getSolidArea().getY() + entity.getSpeed()));
             if(entity.getSolidArea().intersects(gp.getObj()[i].getSolidArea())){
               if(gp.getObj()[i].isCollision() == true)
                 entity.setCollisionOn(true);

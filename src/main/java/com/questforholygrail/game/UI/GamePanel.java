@@ -1,11 +1,12 @@
 package com.questforholygrail.game.UI;
 
+
+import com.questforholygrail.game.Item;
 import com.questforholygrail.game.Commands;
 import com.questforholygrail.game.Location;
 import com.questforholygrail.game.Main;
 import com.questforholygrail.game.NPC;
 import com.questforholygrail.game.Player;
-import com.questforholygrail.game.object.SuperObject;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -47,7 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
 
   private Player player;
 
-  private transient SuperObject[] obj = new SuperObject[4];
+  private transient Item[] obj = new Item[4];
 
   public GamePanel(){
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -203,7 +204,7 @@ public class GamePanel extends JPanel implements Runnable {
     return aSetter;
   }
 
-  public SuperObject[] getObj() {
+  public Item[] getObj() {
     return obj;
   }
   public KeyHandler getKeyHandler() {

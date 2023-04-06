@@ -1,11 +1,15 @@
 [
     {
       "name": "Compass",
+      "action": {
+        "get": "Navigate to the nearest objective"
+      },
       "description": "A navigational tool used to find the way through the maze.",
       "location": "",
       "type": "",
       "use": "",
-      "modifier": ""
+      "modifier": "",
+      "filePath": "/objects/compass.png"
     },
     {
       "name": "Life Token",
@@ -13,8 +17,11 @@
       "location": "",
       "type": "lives",
       "use": "regain an extra life",
-      "action": "You obtain a life and feel relief",
-      "modifier": ""
+      "action": {
+        "get": "Restore 1 health point"
+      },
+      "modifier": "",
+      "filePath": "/objects/life_token.png"
     },
     {
       "name": "Battle Axe",
@@ -22,8 +29,11 @@
       "location": "Armory Room",
       "type": "weapon",
       "use": "attack",
-      "action": "You strike the enemy and feel the power",
-      "modifier": ""
+      "action": {
+        "equip": "Increases attack damage by 10"
+      },
+      "modifier": "",
+      "filePath": "/objects/battle_axe.png"
     },
     {
       "name": "Magical Sword",
@@ -31,8 +41,11 @@
       "location": "Magical Sword Room",
       "type": "weapon",
       "use": "attack",
-      "action": "You strike the enemy and feel the power",
-      "modifier": ""
+      "action": {
+        "equip": "Grants magical abilities"
+      },
+      "modifier": "",
+      "filePath": "/objects/magical_sword.png"
     }
   ]
 

@@ -12,7 +12,8 @@
         "get": "You got a sword!",
         "equip": "You wield the sword, feeling prepared for battle.",
         "drop": "You dropped the sword to the floor."
-      }
+      },
+      "filePath": "/objects/magical_sword.png"
     }],
     "npc": [],
     "riddles": {},
@@ -87,7 +88,8 @@
         "look": "Use to unlock doors.",
         "get": "You got a key! Use it to unlock a door in this dungeon.",
         "drop": "You drop the key to the floor."
-      }
+      },
+      "filePath": "/objects/key.png"
     }],
     "npc": [
       {
@@ -123,7 +125,8 @@
         "get": "You got a potion!",
         "use": "You gained some health!",
         "drop": "You drop the potion to the floor."
-      }
+      },
+      "filePath": "/objects/potion.png"
     }],
     "npc": [{
       "name": "Fairy",
@@ -160,7 +163,8 @@
         "get": "You got a potion!",
         "use": "You gained some health!",
         "drop": "You drop the potion to the floor."
-      }
+      },
+      "filePath": "/objects/potion.png"
     }],
     "npc": [{
       "name": "Griffin",
@@ -213,7 +217,8 @@
         "look": "Use to unlock doors.",
         "get": "You got a key! Use it to unlock a door in this dungeon.",
         "drop": "You drop the key to the floor."
-      }
+      },
+      "filePath": "/objects/key.png"
     }],
     "npc": [],
     "riddles": {
@@ -243,7 +248,8 @@
         "get": "You got a potion!",
         "use": "You gained some health!",
         "drop": "You drop the potion to the floor."
-      }
+      },
+      "filePath": "/objects/potion.png"
     }],
     "npc": [{
       "name": "Banshee",
@@ -277,7 +283,8 @@
         "get": "You got a potion!",
         "use": "You gained some health!",
         "drop": "You drop the potion to the floor."
-      }
+      },
+      "filePath": "/objects/potion.png"
     }],
     "npc": [{
       "name": "Minotaur",
@@ -339,7 +346,8 @@
         "get": "You got a potion!",
         "use": "You gained some health!",
         "drop": "You drop the potion to the floor."
-      }
+      },
+      "filePath": "/objects/potion.png"
     }],
     "npc": [],
     "riddles": {},
@@ -362,7 +370,8 @@
       "action": {
         "look": "The ultimate treasure! Claim it now!",
         "get": "You got the Holy Grail! Congratulations!"
-      }
+      },
+      "filePath": "/objects/grail.png"
     }],
     "npc": [],
     "riddles": {},
