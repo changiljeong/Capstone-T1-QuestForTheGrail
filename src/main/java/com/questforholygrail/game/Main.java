@@ -1,15 +1,13 @@
 package com.questforholygrail.game;
 
 import com.google.gson.Gson;
-import com.questforholygrail.game.UI.Display;
-import com.questforholygrail.game.UI.GamePanel;
-import com.questforholygrail.game.UI.MainGameWindow;
-import com.questforholygrail.game.UI.UserInput;
+import com.questforholygrail.game.ui.Display;
+import com.questforholygrail.game.ui.MainGameWindow;
+import com.questforholygrail.game.ui.UserInput;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Objects;
-import javax.swing.JFrame;
 
 public class Main {
 

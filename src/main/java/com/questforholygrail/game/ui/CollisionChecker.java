@@ -1,8 +1,7 @@
-package com.questforholygrail.game.UI;
+package com.questforholygrail.game.ui;
 
 import com.questforholygrail.game.Commands;
 import com.questforholygrail.game.Entity;
-import com.questforholygrail.game.Location;
 import com.questforholygrail.game.NPC;
 
 public class CollisionChecker {

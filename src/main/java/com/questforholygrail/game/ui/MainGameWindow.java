@@ -1,11 +1,10 @@
-package com.questforholygrail.game.UI;
+package com.questforholygrail.game.ui;
 
 import com.google.gson.Gson;
 import com.questforholygrail.game.util.GameText;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.*;

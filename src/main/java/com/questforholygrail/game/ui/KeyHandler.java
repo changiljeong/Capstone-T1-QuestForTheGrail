@@ -1,4 +1,4 @@
-package com.questforholygrail.game.UI;
+package com.questforholygrail.game.ui;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

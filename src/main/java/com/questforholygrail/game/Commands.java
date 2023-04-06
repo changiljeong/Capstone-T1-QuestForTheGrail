@@ -1,7 +1,7 @@
 package com.questforholygrail.game;
 
-import com.questforholygrail.game.UI.Display;
-import com.questforholygrail.game.UI.UserInput;
+import com.questforholygrail.game.ui.Display;
+import com.questforholygrail.game.ui.UserInput;
 import java.util.List;
 import java.util.Map;
 
@@ -373,10 +373,10 @@ public class Commands {
 
   public static void playRiddle() {
     int guessCounter = 0;
-    if(currentLocation == null || !currentLocation.isPuzzle()) {
+    if (currentLocation == null) {
       return;
     }
-    if(!Main.isGui()){
+    if (!Main.isGui()) {
       while (currentLocation.isPuzzle()) {
         Display.printScreenLn("You're trapped!");
         //prints riddle
@@ -412,14 +412,42 @@ public class Commands {
         }
       }
     } else {
-      Main.getGameWindow().getGame().getKeyHandler().setExamine(false);
-      Main.getGameWindow().getGame().getKeyHandler().setTalk(false);
-      Main.getGameWindow().getGame().getDialog().setCurrentDialog("You're trapped!\n" + currentLocation.getRiddles().get("question"));
-      Main.getGameWindow().getGame().getDialog().drawDialogBox(true);
+
+      if (currentLocation.isPuzzle()) {
+        Main.getGameWindow().getGame().getKeyHandler().setExamine(false);
+        Main.getGameWindow().getGame().getKeyHandler().setTalk(false);
+        Main.getGameWindow().getGame().getDialog()
+            .setCurrentDialog("You're trapped!\n" + currentLocation.getRiddles().get("question"));
+        Main.getGameWindow().getGame().getDialog().drawDialogBox(true);
+        if (player.getWorldX() > currentLocation.getMaxX() * Main.getGameWindow().getGame()
+            .getTileSize()) {
+          player.setWorldX(
+              //prevents player from leaving library
+              currentLocation.getMaxX() * Main.getGameWindow().getGame().getTileSize());
+        } if (player.getWorldY() - 27 * Main.getGameWindow().getGame().getTileSize() <= Main.getGameWindow().getGame().getTileSize() &&
+             (player.getWorldX() - 23 * Main.getGameWindow().getGame().getTileSize() <= Main.getGameWindow().getGame().getTileSize() ||
+              player.getWorldX() + 23 * Main.getGameWindow().getGame().getTileSize() <= Main.getGameWindow().getGame().getTileSize())) {
+
+          //ends puzzle
+          currentLocation.setPuzzle(false);
+
+          //drops reward
+          Main.getGameWindow().getGame().getObj()[5] = new Item(Main.getLocations()[7].getItems().get(0).getName(), Main.getLocations()[7].getItems().get(0).getFilePath());;
+          Main.getGameWindow().getGame().getObj()[5].setWorldX(25 * Main.getGameWindow().getGame().getTileSize());
+          Main.getGameWindow().getGame().getObj()[5].setWorldY(34 * Main.getGameWindow().getGame().getTileSize());
+          Main.getLocations()[7].getItems().get(0).setWorldX(25 * Main.getGameWindow().getGame().getTileSize());
+          Main.getLocations()[7].getItems().get(0).setWorldY(34 * Main.getGameWindow().getGame().getTileSize());
+        }
+      }
+      if (player.getWorldY() - 27 * Main.getGameWindow().getGame().getTileSize() <= Main.getGameWindow().getGame().getTileSize() &&
+          (player.getWorldX() - 23 * Main.getGameWindow().getGame().getTileSize() <= Main.getGameWindow().getGame().getTileSize() ||
+              player.getWorldX() + 23 * Main.getGameWindow().getGame().getTileSize() <= Main.getGameWindow().getGame().getTileSize())) {
+        Main.getGameWindow().getGame().getDialog()
+            .setCurrentDialog(currentLocation.getRiddles().get("correct"));
+        Main.getGameWindow().getGame().getDialog().drawDialogBox(false);
+      }
     }
-
   }
-
   public static void look(){
 
     if(Main.isGui() && Main.getGameWindow().getGame().getKeyHandler().isExamine()){

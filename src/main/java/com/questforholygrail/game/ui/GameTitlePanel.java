@@ -1,8 +1,6 @@
-package com.questforholygrail.game.UI;
+package com.questforholygrail.game.ui;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.plaf.BorderUIResource;
 import java.awt.*;
 
 public class GameTitlePanel extends JPanel {

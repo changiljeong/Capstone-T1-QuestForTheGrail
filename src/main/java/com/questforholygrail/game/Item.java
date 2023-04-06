@@ -1,5 +1,5 @@
 package com.questforholygrail.game;
-import com.questforholygrail.game.UI.GamePanel;
+import com.questforholygrail.game.ui.GamePanel;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;

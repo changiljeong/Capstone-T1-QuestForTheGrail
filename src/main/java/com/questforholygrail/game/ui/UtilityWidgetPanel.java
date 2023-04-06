@@ -1,8 +1,7 @@
-package com.questforholygrail.game.UI;
+package com.questforholygrail.game.ui;
 
 import java.awt.Color;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class UtilityWidgetPanel extends JPanel {

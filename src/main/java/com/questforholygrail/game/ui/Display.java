@@ -1,6 +1,4 @@
-package com.questforholygrail.game.UI;
-
-import com.questforholygrail.game.Main;
+package com.questforholygrail.game.ui;
 
 public class Display {
 

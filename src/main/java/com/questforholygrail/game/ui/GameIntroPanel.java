@@ -1,11 +1,10 @@
-package com.questforholygrail.game.UI;
+package com.questforholygrail.game.ui;
 
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 

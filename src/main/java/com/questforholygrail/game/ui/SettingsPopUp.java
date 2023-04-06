@@ -1,13 +1,10 @@
-package com.questforholygrail.game.UI;
+package com.questforholygrail.game.ui;
 
-import com.questforholygrail.game.Main;
 import com.questforholygrail.game.Sound;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Set;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;

@@ -1,11 +1,10 @@
-package com.questforholygrail.game.UI;
+package com.questforholygrail.game.ui;
 
 
 import com.questforholygrail.game.Item;
 import com.questforholygrail.game.Commands;
 import com.questforholygrail.game.Location;
 import com.questforholygrail.game.Main;
-import com.questforholygrail.game.NPC;
 import com.questforholygrail.game.Player;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -115,6 +114,7 @@ public class GamePanel extends JPanel implements Runnable {
     Commands.look();
     Commands.talk();
     Commands.playRiddle();
+    providePlayerActionMessage();
     g2.dispose();
 
 
@@ -152,6 +152,18 @@ public class GamePanel extends JPanel implements Runnable {
 
 
 
+    }
+  }
+
+  private void providePlayerActionMessage(){
+    if(player.getPickedUpItem() != null && player.getPickedUpItemDisplayCounter() < 40) {
+      Main.getGameWindow().getGame().getDialog()
+          .setCurrentDialog(player.getPickedUpItem().getAction().get("get"));
+      Main.getGameWindow().getGame().getDialog().drawDialogBox(false);
+      player.setPickedUpItemDisplayCounter(player.getPickedUpItemDisplayCounter() + 1);
+    } else {
+      player.setPickedUpItem(null);
+      player.setPickedUpItemDisplayCounter(0);
     }
   }
 

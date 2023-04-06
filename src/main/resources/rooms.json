@@ -88,7 +88,7 @@
       "name": "Key",
       "action": {
         "look": "Use to unlock doors.",
-        "get": "You got a key! Use it to unlock a door in this dungeon.",
+        "get": "You got a key! \nUse it to unlock a door in this dungeon.",
         "drop": "You drop the key to the floor."
       },
       "filePath": "/objects/key.png"
@@ -236,7 +236,7 @@
       "name": "Key",
       "action": {
         "look": "Use to unlock doors.",
-        "get": "You got a key! Use it to unlock a door in this dungeon.",
+        "get": "You got a key! \nUse it to unlock a door in this dungeon.",
         "drop": "You drop the key to the floor."
       },
       "filePath": "/objects/key.png"
@@ -245,7 +245,7 @@
     "riddles": {
       "question": "I am not alive, but I grow; \nI don't have lungs, but I need air; \nI don't have a mouth, but water kills me. \nWhat am I? ",
       "answer" : "Fire",
-      "correct" : "Great job! You can go to different direction(s) now.",
+      "correct" : "Great job! \nYou can enter and leave the library \nas you please.",
       "incorrect" : "Hmm. That's not the correct answer. Let's try again!"
     },
     "puzzle": true,

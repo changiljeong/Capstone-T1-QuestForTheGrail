@@ -1,6 +1,5 @@
-package com.questforholygrail.game.UI;
+package com.questforholygrail.game.ui;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class HelpPopUp extends JOptionPane {

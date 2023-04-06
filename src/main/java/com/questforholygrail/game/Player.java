@@ -1,7 +1,7 @@
 package com.questforholygrail.game;
 
-import com.questforholygrail.game.UI.GamePanel;
-import com.questforholygrail.game.UI.KeyHandler;
+import com.questforholygrail.game.ui.GamePanel;
+import com.questforholygrail.game.ui.KeyHandler;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -23,6 +23,8 @@ public class Player extends Entity{
     private List<BufferedImage> fightSpritesRight;
     private List<BufferedImage> fightSpritesLeft;
     private int fightSpriteNum;
+    private Item pickedUpItem;
+    private int pickedUpItemDisplayCounter;
     GamePanel gp;
     KeyHandler keyHandler;
 
@@ -158,8 +160,11 @@ public class Player extends Entity{
 
     public void pickUpObject(int i){
         if( i != 999){
-            inventory.add(gp.getObj()[i]);
-            Commands.getCurrentLocation().getItems().remove(0);
+            if(Commands.getCurrentLocation().getItems().size() > 0) {
+                inventory.add(Commands.getCurrentLocation().getItems().get(0));
+                pickedUpItem = Commands.getCurrentLocation().getItems().get(0);
+                Commands.getCurrentLocation().getItems().remove(0);
+            }
             gp.getObj()[i] = null;
         }
     }
@@ -283,6 +288,22 @@ public class Player extends Entity{
 
     public void setFighting(boolean fighting) {
         this.fighting = fighting;
+    }
+
+    public Item getPickedUpItem() {
+        return pickedUpItem;
+    }
+
+    public void setPickedUpItem(Item pickedUpItem) {
+        this.pickedUpItem = pickedUpItem;
+    }
+
+    public int getPickedUpItemDisplayCounter() {
+        return pickedUpItemDisplayCounter;
+    }
+
+    public void setPickedUpItemDisplayCounter(int pickedUpItemDisplayCounter) {
+        this.pickedUpItemDisplayCounter = pickedUpItemDisplayCounter;
     }
 
     //formats player info string

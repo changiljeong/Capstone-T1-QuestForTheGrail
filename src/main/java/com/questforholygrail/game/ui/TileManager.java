@@ -1,6 +1,4 @@
-package com.questforholygrail.game.UI;
-
-import com.questforholygrail.game.UI.GamePanel;
+package com.questforholygrail.game.ui;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

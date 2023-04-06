@@ -1,5 +1,5 @@
 package com.questforholygrail.game;
-import com.questforholygrail.game.UI.Display;
+import com.questforholygrail.game.ui.Display;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.util.Objects;

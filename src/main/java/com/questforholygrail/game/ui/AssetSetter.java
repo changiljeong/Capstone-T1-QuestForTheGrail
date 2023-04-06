@@ -1,4 +1,4 @@
-package com.questforholygrail.game.UI;
+package com.questforholygrail.game.ui;
 
 
 import com.questforholygrail.game.Item;
@@ -48,11 +48,6 @@ public class AssetSetter {
     location[5].getItems().get(0).setWorldX(95 * gp.getTileSize());
     location[5].getItems().get(0).setWorldY(37 * gp.getTileSize());
 
-    gp.getObj()[5] = new Item(location[7].getItems().get(0).getName(), location[7].getItems().get(0).getFilePath());;
-    gp.getObj()[5].setWorldX(25 * gp.getTileSize());
-    gp.getObj()[5].setWorldY(34 * gp.getTileSize());
-    location[7].getItems().get(0).setWorldX(25 * gp.getTileSize());
-    location[7].getItems().get(0).setWorldY(34 * gp.getTileSize());
 
     gp.getObj()[6] = new Item(location[8].getItems().get(0).getName(), location[8].getItems().get(0).getFilePath());;
     gp.getObj()[6].setWorldX(42 * gp.getTileSize());
