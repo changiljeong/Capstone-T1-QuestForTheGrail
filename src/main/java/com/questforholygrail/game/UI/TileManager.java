@@ -227,6 +227,12 @@ public class TileManager {
                             getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/doorBottomRight.png"))));
             tile[27].setCollision(false);
 
+            tile[28] = new Tile();
+            tile[28].setImage(
+                    ImageIO.read(Objects.requireNonNull(
+                            getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/torchOnWall.png"))));
+            tile[28].setCollision(true);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
