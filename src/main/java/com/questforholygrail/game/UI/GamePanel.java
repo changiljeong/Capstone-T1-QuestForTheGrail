@@ -26,6 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
   private final int maxScreenRow = 12;
   private final int screenWidth = tileSize * maxScreenCol;
   private final int screenHeight = tileSize * maxScreenRow;
+  private DialogScreen dialog;
 
 
   //World setting
@@ -48,7 +49,7 @@ public class GamePanel extends JPanel implements Runnable {
 
   private Player player;
 
-  private transient Item[] obj = new Item[4];
+  private transient Item[] obj = new Item[10];
 
   public GamePanel(){
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -57,15 +58,17 @@ public class GamePanel extends JPanel implements Runnable {
     this.addKeyListener(keyHandler);
     this.setFocusable(true);
     player = new Player(this, keyHandler);
+    player.setHealth(100);
+    player.setAttack(5);
 
   }
 
   public void setupGame(){
+    AssetSetter.setNPC(this);
     aSetter.setObject();
   }
 
   public void startGameThread(){
-    AssetSetter.setNPC(this);
     gameThread = new Thread(this);
     gameThread.start();
   }
@@ -83,17 +86,12 @@ public class GamePanel extends JPanel implements Runnable {
   public void paintComponent(Graphics g){
      super.paintComponent(g);
      Graphics2D g2 = (Graphics2D) g;
-
+     dialog = new DialogScreen(this, g2);
 
      tileManager.draw(g2);
 
 
-    //handles NPCs
-    if(Commands.getCurrentLocation() != null && Commands.getCurrentLocation().getNpc().size() > 0){
-      for (NPC character : Commands.getCurrentLocation().getNpc()){
-        character.draw(g2, this);
-      }
-    }
+
     //Object draw
     for(int i=0; i<getObj().length; i++){
       if(getObj()[i] != null){
@@ -102,7 +100,22 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
      player.draw(g2);
-     g2.dispose();
+
+    //handles NPCs
+
+
+    if(Commands.getCurrentLocation() != null && Commands.getCurrentLocation().getNpc().size() > 0){
+      if (Commands.getCurrentLocation().getNpc().get(0).isDefeated()){
+        Commands.getCurrentLocation().getNpc().remove(0);
+      } else {
+        Commands.getCurrentLocation().getNpc().get(0).draw(g2, this);
+      }
+
+    }
+    Commands.look();
+    Commands.talk();
+    g2.dispose();
+
 
   }
 
@@ -118,6 +131,7 @@ public class GamePanel extends JPanel implements Runnable {
       updateLocation();
       update();
       repaint();
+      Main.playGame();
 
       try {
         double remainingTime = nextDrawTime - System.nanoTime();
@@ -220,5 +234,13 @@ public class GamePanel extends JPanel implements Runnable {
 
   public void setcChecker(CollisionChecker cChecker) {
     this.cChecker = cChecker;
+  }
+
+  public DialogScreen getDialog() {
+    return dialog;
+  }
+
+  public void setDialog(DialogScreen dialog) {
+    this.dialog = dialog;
   }
 }

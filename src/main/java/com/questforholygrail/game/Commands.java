@@ -95,14 +95,14 @@ public class Commands {
 
                         String nextLocationName = directions.get(noun);
                         for (Location location : Main.getLocations()) {
-                            if (location.getName().equals(nextLocationName)) {
+                            if (location.getName().equalsIgnoreCase(nextLocationName)) {
                                 //if current location is locked, checks player's inventory for key
                                 if (location.isLocked()) {
                                     List<Item> inventory = player.getInventory();
                                     boolean hasKey = false;
                                     for (Item item : inventory) {
                                         //if key, player unlocks the door and removes key from inventory
-                                        if (item.getName().equals("key")) {
+                                        if (item.getName().equalsIgnoreCase("key")) {
                                             hasKey = true;
                                             Display.printScreenLn("The door unlocked!");
                                             inventory.remove(item);
@@ -217,25 +217,25 @@ public class Commands {
 
             case "talk":
                 // handle talk command
-                List<NPC> npc = currentLocation.getNpc();
-                //if no noun provided, prompts user for noun
-                if (noun.equals("")) {
-                    Display.printScreenLn("Talk to who?");
-                } else {
-                    boolean npcFound = false;
-                    //checks room for NPC with name matching noun
-                    for (NPC element : npc) {
-                        if (element.getName().equalsIgnoreCase(noun)) {
-                            npcFound = true;
-                            //if found, NPC talks
-                            Display.printScreenLn(element.getAction().get("talk"));
-                        }
-                    }
-                    //if not found, provides feedback to player
-                    if (!npcFound) {
-                        Display.printScreenLn("Who is " + noun + "?");
-                    }
+              List<NPC> npc = currentLocation.getNpc();
+              //if no noun provided, prompts user for noun
+              if (noun.equals("")) {
+                Display.printScreenLn("Talk to who?");
+              } else {
+                boolean npcFound = false;
+                //checks room for NPC with name matching noun
+                for (NPC element : npc) {
+                  if (element.getName().equalsIgnoreCase(noun)) {
+                    npcFound = true;
+                    //if found, NPC talks
+                    Display.printScreenLn(element.getAction().get("talk"));
+                  }
                 }
+                //if not found, provides feedback to player
+                if (!npcFound) {
+                  Display.printScreenLn("Who is " + noun + "?");
+                }
+              }
                 break;
 
 
@@ -319,9 +319,7 @@ public class Commands {
   public static void battle() {
     boolean won = false;
 
-    while (currentLocation.isBattle() && (!Main.isGui() || checkPlayerInRange())) {
-      System.out.println("gui:" + !Main.isGui());
-      System.out.println("range:" + checkPlayerInRange());
+    while (currentLocation.isBattle() && !Main.isGui()) {
       List<NPC> npcList1 = currentLocation.getNpc();
       List<Item> myInventory3 = player.getInventory();
 
@@ -340,10 +338,10 @@ public class Commands {
           Display.printScreenLn("You're being attacked!");
           //takes user input
           String input = UserInput.getInput().toLowerCase();
-          if (input.equals("attack")) {
+          if (input.equalsIgnoreCase("attack")) {
             won = fight();
 
-          } else if (input.equals("heal")) {
+          } else if (input.equalsIgnoreCase("heal")) {
             boolean potionFound = heal();
             if (!potionFound) {
               break;
@@ -353,19 +351,22 @@ public class Commands {
             Display.printScreenLn("You have to attack!");
             Display.printScreenLn("--------------------------------------");
           }
+        } else {
+          break;
         }
-        if (Main.getGameWindow().getGame().getKeyHandler().isHeal()) {
-          heal();
-          Main.getGameWindow().getGame().getKeyHandler().setHeal(false);
-        } else if (Main.getGameWindow().getGame().getKeyHandler().isAttack()) {
-          won = fight();
-          Main.getGameWindow().getGame().getKeyHandler().setAttack(false);
-        }
-
       }
     }
-    if (won) {
-      currentLocation.getNpc().remove(0);
+    if(currentLocation.isBattle() && !checkPlayerInRangeOfNpc()) {
+      player.setFighting(false);
+      currentLocation.getNpc().get(0).setFighting(false);
+    } else if (currentLocation.isBattle() && Main.getGameWindow().getGame().getKeyHandler().isHeal()) {
+      heal();
+      Main.getGameWindow().getGame().getKeyHandler().setHeal(false);
+    } else if (currentLocation.isBattle() &&  Main.getGameWindow().getGame().getKeyHandler().isAttack()) {
+      player.setFighting(true);
+      currentLocation.getNpc().get(0).setFighting(true);
+      won = fight();
+      Main.getGameWindow().getGame().getKeyHandler().setAttack(false);
     }
   }
 
@@ -381,10 +382,10 @@ public class Commands {
       guessCounter++;
       //gets user input
       String guess = UserInput.getInput().toLowerCase();
-      if (guessCounter == 3 && !guess.equals("fire")) {
+      if (guessCounter == 3 && !guess.equalsIgnoreCase("fire")) {
         //if player is out of guesses, starts player at beginning
         for (Location location : Main.getLocations()) {
-          if (location.getName().equals("The Gate of Trials")) {
+          if (location.getName().equalsIgnoreCase("The Gate of Trials")) {
             Display.printScreenLn("Sorry! You lose!");
             currentLocation = location;
             player.setLocation(currentLocation);
@@ -393,7 +394,7 @@ public class Commands {
         }
         showStatus();
         break;
-      } else if (!guess.equals("fire")) {
+      } else if (!guess.equalsIgnoreCase("fire")) {
         //prints feedback to player
         Display.printScreenLn(
             currentLocation.getRiddles().get("incorrect") + " You guessed "
@@ -406,6 +407,32 @@ public class Commands {
         currentLocation.setPuzzle(false);
         break;
       }
+    }
+  }
+
+  public static void look(){
+
+    if(Main.isGui() && Main.getGameWindow().getGame().getKeyHandler().isExamine()){
+      if(checkPlayerInRangeOfNpc()){
+        NPC npc = currentLocation.getNpc().get(0);
+        Main.getGameWindow().getGame().getDialog().setCurrentDialog(npc.getName() + "\n" + npc.getAction().get("look"));
+        Main.getGameWindow().getGame().getDialog().drawDialogBox();
+      } else if (checkPlayerInRangeOfObject()) {
+        Item item = currentLocation.getItems().get(0);
+        Main.getGameWindow().getGame().getDialog().setCurrentDialog(item.getName() + "\n" + item.getAction().get("look"));
+        Main.getGameWindow().getGame().getDialog().drawDialogBox();
+      } else {
+        Main.getGameWindow().getGame().getDialog().setCurrentDialog(currentLocation.getName() + "\n" + currentLocation.getDescription());
+        Main.getGameWindow().getGame().getDialog().drawDialogBox();
+      }
+    }
+  }
+
+  public static void talk(){
+    if(Main.isGui() && checkPlayerInRangeOfNpc() && Main.getGameWindow().getGame().getKeyHandler().isTalk()){
+      NPC npc = currentLocation.getNpc().get(0);
+      Main.getGameWindow().getGame().getDialog().setCurrentDialog(npc.getName() + "\n" + npc.getAction().get("talk"));
+      Main.getGameWindow().getGame().getDialog().drawDialogBox();
     }
   }
 
@@ -434,6 +461,9 @@ public class Commands {
     Display.printScreenLn("You attack the enemy and did " + playerRandomAttack + " damage!");
     if (enemyHealth <= 0) {
       //if enemy defeated, applies health changes to player
+      currentLocation.getNpc().get(0).setFighting(false);
+      currentLocation.getNpc().get(0).setFainting(true);
+      player.setFighting(false);
       //removes npc from room
       player.setHealth(playerHealth);
       showStatus();
@@ -448,9 +478,11 @@ public class Commands {
       Display.printScreenLn("The enemy attacked you and did " + npcRandomAttack + " damage!");
       Display.printScreenLn("--------------------------------------");
       if (playerHealth <= 0) {
+        currentLocation.getNpc().get(0).setFighting(false);
+        player.setFighting(false);
         //if player defeated, restarts player at beginning of game with full health
         for (Location location : Main.getLocations()) {
-          if (location.getName().equals("The Gate of Trials")) {
+          if (location.getName().equalsIgnoreCase("The Gate of Trials")) {
             Display.printScreenLn("You lost");
             currentLocation = location;
             player.setHealth(100);
@@ -506,11 +538,29 @@ public class Commands {
     Display.printScreenLn("--------------------------------------");
   }
 
-  private static boolean checkPlayerInRange() {
+  private static boolean checkPlayerInRangeOfObject() {
+    player = Main.getGameWindow().getGame().getPlayer();
+    if (currentLocation.getItems().size() > 0) {
+      Item item = currentLocation.getItems().get(0);
+      int range = Main.getGameWindow().getGame().getTileSize() * 2;
+      return (player.getWorldX() <= (item.getWorldX() + range) && player.getWorldX() >= (
+          item.getWorldX() - range)) &&
+          (player.getWorldY() <= (item.getWorldY() + range) && player.getWorldY() >= (
+              item.getWorldY() - range));
+    }
+    return false;
+  }
+
+  private static boolean checkPlayerInRangeOfNpc() {
     player = Main.getGameWindow().getGame().getPlayer();
     if (currentLocation.getNpc().size() > 0) {
       NPC npc = currentLocation.getNpc().get(0);
-      int range = Main.getGameWindow().getGame().getTileSize();
+      int range;
+      if (npc.getName().equalsIgnoreCase("Ancient Nasirax")){
+        range = Main.getGameWindow().getGame().getTileSize() * 4;
+      } else {
+        range = Main.getGameWindow().getGame().getTileSize() * 2;
+      }
       return (player.getWorldX() <= (npc.getWorldX() + range) && player.getWorldX() >= (
           npc.getWorldX() - range)) &&
           (player.getWorldY() <= (npc.getWorldY() + range) && player.getWorldY() >= (

@@ -4,13 +4,13 @@
     "directions": {
       "north": "Temple of Trials"
     },
-    "description": "Complete the trials that lie ahead, for then you will find what you are looking for...",
+    "description": "Complete the trials that lie ahead, \nfor then you will find what you are \nlooking for...",
     "items": [{
-      "name": "sword",
+      "name": "Sword",
       "action": {
-        "look": "A melee weapon found in the Armory Room, used for attacking enemies.",
+        "look": "A melee weapon found in the Armory \nRoom, used for attacking enemies.",
         "get": "You got a sword!",
-        "equip": "You wield the sword, feeling prepared for battle.",
+        "equip": "You wield the sword, \nfeeling prepared for battle.",
         "drop": "You dropped the sword to the floor."
       },
       "filePath": "/objects/magical_sword.png"
@@ -21,9 +21,9 @@
     "locked": false,
     "battle": false,
      "maxY": 51,
-    "maxX": 33,
+    "maxX": 68,
     "minY": 41,
-    "minX": 18
+    "minX": 53
   },
   {
     "name": "Temple of Trials",
@@ -38,23 +38,25 @@
     "npc": [{
       "name": "Wizard",
       "action": {
-        "look": "A mysterious wizard... maybe he could help us!",
-        "talk": "If you're looking for the Holy Grail, you'll need to fight your way through... heehee!"
+        "look": "A mysterious wizard... \nmaybe he could help us!",
+        "talk": "If you're looking for the Holy Grail,\nyou'll need to fight your way through...\nheehee!"
       },
-      "idleFilepaths": ["/tiles/npc/wizard/left1.png","/tiles/npc/wizard/left2.png","/tiles/npc/wizard/right1.png","/tiles/npc/wizard/right2.png"],
-      "initialX": 25,
+      "filepaths": ["/tiles/npc/wizard/left1.png","/tiles/npc/wizard/left2.png","/tiles/npc/wizard/right1.png","/tiles/npc/wizard/right2.png"],
+      "initialX": 60,
       "initialY": 30,
       "imageScaleX": 1,
-      "imageScaleY": 1
+      "imageScaleY": 1,
+      "xOffset": 8,
+      "yOffset": 32
     }],
     "riddles": {},
     "puzzle": false,
     "locked": false,
     "battle": false,
     "maxY": 37,
-    "maxX": 33,
+    "maxX": 68,
     "minY": 26,
-    "minX": 18
+    "minX": 53
   },
   {
     "name": "Griffin's Grotto",
@@ -64,26 +66,26 @@
       "south": "Shrine",
       "east": "Griffin Room"
     },
-    "description": "This area belongs to the mythical Griffin, a mythological creature with the head and wings of an eagle and the body of a lion.",
+    "description": "This area belongs to the mythical Griffin, \na mythological creature with the head and \nwings of an eagle and the body of a lion.",
     "items": [],
     "npc": [],
     "riddles": {},
     "puzzle": false,
     "locked": false,
     "battle": false,
-    "maxY": 0,
-    "maxX": 0,
-    "minY": 0,
-    "minX": 0
+    "maxY": 41,
+    "maxX": 84,
+    "minY": 28,
+    "minX": 73
   },
   {
     "name": "Goblin's Lair",
     "directions": {
       "south": "Griffin's Grotto"
     },
-    "description": "You cleared the path.",
+    "description": "The walls look like they have survived \nseveral explosions.",
     "items": [{
-      "name": "key",
+      "name": "Key",
       "action": {
         "look": "Use to unlock doors.",
         "get": "You got a key! Use it to unlock a door in this dungeon.",
@@ -96,30 +98,38 @@
         "name": "Goblin",
         "health": 100,
         "attack": 15,
-        "idleFilepaths": ["/tiles/npc/wizard/left1.png","/tiles/npc/wizard/left2.png","/tiles/npc/wizard/right1.png","/tiles/npc/wizard/right2.png"],
-        "initialX": 1,
-        "initialY": 1,
-        "imageScaleX": 1,
-        "imageScaleY": 1
+        "action": {
+          "look": "...Is that a bomb?!",
+          "talk": "You try to reason with the goblin, \nbut they don't seem interested in talking."
+        },
+        "filepaths": ["/tiles/npc/goblin/left1.png","/tiles/npc/goblin/left2.png","/tiles/npc/goblin/right1.png","/tiles/npc/goblin/right2.png",
+          "/tiles/npc/goblin/faint040.png","/tiles/npc/goblin/faint041.png","/tiles/npc/goblin/faint042.png","/tiles/npc/goblin/faint043.png",
+          "/tiles/npc/goblin/fight024.png","/tiles/npc/goblin/fight025.png","/tiles/npc/goblin/fight026.png","/tiles/npc/goblin/fight027.png"],
+        "initialX": 77,
+        "initialY": 12,
+        "imageScaleX": 2,
+        "imageScaleY": 2,
+        "xOffset": 24,
+        "yOffset": 56
       }
     ],
     "riddles": {},
     "puzzle": false,
     "locked": false,
     "battle": true,
-    "maxY": 0,
-    "maxX": 0,
-    "minY": 0,
-    "minX": 0
+    "maxY": 18,
+    "maxX": 84,
+    "minY": 9,
+    "minX": 73
   },
   {
     "name": "Shrine",
     "directions": {
       "north":"Griffin's Grotto"
     },
-    "description": "The shrine of past Heroes that took the trials.",
+    "description": "The shrine of past Heroes who \ntook the trials.",
     "items": [{
-      "name": "potion",
+      "name": "Potion",
       "action": {
         "look": "Used to heal your wounds.",
         "get": "You got a potion!",
@@ -132,32 +142,34 @@
       "name": "Fairy",
       "action": {
         "look": "A magical fairy, see if they can help!",
-        "talk": "The Ancient Nasirax is one of the most powerful monsters in the land..."
+        "talk": "The Ancient Nasirax is one of the \nmost powerful monsters in the land..."
       },
-        "idleFilepaths": ["/tiles/npc/wizard/left1.png","/tiles/npc/wizard/left2.png","/tiles/npc/wizard/right1.png","/tiles/npc/wizard/right2.png"],
-        "initialX": 1,
-        "initialY": 1,
+        "filepaths": ["/tiles/npc/fairy/left1.png","/tiles/npc/fairy/left2.png","/tiles/npc/fairy/right1.png","/tiles/npc/fairy/right2.png"],
+        "initialX": 76,
+        "initialY": 50,
       "imageScaleX": 1,
-      "imageScaleY": 1
+      "imageScaleY": 1,
+      "xOffset": 8,
+      "yOffset": 8
 
     }],
     "riddles": {},
     "puzzle": false,
     "locked": false,
     "battle": false,
-    "maxY": 0,
-    "maxX": 0,
-    "minY": 0,
-    "minX": 0
+    "maxY": 57,
+    "maxX": 85,
+    "minY": 47,
+    "minX": 73
   },
   {
     "name": "Griffin Room",
     "directions": {
       "west": "Griffin's Grotto"
     },
-    "description": "You defeated the Griffin!",
+    "description": "It looks like the Griffin was making a nest \nhere.",
     "items": [{
-      "name": "potion",
+      "name": "Potion",
       "action": {
         "look": "Used to heal your wounds.",
         "get": "You got a potion!",
@@ -170,20 +182,29 @@
       "name": "Griffin",
       "health": 100,
       "attack": 20,
-      "idleFilepaths": ["/tiles/npc/griffin/left1.png","/tiles/npc/griffin/left2.png","/tiles/npc/griffin/right1.png","/tiles/npc/griffin/right2.png"],
-      "initialX": 1,
-      "initialY": 1,
-      "imageScaleX": 1,
-      "imageScaleY": 1
+      "action": {
+        "look": "A frightening mythological creature!",
+        "talk": "You don't know the Griffin language!"
+      },
+      "filepaths": ["/tiles/npc/griffin/left1.png","/tiles/npc/griffin/left2.png","/tiles/npc/griffin/right1.png","/tiles/npc/griffin/right2.png",
+        "/tiles/npc/griffin/faint165.png","/tiles/npc/griffin/faint166.png","/tiles/npc/griffin/faint167.png","/tiles/npc/griffin/faint168.png",
+        "/tiles/npc/griffin/faint169.png","/tiles/npc/griffin/faint170.png","/tiles/npc/griffin/fight121.png","/tiles/npc/griffin/fight122.png",
+        "/tiles/npc/griffin/fight123.png","/tiles/npc/griffin/fight124.png","/tiles/npc/griffin/fight125.png","/tiles/npc/griffin/fight126.png"],
+      "initialX": 93,
+      "initialY": 32,
+      "imageScaleX": 4,
+      "imageScaleY": 4,
+      "xOffset": 48,
+      "yOffset": 64
     }],
     "riddles": {},
     "puzzle": false,
     "locked": true,
     "battle": true,
-    "maxY": 0,
-    "maxX": 0,
-    "minY": 0,
-    "minX": 0
+    "maxY": 40,
+    "maxX": 100,
+    "minY": 31,
+    "minX": 89
   },
   {
     "name": "Minotaur's Cave",
@@ -193,17 +214,17 @@
       "west": "Library",
       "south": "Summoning Room"
     },
-    "description": "This area belongs to the mighty Minotaur, A powerful creature with the body of a man and the head of a bull.",
+    "description": "This area belongs to the mighty Minotaur, \na powerful creature with the body of a \nman and the head of a bull.",
     "items": [],
     "npc": [],
     "riddles": {},
     "puzzle": false,
     "locked": false,
     "battle": false,
-    "maxY": 38,
-    "maxX": 20,
-    "minY": 27,
-    "minX": 0
+    "maxY": 37,
+    "maxX": 51,
+    "minY": 28,
+    "minX": 35
   },
   {
     "name": "Library",
@@ -212,7 +233,7 @@
     },
     "description": "A big room with books",
     "items": [{
-      "name": "key",
+      "name": "Key",
       "action": {
         "look": "Use to unlock doors.",
         "get": "You got a key! Use it to unlock a door in this dungeon.",
@@ -222,7 +243,7 @@
     }],
     "npc": [],
     "riddles": {
-      "question": "I am not alive, but I grow; I don't have lungs, but I need air; I don't have a mouth, but water kills me. What am I? ",
+      "question": "I am not alive, but I grow; I don't have lungs, \nbut I need air; I don't have a mouth, \nbut water kills me. What am I? ",
       "answer" : "Fire",
       "correct" : "Great job! You can go to different direction(s) now.",
       "incorrect" : "Hmm. That's not the correct answer. Let's try again!"
@@ -230,19 +251,19 @@
     "puzzle": true,
     "locked": false,
     "battle": false,
-    "maxY": 0,
-    "maxX": 0,
-    "minY": 0,
-    "minX":0
+    "maxY": 38,
+    "maxX": 32,
+    "minY": 26,
+    "minX": 19
   },
   {
     "name": "Summoning Room",
     "directions": {
       "north": "Minotaur's Cave"
     },
-    "description": "You cleared the path.",
+    "description": "You can sense a dark magic in this room.",
     "items": [{
-      "name": "potion",
+      "name": "Potion",
       "action": {
         "look": "Used to heal your wounds.",
         "get": "You got a potion!",
@@ -255,29 +276,38 @@
       "name": "Banshee",
       "health": 100,
       "attack": 15,
-      "idleFilepaths": ["/tiles/npc/banshee/left1.png","/tiles/npc/banshee/left2.png","/tiles/npc/banshee/right1.png","/tiles/npc/banshee/right2.png"],
-      "initialX": 10,
-      "initialY": 46,
-      "imageScaleX": 1,
-      "imageScaleY": 1
+      "action": {
+        "look": "You're too afraid to look!",
+        "talk": "The banshee's wailing doesn't \nsound like any language you know!"
+      },
+      "filepaths": ["/tiles/npc/banshee/left1.png","/tiles/npc/banshee/left2.png","/tiles/npc/banshee/right1.png","/tiles/npc/banshee/right2.png",
+        "/tiles/npc/banshee/fight1.png","/tiles/npc/banshee/fight2.png","/tiles/npc/banshee/fight3.png", "/tiles/npc/banshee/fight4.png","/tiles/npc/banshee/fight5.png","/tiles/npc/banshee/fight6.png",
+        "/tiles/npc/banshee/fight7.png","/tiles/npc/banshee/fight8.png","/tiles/npc/banshee/fight9.png", "/tiles/npc/banshee/fight10.png","/tiles/npc/banshee/fight11.png","/tiles/npc/banshee/fight12.png",
+        "/tiles/npc/banshee/fight13.png","/tiles/npc/banshee/faint1.png","/tiles/npc/banshee/faint2.png", "/tiles/npc/banshee/faint3.png","/tiles/npc/banshee/faint4.png","/tiles/npc/banshee/faint5.png"],
+      "initialX": 39,
+      "initialY": 42,
+      "imageScaleX": 2,
+      "imageScaleY": 2,
+      "xOffset": 22,
+      "yOffset": 48
     }],
     "riddles": {},
     "puzzle": false,
     "locked": false,
     "battle": true,
     "maxY": 51,
-    "maxX": 20,
+    "maxX": 50,
     "minY": 41,
-    "minX": 0
+    "minX": 35
   },
   {
     "name": "Minotaur Room",
     "directions": {
       "south": "Minotaur's Cave"
     },
-    "description": "You defeated the Minotaur!",
+    "description": "The Minotaur sure keeps this room clean...",
     "items": [{
-      "name": "potion",
+      "name": "Potion",
       "action": {
         "look": "Used to heal your wounds.",
         "get": "You got a potion!",
@@ -290,20 +320,30 @@
       "name": "Minotaur",
       "health": 100,
       "attack": 17,
-      "idleFilepaths": ["/tiles/npc/minotaur/left1.png","/tiles/npc/minotaur/left2.png","/tiles/npc/minotaur/right1.png","/tiles/npc/minotaur/right2.png"],
-      "initialX": 10,
-      "initialY": 13,
+      "action": {
+        "look": "The Minotaur's blade shimmers \nin the dim lighting.",
+        "talk": "The Minotaur is ignoring you."
+      },
+      "filepaths": ["/tiles/npc/minotaur/left1.png","/tiles/npc/minotaur/left2.png","/tiles/npc/minotaur/right1.png","/tiles/npc/minotaur/right2.png",
+        "/tiles/npc/minotaur/faint099.png","/tiles/npc/minotaur/faint100.png","/tiles/npc/minotaur/faint101.png","/tiles/npc/minotaur/faint102.png",
+        "/tiles/npc/minotaur/faint103.png","/tiles/npc/minotaur/faint104.png","/tiles/npc/minotaur/fight033.png","/tiles/npc/minotaur/fight034.png",
+        "/tiles/npc/minotaur/fight035.png","/tiles/npc/minotaur/fight036.png","/tiles/npc/minotaur/fight037.png","/tiles/npc/minotaur/fight038.png",
+        "/tiles/npc/minotaur/fight039.png","/tiles/npc/minotaur/fight040.png","/tiles/npc/minotaur/fight041.png"],
+      "initialX": 40,
+      "initialY": 12,
       "imageScaleX": 3,
-      "imageScaleY": 3
+      "imageScaleY": 3,
+      "xOffset": 40,
+      "yOffset": 48
     }],
     "riddles": {},
     "puzzle": false,
     "locked": false,
     "battle": true,
-    "maxY": 18,
-    "maxX": 20,
-    "minY": 10,
-    "minX": 0
+    "maxY": 19,
+    "maxX": 50,
+    "minY": 9,
+    "minX": 36
   },
   {
     "name": "Nasirax Room",
@@ -311,26 +351,37 @@
       "south": "Ancient Path",
       "north": "Treasure Room"
     },
-    "description": "You defeated the Ancient Dragon!",
+    "description": "This space looks ancient and mystical.",
     "items": [],
     "npc": [{
       "name": "Ancient Nasirax",
       "health": 100,
       "attack": 25,
-      "idleFilepaths": ["/tiles/npc/dragon/left1.png","/tiles/npc/dragon/left2.png","/tiles/npc/dragon/right1.png","/tiles/npc/dragon/right2.png"],
-      "initialX": 20,
-      "initialY": 10,
+      "action": {
+        "look": "A fearsome ancient dragon!",
+        "talk": "You're too afraid to talk."
+      },
+      "filepaths": ["/tiles/npc/dragon/left1.png","/tiles/npc/dragon/left2.png","/tiles/npc/dragon/right1.png","/tiles/npc/dragon/right2.png",
+        "/tiles/npc/dragon/faint1.png","/tiles/npc/dragon/faint2.png","/tiles/npc/dragon/faint3.png","/tiles/npc/dragon/faint4.png",
+        "/tiles/npc/dragon/faint5.png","/tiles/npc/dragon/faint6.png","/tiles/npc/dragon/faint7.png","/tiles/npc/dragon/faint8.png",
+        "/tiles/npc/dragon/fight016.png","/tiles/npc/dragon/fight017.png","/tiles/npc/dragon/fight018.png","/tiles/npc/dragon/fight019.png",
+        "/tiles/npc/dragon/fight020.png","/tiles/npc/dragon/fight021.png","/tiles/npc/dragon/fight022.png","/tiles/npc/dragon/fight023.png",
+        "/tiles/npc/dragon/fight024.png","/tiles/npc/dragon/fight025.png","/tiles/npc/dragon/fight026.png","/tiles/npc/dragon/fight027.png"],
+      "initialX": 56,
+      "initialY": 9,
       "imageScaleX": 8,
-      "imageScaleY": 4
+      "imageScaleY": 4,
+      "xOffset": 72,
+      "yOffset": 120
     }],
     "riddles": {},
     "puzzle": false,
     "locked": false,
     "battle": true,
-    "maxY": 17,
-    "maxX": 33,
+    "maxY": 18,
+    "maxX": 68,
     "minY": 9,
-    "minX": 16
+    "minX": 53
   },
   {
     "name": "Ancient Path",
@@ -340,7 +391,7 @@
     },
     "description": "You hear something ahead...",
     "items": [{
-      "name": "potion",
+      "name": "Potion",
       "action": {
         "look": "Used to heal your wounds.",
         "get": "You got a potion!",
@@ -354,19 +405,19 @@
     "puzzle": false,
     "locked": true,
     "battle": false,
-    "maxY": 22,
-    "maxX": 31,
+    "maxY": 21,
+    "maxX": 64,
     "minY": 18,
-    "minX":22
+    "minX": 56
   },
   {
     "name": "Treasure Room",
     "directions": {
       "south": "Nasirax Room"
     },
-    "description": "You made it passed your enemies and the ultimate treasure lies in front of you!",
+    "description": "You made it passed your enemies \nand the ultimate treasure lies in \nfront of you!",
     "items": [{
-      "name": "holy-grail",
+      "name": "Holy-Grail",
       "action": {
         "look": "The ultimate treasure! Claim it now!",
         "get": "You got the Holy Grail! Congratulations!"
@@ -379,8 +430,8 @@
     "locked": false,
     "battle": false,
     "maxY":8,
-    "maxX":30 ,
+    "maxX": 64,
     "minY": 0,
-    "minX": 20
+    "minX": 57
   }
 ]

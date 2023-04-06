@@ -12,6 +12,7 @@ public class KeyHandler implements KeyListener {
   private boolean attack;
   private boolean heal;
   private boolean talk;
+  private boolean examine;
 
 
   @Override
@@ -44,6 +45,9 @@ public class KeyHandler implements KeyListener {
     if(code == KeyEvent.VK_T) {
       talk = true;
     }
+    if(code == KeyEvent.VK_E) {
+      examine = true;
+    }
 
   }
 
@@ -62,6 +66,12 @@ public class KeyHandler implements KeyListener {
     }
     if(code == KeyEvent.VK_RIGHT) {
       rightPressed = false;
+    }
+    if(code == KeyEvent.VK_T) {
+      talk = false;
+    }
+    if(code == KeyEvent.VK_E) {
+      examine = false;
     }
 
   }
@@ -104,5 +114,13 @@ public class KeyHandler implements KeyListener {
 
   public void setTalk(boolean talk) {
     this.talk = talk;
+  }
+
+  public boolean isExamine() {
+    return examine;
+  }
+
+  public void setExamine(boolean examine) {
+    this.examine = examine;
   }
 }

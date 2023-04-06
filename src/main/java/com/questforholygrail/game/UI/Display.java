@@ -1,5 +1,7 @@
 package com.questforholygrail.game.UI;
 
+import com.questforholygrail.game.Main;
+
 public class Display {
 
   public static void printScreenLn(String message){

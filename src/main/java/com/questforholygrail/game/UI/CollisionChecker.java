@@ -1,6 +1,9 @@
 package com.questforholygrail.game.UI;
 
+import com.questforholygrail.game.Commands;
 import com.questforholygrail.game.Entity;
+import com.questforholygrail.game.Location;
+import com.questforholygrail.game.NPC;
 
 public class CollisionChecker {
 
@@ -61,6 +64,42 @@ public class CollisionChecker {
         }
         break;
     }
+  }
+
+  public void checkNPC(Entity entity){
+    if(Commands.getCurrentLocation().getNpc().size() > 0) {
+      entity.getSolidArea().setLocation((int)(entity.getWorldX() + entity.getSolidArea().getX()), (int)(entity.getWorldY() + entity.getSolidArea().getY()));
+      NPC npc = Commands.getCurrentLocation().getNpc().get(0);
+      npc.getSolidArea().setLocation(npc.getWorldX() + npc.getxOffset(), npc.getWorldY() + npc.getyOffset());
+      switch(entity.getDirection()){
+        case "up":
+          entity.getSolidArea().setLocation((int)entity.getSolidArea().getX(), (int)(entity.getSolidArea().getY() - entity.getSpeed()));
+          if(entity.getSolidArea().intersects(npc.getSolidArea())){
+            entity.setCollisionOn(true);
+          }
+          break;
+        case "down":
+          entity.getSolidArea().setLocation((int)entity.getSolidArea().getX(), (int)(entity.getSolidArea().getY() + entity.getSpeed()));
+          if(entity.getSolidArea().intersects(npc.getSolidArea())){
+          entity.setCollisionOn(true);
+        }
+          break;
+        case "left":
+          entity.getSolidArea().setLocation((int)(entity.getSolidArea().getX() - entity.getSpeed()), (int)entity.getSolidArea().getY());
+          if(entity.getSolidArea().intersects(npc.getSolidArea())){
+          entity.setCollisionOn(true);
+        }
+          break;
+        case "right":
+          entity.getSolidArea().setLocation((int)(entity.getSolidArea().getX() + entity.getSpeed()), (int)entity.getSolidArea().getY());
+          if(entity.getSolidArea().intersects(npc.getSolidArea())){
+          entity.setCollisionOn(true);
+        }
+          break;
+      }
+      entity.getSolidArea().setLocation(entity.getSolidAreaDefaultX(), entity.getSolidAreaDefaultY());
+    }
+
   }
 
   public int checkObject(Entity entity, boolean player){
