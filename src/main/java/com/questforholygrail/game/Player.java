@@ -31,11 +31,14 @@ public class Player extends Entity{
     private int pickedUpItemDisplayCounter;
     GamePanel gp;
     KeyHandler keyHandler;
-
+    private final Health healthObject = new Health();
     private int screenX;
     private int screenY;
 
 
+    public Player(){
+
+    }
     public Player(GamePanel gp, KeyHandler keyHandler) {
         this.gp = gp;
         this.keyHandler = keyHandler;
@@ -234,8 +237,7 @@ public class Player extends Entity{
 
     //draw Health
     private void drawHealth(Graphics2D g2){
-        Health h = new Health();
-        BufferedImage[] healthDisplay = h.generateHealthDisplay(this);
+        BufferedImage[] healthDisplay = healthObject.generateHealthDisplay(this);
         if(healthDisplay[9] != null) {
             for(int i = 0; i <healthDisplay.length; i++){
                 g2.drawImage(healthDisplay[i], 510 + (20 * i), 10, null);
@@ -331,6 +333,10 @@ public class Player extends Entity{
 
     public void setPickedUpItemDisplayCounter(int pickedUpItemDisplayCounter) {
         this.pickedUpItemDisplayCounter = pickedUpItemDisplayCounter;
+    }
+
+    public Health getHealthObject() {
+        return healthObject;
     }
 
     //formats player info string

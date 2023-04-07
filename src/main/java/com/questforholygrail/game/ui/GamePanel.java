@@ -113,6 +113,7 @@ public class GamePanel extends JPanel implements Runnable {
     Commands.look();
     Commands.talk();
     Commands.playRiddle();
+    Main.playGame();
     providePlayerActionMessage();
     g2.dispose();
 
@@ -131,7 +132,6 @@ public class GamePanel extends JPanel implements Runnable {
       updateLocation();
       update();
       repaint();
-      Main.playGame();
 
       try {
         double remainingTime = nextDrawTime - System.nanoTime();
@@ -155,7 +155,7 @@ public class GamePanel extends JPanel implements Runnable {
   }
 
   private void providePlayerActionMessage(){
-    if(player.getPickedUpItem() != null && player.getPickedUpItemDisplayCounter() < 40) {
+    if(player.getPickedUpItem() != null && player.getPickedUpItemDisplayCounter() < 50) {
       Main.getGameWindow().getGame().getDialog()
           .setCurrentDialog(player.getPickedUpItem().getAction().get("get"));
       Main.getGameWindow().getGame().getDialog().drawDialogBox(false);

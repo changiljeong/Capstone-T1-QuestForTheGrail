@@ -11,6 +11,7 @@ public class Health {
   private static BufferedImage emptyHeart;
   private static BufferedImage halfHeart;
   private static BufferedImage fullHeart;
+  private int displayHealingCounter;
 
   public Health(){
     loadHearts();
@@ -49,4 +50,35 @@ public class Health {
     return health;
   }
 
+  public int getDisplayHealingCounter() {
+    return displayHealingCounter;
+  }
+
+  public void setDisplayHealingCounter(int displayHealingCounter) {
+    this.displayHealingCounter = displayHealingCounter;
+  }
+
+  public static BufferedImage getEmptyHeart() {
+    return emptyHeart;
+  }
+
+  public static void setEmptyHeart(BufferedImage emptyHeart) {
+    Health.emptyHeart = emptyHeart;
+  }
+
+  public static BufferedImage getHalfHeart() {
+    return halfHeart;
+  }
+
+  public static void setHalfHeart(BufferedImage halfHeart) {
+    Health.halfHeart = halfHeart;
+  }
+
+  public static BufferedImage getFullHeart() {
+    return fullHeart;
+  }
+
+  public static void setFullHeart(BufferedImage fullHeart) {
+    Health.fullHeart = fullHeart;
+  }
 }

@@ -18,4 +18,6 @@ class NPCTest {
         assertEquals(75, npc.getHealth());
         assertEquals(20, npc.getAttack());
     }
+
+
 }

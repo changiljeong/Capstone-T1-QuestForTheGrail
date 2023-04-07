@@ -9,6 +9,7 @@ public class Commands {
 
     private static Player player;
     private static Location currentLocation;
+    private static boolean potionFound;
 
   public Commands(Player player, Location currentLocation) {
     Commands.player = player;
@@ -356,13 +357,15 @@ public class Commands {
         }
       }
     }
-    if(currentLocation.isBattle() && !checkPlayerInRangeOfNpc()) {
+    if(Main.isGui() && currentLocation.isBattle() && !checkPlayerInRangeOfNpc()) {
       player.setFighting(false);
       currentLocation.getNpc().get(0).setFighting(false);
-    } else if (currentLocation.isBattle() && Main.getGameWindow().getGame().getKeyHandler().isHeal()) {
+      if(Main.getGameWindow().getGame().getKeyHandler().isHeal()){
+        heal();
+      }
+    } else if (Main.getGameWindow().getGame().getKeyHandler().isHeal()) {
       heal();
-      Main.getGameWindow().getGame().getKeyHandler().setHeal(false);
-    } else if (currentLocation.isBattle() &&  Main.getGameWindow().getGame().getKeyHandler().isAttack()) {
+    } else if (Main.isGui() && currentLocation.isBattle() &&  Main.getGameWindow().getGame().getKeyHandler().isAttack()) {
       player.setFighting(true);
       currentLocation.getNpc().get(0).setFighting(true);
       won = fight();
@@ -540,9 +543,14 @@ public class Commands {
   }
 
   public static boolean heal() {
+    if(Main.isGui()){
+      player = Main.getGameWindow().getGame().getPlayer();
+    }
     List<Item> myInventory3 = player.getInventory();
     int playerHealth = player.getHealth();
-    boolean potionFound = false;
+    if(Main.isGui() && !Main.getGameWindow().getGame().getKeyHandler().isHeal()){
+      return false;
+    }
     //if player has potion, heals player and removes potion from inventory
     for (Item item : myInventory3) {
       if (item.getName().equalsIgnoreCase("potion")) {
@@ -550,7 +558,7 @@ public class Commands {
         playerHealth += 50;
         player.setHealth(playerHealth);
         myInventory3.remove(item);
-        Display.printScreenLn(item.getAction().get("use"));
+        Display.printScreenLn("The potion heals some health.");
         Display.printScreenLn("--------------------------------------");
         break;
       }
@@ -558,7 +566,29 @@ public class Commands {
     //if player doesn't have potion, provides feedback to player
     if (!potionFound) {
       Display.printScreenLn("You don't have any potions!");
+      if(Main.isGui() && player.getHealthObject().getDisplayHealingCounter() < 50){
+        Main.getGameWindow().getGame().getDialog()
+            .setCurrentDialog("You don't have any potions!");
+        Main.getGameWindow().getGame().getDialog().drawDialogBox(false);
+        player.getHealthObject().setDisplayHealingCounter(player.getHealthObject().getDisplayHealingCounter() + 1);
+      } else {
+        player.getHealthObject().setDisplayHealingCounter(0);
+        Main.getGameWindow().getGame().getKeyHandler().setHeal(false);
+      }
       Display.printScreenLn("--------------------------------------");
+    } else {
+      if(Main.isGui() && player.getHealthObject().getDisplayHealingCounter() < 50){
+        Main.getGameWindow().getGame().getDialog()
+            .setCurrentDialog("The potion heals some health.");
+        Main.getGameWindow().getGame().getDialog().drawDialogBox(false);
+        player.getHealthObject().setDisplayHealingCounter(player.getHealthObject().getDisplayHealingCounter() + 1);
+      } else if (Main.isGui()){
+        player.getHealthObject().setDisplayHealingCounter(0);
+        Main.getGameWindow().getGame().getKeyHandler().setHeal(false);
+        potionFound = false;
+      } else {
+        potionFound = false;
+      }
     }
     return potionFound;
   }

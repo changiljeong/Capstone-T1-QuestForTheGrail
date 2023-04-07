@@ -14,31 +14,32 @@ public class DialogScreen {
   private String currentDialog = "";
 
 
-  public DialogScreen(GamePanel gp, Graphics2D g2){
+  public DialogScreen(GamePanel gp, Graphics2D g2) {
     this.gp = gp;
     this.g2 = g2;
   }
 
 
-  public void drawDialogBox(boolean longDialog){
+  public void drawDialogBox(boolean longDialog) {
 
-    float textSize = (longDialog ? 22F:24F);
-    int spaceSize = (longDialog ? 30:40);
+    float textSize = (longDialog ? 22F : 24F);
+    int spaceSize = (longDialog ? 30 : 40);
     //Window
-    int x = gp.getTileSize()*2;
-    int y = gp.getTileSize()/2;
-    int width = gp.getScreenWidth() - (gp.getTileSize()*4);
+    int x = gp.getTileSize() * 2;
+    int y = gp.getTileSize() / 2;
+    int width = gp.getScreenWidth() - (gp.getTileSize() * 4);
     int height = gp.getTileSize() * 4;
+    if (currentDialog != null) {
+      drawSubWindow(x, y, width, height);
 
-    drawSubWindow(x, y, width, height);
+      g2.setFont(g2.getFont().deriveFont(Font.PLAIN, textSize));
+      x += gp.getTileSize();
+      y += gp.getTileSize();
 
-    g2.setFont(g2.getFont().deriveFont(Font.PLAIN, textSize));
-    x+=gp.getTileSize();
-    y+=gp.getTileSize();
-
-    for(String line: currentDialog.split("\n")){
-      g2.drawString(line,x,y);
-      y+=spaceSize;
+      for (String line : currentDialog.split("\n")) {
+        g2.drawString(line, x, y);
+        y += spaceSize;
+      }
     }
 
 
@@ -52,7 +53,7 @@ public class DialogScreen {
     c = new Color(255, 255, 255);
     g2.setColor(c);
     g2.setStroke(new BasicStroke(5));
-    g2.drawRoundRect(x+5, y+5,width-10, height-10, 25, 25);
+    g2.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
   }
 
   public GamePanel getGp() {
