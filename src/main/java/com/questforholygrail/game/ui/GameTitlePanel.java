@@ -2,58 +2,34 @@ package com.questforholygrail.game.ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class GameTitlePanel extends JPanel {
+    private JLabel imgLabel;
+    private ImageIcon imgIcon;
 
-    private JLabel containerLabel;
-    private JLabel gameTitleLabel;
-    private JLabel pressEnterLabel;
 
-    public GameTitlePanel(){
-
-        this.setLayout(new GridBagLayout());
-        this.containerLabel = new JLabel("");
-        this.gameTitleLabel = new JLabel("   Quest for the Holy Grail");
-        this.pressEnterLabel = new JLabel("        Press Enter to Continue");
-
-        Font f1 = new Font(Font.MONOSPACED, Font.BOLD, 40);
-        Font f2 = new Font(Font.MONOSPACED, Font.PLAIN, 30);
-        gameTitleLabel.setFont(f1);
-        pressEnterLabel.setFont(f2);
-
-//        containerLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        containerLabel.setPreferredSize(new Dimension(700, 200));
-        containerLabel.setLayout(new BorderLayout());
-        containerLabel.add(pressEnterLabel, BorderLayout.PAGE_END);
-        containerLabel.add(gameTitleLabel, BorderLayout.CENTER);
-
-        add(containerLabel);
-
-        this.setBackground(Color.BLUE);
-
+    public GameTitlePanel() {
+        this.imgIcon = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/splash-Art/Grail-SplashArt.png")));
+        imgLabel = new JLabel(imgIcon);
+        imgLabel.setSize(968, 590);
+        add(imgLabel);
+        this.setBackground(Color.GRAY);
     }
 
-    public JLabel getGameTitleLabel() {
-        return gameTitleLabel;
+    public JLabel getImgLabel() {
+        return imgLabel;
     }
 
-    public void setGameTitleLabel(JLabel gameTitleLabel) {
-        this.gameTitleLabel = gameTitleLabel;
+    public void setImgLabel(JLabel imgLabel) {
+        this.imgLabel = imgLabel;
     }
 
-    public JLabel getPressEnterLabel() {
-        return pressEnterLabel;
+    public ImageIcon getImgIcon() {
+        return imgIcon;
     }
 
-    public void setPressEnterLabel(JLabel pressEnterLabel) {
-        this.pressEnterLabel = pressEnterLabel;
-    }
-
-    public JLabel getContainerLabel() {
-        return containerLabel;
-    }
-
-    public void setContainerLabel(JLabel containerLabel) {
-        this.containerLabel = containerLabel;
+    public void setImgIcon(ImageIcon imgIcon) {
+        this.imgIcon = imgIcon;
     }
 }
