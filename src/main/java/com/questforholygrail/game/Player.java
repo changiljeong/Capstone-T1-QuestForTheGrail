@@ -168,10 +168,14 @@ public class Player extends Entity{
             gp.getObj()[i] = null;
         }
     }
-    public void draw(Graphics2D g2, boolean onMiniMap){
+    public void draw(Graphics2D g2, boolean onMiniMap, boolean onUtilWidget){
         BufferedImage image = null;
 
-        if (onMiniMap) {
+        if (onUtilWidget) {
+            image = getDown1();
+            g2.drawImage(image, (getWorldX() - 800)/(gp.getOriginalTileSize()), (getWorldY()- 500)/(gp.getOriginalTileSize()), gp.getTileSize()/2, gp.getTileSize()/2, null);
+        }
+        else if (onMiniMap) {
             image = getDown1();
             g2.drawImage(image, (getWorldX()+850)/(gp.getOriginalTileSize()/2), (getWorldY()+600)/(gp.getOriginalTileSize()/2), gp.getTileSize()/2, gp.getTileSize()/2, null);
         } else {

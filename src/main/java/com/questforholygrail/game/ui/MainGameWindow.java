@@ -3,11 +3,11 @@ package com.questforholygrail.game.ui;
 import com.google.gson.Gson;
 import com.questforholygrail.game.util.GameText;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -19,6 +19,8 @@ public class MainGameWindow extends JFrame {
     private final JPanel gameScreenPanel = new JPanel();
     private final GamePanel game = new GamePanel();
 
+    private final UtilityWidgetPanel uwp;
+
     // constructor
     public MainGameWindow(int width, int height) {
         loadGameTextJSON();
@@ -28,7 +30,8 @@ public class MainGameWindow extends JFrame {
         JPanel introPanel = new GameIntroPanel();
         gameScreenPanel.setLayout(new BorderLayout());
         gameScreenPanel.setBackground(Color.black);
-        gameScreenPanel.add(new UtilityWidgetPanel(this), BorderLayout.LINE_END);
+        uwp = new UtilityWidgetPanel(this);
+        gameScreenPanel.add(uwp, BorderLayout.LINE_END);
         gameScreenPanel.add(game);
         setUpTransition(titlePanel, introPanel);
         setVisible(true);
@@ -64,6 +67,8 @@ public class MainGameWindow extends JFrame {
             game.requestFocus();
             game.setupGame();
             game.startGameThread();
+            uwp.generateMiniMap();
+
         } else {
             getRootPane().getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "swapPanels");
         }
@@ -86,6 +91,7 @@ public class MainGameWindow extends JFrame {
         return game;
     }
 
-
-
+    public UtilityWidgetPanel getUwp() {
+        return uwp;
+    }
 }

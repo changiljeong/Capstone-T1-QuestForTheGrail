@@ -237,13 +237,28 @@ public class TileManager {
     }
 
 
-    public void draw(Graphics2D g2, boolean isMiniMap) {
-        int tileSize = (isMiniMap ? gp.getOriginalTileSize()/2 : gp.getTileSize());
-
+    public void draw(Graphics2D g2, boolean isMiniMap, boolean onUtilWidget) {
+        int tileSize = 0;
         int worldCol = 0;
         int worldRow = 0;
 
-        if (isMiniMap) {
+        if (onUtilWidget) {
+            tileSize = gp.getOriginalTileSize()/8;
+            while (worldCol < gp.getMaxWorldCol() && worldRow < gp.getMaxWorldRow()) {
+                int tileNumber = mapTileNumber[worldCol][worldRow];
+                int worldX = worldCol * tileSize;
+                int worldY = worldRow * tileSize;
+                g2.drawImage(tile[tileNumber].getImage(), worldX, worldY, tileSize, tileSize, null);
+
+                worldCol++;
+
+                if(worldCol == gp.getMaxWorldCol()) {
+                    worldCol = 0;
+                    worldRow++;
+                }
+            }
+        } else if (isMiniMap) {
+            tileSize = gp.getOriginalTileSize()/2;
             while (worldCol < gp.getMaxWorldCol() && worldRow < gp.getMaxWorldRow()) {
                 int tileNumber = mapTileNumber[worldCol][worldRow];
                 int worldX = worldCol * tileSize;
@@ -258,6 +273,7 @@ public class TileManager {
                 }
             }
         } else {
+            tileSize = gp.getTileSize();
             while (worldCol < gp.getMaxWorldCol() && worldRow < gp.getMaxWorldRow()) {
 
                 int tileNumber = mapTileNumber[worldCol][worldRow];

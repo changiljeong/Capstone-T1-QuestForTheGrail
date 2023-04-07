@@ -13,7 +13,7 @@ public class MapPopUp extends JOptionPane {
         this.frame = frame;
     }
      public void showMiniMap() {
-         MiniMapPanel mmp = new MiniMapPanel();
+         MiniMapPanel mmp = new MiniMapPanel(false);
          mmp.setPreferredSize(new Dimension(900, 500));
          showMessageDialog(frame, mmp, "Minimap", JOptionPane.PLAIN_MESSAGE);
     }

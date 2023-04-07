@@ -41,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable {
   private final TileManager tileManager = new TileManager(this);
   private final KeyHandler keyHandler = new KeyHandler();
   Thread gameThread;
-
+  private boolean roomChanged;
 
   CollisionChecker cChecker = new CollisionChecker(this);
   private AssetSetter aSetter = new AssetSetter(this);
@@ -87,10 +87,9 @@ public class GamePanel extends JPanel implements Runnable {
      Graphics2D g2 = (Graphics2D) g;
      dialog = new DialogScreen(this, g2);
 
-     tileManager.draw(g2, false);
-
-
-
+     tileManager.draw(g2, false, false);
+    //updates minimap
+    Main.getGameWindow().getUwp().updateMiniMap();
     //Object draw
     for(int i=0; i<getObj().length; i++){
       if(getObj()[i] != null){
@@ -98,7 +97,7 @@ public class GamePanel extends JPanel implements Runnable {
       }
     }
 
-     player.draw(g2, false);
+     player.draw(g2, false, false);
 
     //handles NPCs
 
@@ -168,6 +167,7 @@ public class GamePanel extends JPanel implements Runnable {
   }
 
   private void updateLocation(){
+    roomChanged = false;
     if( player != null) {
       int playerX = player.getWorldX();
       int playerY = player.getWorldY();
@@ -178,6 +178,7 @@ public class GamePanel extends JPanel implements Runnable {
             && playerY <= loc.getMaxY() * tileSize && playerY >= loc.getMinY() * tileSize) {
           player.setLocation(loc);
           Commands.setCurrentLocation(loc);
+          roomChanged = true;
           break;
         }
       }
