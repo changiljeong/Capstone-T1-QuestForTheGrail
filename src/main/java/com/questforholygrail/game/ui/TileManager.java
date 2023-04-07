@@ -237,30 +237,47 @@ public class TileManager {
     }
 
 
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2, boolean isMiniMap) {
+        int tileSize = (isMiniMap ? gp.getOriginalTileSize()/2 : gp.getTileSize());
+
         int worldCol = 0;
         int worldRow = 0;
 
+        if (isMiniMap) {
+            while (worldCol < gp.getMaxWorldCol() && worldRow < gp.getMaxWorldRow()) {
+                int tileNumber = mapTileNumber[worldCol][worldRow];
+                int worldX = worldCol * tileSize;
+                int worldY = worldRow * tileSize;
+                g2.drawImage(tile[tileNumber].getImage(), worldX, worldY, tileSize, tileSize, null);
 
-        while (worldCol < gp.getMaxWorldCol() && worldRow < gp.getMaxWorldRow()) {
+                worldCol++;
 
-            int tileNumber = mapTileNumber[worldCol][worldRow];
-            int worldX = worldCol * gp.getTileSize();
-            int worldY = worldRow * gp.getTileSize();
-            int screenX = worldX - gp.getPlayer().getWorldX() + gp.getPlayer().getScreenX();
-            int screenY = worldY - gp.getPlayer().getWorldY() + gp.getPlayer().getScreenY();
-
-            if(worldX + gp.getTileSize()> gp.getPlayer().getWorldX() - gp.getPlayer().getScreenX() &&
-                    worldX - gp.getTileSize()< gp.getPlayer().getWorldX() + gp.getPlayer().getScreenX() &&
-                    worldY + gp.getTileSize()> gp.getPlayer().getWorldY() - gp.getPlayer().getScreenY() &&
-                    worldY - gp.getTileSize()< gp.getPlayer().getWorldY() + gp.getPlayer().getScreenY()){
-                g2.drawImage(tile[tileNumber].getImage(), screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+                if(worldCol == gp.getMaxWorldCol()) {
+                    worldCol = 0;
+                    worldRow++;
+                }
             }
-            worldCol++;
+        } else {
+            while (worldCol < gp.getMaxWorldCol() && worldRow < gp.getMaxWorldRow()) {
 
-            if(worldCol == gp.getMaxWorldCol()) {
-                worldCol = 0;
-                worldRow++;
+                int tileNumber = mapTileNumber[worldCol][worldRow];
+                int worldX = worldCol * tileSize;
+                int worldY = worldRow * tileSize;
+                int screenX = worldX - gp.getPlayer().getWorldX() + gp.getPlayer().getScreenX();
+                int screenY = worldY - gp.getPlayer().getWorldY() + gp.getPlayer().getScreenY();
+
+                if(worldX + tileSize> gp.getPlayer().getWorldX() - gp.getPlayer().getScreenX() &&
+                        worldX - tileSize< gp.getPlayer().getWorldX() + gp.getPlayer().getScreenX() &&
+                        worldY + tileSize> gp.getPlayer().getWorldY() - gp.getPlayer().getScreenY() &&
+                        worldY - tileSize< gp.getPlayer().getWorldY() + gp.getPlayer().getScreenY()){
+                    g2.drawImage(tile[tileNumber].getImage(), screenX, screenY, tileSize, tileSize, null);
+                }
+                worldCol++;
+
+                if(worldCol == gp.getMaxWorldCol()) {
+                    worldCol = 0;
+                    worldRow++;
+                }
             }
         }
     }

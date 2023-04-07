@@ -87,7 +87,7 @@ public class GamePanel extends JPanel implements Runnable {
      Graphics2D g2 = (Graphics2D) g;
      dialog = new DialogScreen(this, g2);
 
-     tileManager.draw(g2);
+     tileManager.draw(g2, false);
 
 
 
@@ -98,7 +98,7 @@ public class GamePanel extends JPanel implements Runnable {
       }
     }
 
-     player.draw(g2);
+     player.draw(g2, false);
 
     //handles NPCs
 

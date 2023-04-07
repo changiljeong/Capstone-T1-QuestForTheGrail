@@ -168,51 +168,56 @@ public class Player extends Entity{
             gp.getObj()[i] = null;
         }
     }
-    public void draw(Graphics2D g2){
-
+    public void draw(Graphics2D g2, boolean onMiniMap){
         BufferedImage image = null;
-        String direction = getDirection();
 
-        switch (direction){
-            case "up":
-                if(getSpriteNum() == 1) {
-                    image = getUp1();
-                }
-                if(getSpriteNum() == 2) {
-                    image = getUp2();
-                }
-                break;
-            case "down":
-                if(getSpriteNum() == 1) {
-                    image = getDown1();
-                }
-                if(getSpriteNum() == 2) {
-                    image = getDown2();
-                }
-                break;
-            case "left":
-                if(getSpriteNum() == 1) {
-                    image = getLeft1();
-                }
-                if(getSpriteNum() == 2) {
-                    image = getLeft2();
-                }
-                break;
-            case "right":
-                if(getSpriteNum() == 1) {
-                    image = getRight1();
-                }
-                if(getSpriteNum() == 2) {
-                    image = getRight2();
-                }
-                break;
-        }
-        if(!fighting) {
-            g2.drawImage(image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
-        } else if (direction.equalsIgnoreCase("right") || direction.equalsIgnoreCase("down")) {
-            g2.drawImage(fightSpritesRight.get(fightSpriteNum), screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+        if (onMiniMap) {
+            image = getDown1();
+            g2.drawImage(image, (getWorldX()+850)/(gp.getOriginalTileSize()/2), (getWorldY()+600)/(gp.getOriginalTileSize()/2), gp.getTileSize()/2, gp.getTileSize()/2, null);
         } else {
-            g2.drawImage(fightSpritesLeft.get(fightSpriteNum), screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+            String direction = getDirection();
+
+            switch (direction){
+                case "up":
+                    if(getSpriteNum() == 1) {
+                        image = getUp1();
+                    }
+                    if(getSpriteNum() == 2) {
+                        image = getUp2();
+                    }
+                    break;
+                case "down":
+                    if(getSpriteNum() == 1) {
+                        image = getDown1();
+                    }
+                    if(getSpriteNum() == 2) {
+                        image = getDown2();
+                    }
+                    break;
+                case "left":
+                    if(getSpriteNum() == 1) {
+                        image = getLeft1();
+                    }
+                    if(getSpriteNum() == 2) {
+                        image = getLeft2();
+                    }
+                    break;
+                case "right":
+                    if(getSpriteNum() == 1) {
+                        image = getRight1();
+                    }
+                    if(getSpriteNum() == 2) {
+                        image = getRight2();
+                    }
+                    break;
+            }
+            if(!fighting) {
+                g2.drawImage(image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+            } else if (direction.equalsIgnoreCase("right") || direction.equalsIgnoreCase("down")) {
+                g2.drawImage(fightSpritesRight.get(fightSpriteNum), screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+            } else {
+                g2.drawImage(fightSpritesLeft.get(fightSpriteNum), screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+            }
         }
 
     }

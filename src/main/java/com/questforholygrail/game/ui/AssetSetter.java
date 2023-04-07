@@ -24,9 +24,9 @@ public class AssetSetter {
   public void setObject() {
 
     gp.getObj()[0] = new Item(location[0].getItems().get(0).getName(), location[0].getItems().get(0).getFilePath());
-    gp.getObj()[0].setWorldX(63 * gp.getTileSize());
+    gp.getObj()[0].setWorldX(65 * gp.getTileSize());
     gp.getObj()[0].setWorldY(43 * gp.getTileSize());
-    location[0].getItems().get(0).setWorldX(63 * gp.getTileSize());
+    location[0].getItems().get(0).setWorldX(65 * gp.getTileSize());
     location[0].getItems().get(0).setWorldY(43 * gp.getTileSize());
 
 
