@@ -1,6 +1,7 @@
 package com.questforholygrail.game;
 
 import com.questforholygrail.game.ui.GamePanel;
+import com.questforholygrail.game.ui.Health;
 import com.questforholygrail.game.ui.KeyHandler;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -10,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 public class Player extends Entity{
 
@@ -171,6 +175,8 @@ public class Player extends Entity{
     public void draw(Graphics2D g2, boolean onMiniMap, boolean onUtilWidget){
         BufferedImage image = null;
 
+        drawHealth(g2);
+
         if (onUtilWidget) {
             image = getDown1();
             g2.drawImage(image, (getWorldX() - 800)/(gp.getOriginalTileSize()), (getWorldY()- 500)/(gp.getOriginalTileSize()), gp.getTileSize()/2, gp.getTileSize()/2, null);
@@ -225,6 +231,18 @@ public class Player extends Entity{
         }
 
     }
+
+    //draw Health
+    private void drawHealth(Graphics2D g2){
+        Health h = new Health();
+        BufferedImage[] healthDisplay = h.generateHealthDisplay(this);
+        if(healthDisplay[9] != null) {
+            for(int i = 0; i <healthDisplay.length; i++){
+                g2.drawImage(healthDisplay[i], 510 + (20 * i), 10, null);
+            }
+        }
+    }
+
 
     //sets attack based on whether player has sword in inventory
     public int getAttack() {
