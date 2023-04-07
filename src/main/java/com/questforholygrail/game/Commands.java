@@ -499,6 +499,7 @@ public class Commands {
     Display.printScreenLn("You attack the enemy and did " + playerRandomAttack + " damage!");
     if (enemyHealth <= 0) {
       //if enemy defeated, applies health changes to player
+      currentLocation.getNpc().get(0).dropMonsterLoot(currentLocation);
       currentLocation.getNpc().get(0).setFighting(false);
       currentLocation.getNpc().get(0).setFainting(true);
       player.setFighting(false);
@@ -526,6 +527,10 @@ public class Commands {
             player.setHealth(100);
             enemy.setHealth(100);
             player.setLocation(currentLocation);
+            if(Main.isGui()){
+              player.setWorldX(Main.getGameWindow().getGame().getTileSize()*  60);
+              player.setWorldY(Main.getGameWindow().getGame().getTileSize() * 45);
+            }
             showStatus();
           }
         }
@@ -595,7 +600,7 @@ public class Commands {
       NPC npc = currentLocation.getNpc().get(0);
       int range;
       if (npc.getName().equalsIgnoreCase("Ancient Nasirax")){
-        range = Main.getGameWindow().getGame().getTileSize() * 4;
+        range = Main.getGameWindow().getGame().getTileSize() * 5;
       } else {
         range = Main.getGameWindow().getGame().getTileSize() * 2;
       }

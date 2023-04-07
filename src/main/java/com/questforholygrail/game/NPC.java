@@ -85,6 +85,43 @@ public class NPC extends Entity {
     }
   }
 
+
+  public void dropMonsterLoot(Location location){
+    if(name.equalsIgnoreCase("Minotaur")){
+      gp.getObj()[7] = new Item(location.getItems().get(0).getName(), location.getItems().get(0).getFilePath());;
+      gp.getObj()[7].setWorldX(47 * gp.getTileSize());
+      gp.getObj()[7].setWorldY(11 * gp.getTileSize());
+      location.getItems().get(0).setWorldX(47 * gp.getTileSize());
+      location.getItems().get(0).setWorldY(11 * gp.getTileSize());
+    } else if(name.equalsIgnoreCase("Banshee")){
+      gp.getObj()[6] = new Item(location.getItems().get(0).getName(), location.getItems().get(0).getFilePath());;
+      gp.getObj()[6].setWorldX(42 * gp.getTileSize());
+      gp.getObj()[6].setWorldY(47 * gp.getTileSize());
+      location.getItems().get(0).setWorldX(42 * gp.getTileSize());
+      location.getItems().get(0).setWorldY(47 * gp.getTileSize());
+    } else if(name.equalsIgnoreCase("Griffin")){
+      gp.getObj()[4] = new Item(location.getItems().get(0).getName(), location.getItems().get(0).getFilePath());;
+      gp.getObj()[4].setWorldX(95 * gp.getTileSize());
+      gp.getObj()[4].setWorldY(37 * gp.getTileSize());
+      location.getItems().get(0).setWorldX(95 * gp.getTileSize());
+      location.getItems().get(0).setWorldY(37 * gp.getTileSize());
+    } else if(name.equalsIgnoreCase("Goblin")){
+      gp.getObj()[1] = new Item(location.getItems().get(0).getName(), location.getItems().get(0).getFilePath());
+      gp.getObj()[1].setWorldX(79 * gp.getTileSize());
+      gp.getObj()[1].setWorldY(12 * gp.getTileSize());
+      location.getItems().get(0).setWorldX(79 * gp.getTileSize());
+      location.getItems().get(0).setWorldY(12 * gp.getTileSize());
+
+    } else if (name.equalsIgnoreCase("Ancient Nasirax")){
+      location = Main.getLocations()[12];
+      gp.getObj()[9] = new Item(location.getItems().get(0).getName(), location.getItems().get(0).getFilePath());;
+      gp.getObj()[9].setWorldX(60 * gp.getTileSize());
+      gp.getObj()[9].setWorldY(5 * gp.getTileSize());
+      location.getItems().get(0).setWorldX(60 * gp.getTileSize());
+      location.getItems().get(0).setWorldY(5 * gp.getTileSize());
+    }
+  }
+
   public void update() {
 
     Random random = new Random();
