@@ -9,8 +9,6 @@ import java.text.DecimalFormat;
 public class InventoryUI {
 
   GamePanel gp;
-  private double playTime;
-  private DecimalFormat dFormat = new DecimalFormat("#0.00");
   Font arial_40;
   Graphics2D g2;
   private int slotCol;
@@ -35,9 +33,6 @@ public class InventoryUI {
       drawPauseScreen();
     }
 
-    //Time
-    playTime += (double)1/60;
-    g2.drawString("Time:" + getdFormat().format(playTime), gp.getTileSize()* 10, gp.getTileSize()*1);
   }
 
   public void drawPauseScreen(){
@@ -49,10 +44,6 @@ public class InventoryUI {
 
   public void drawInventory(Graphics2D g2){
     this.g2 = g2;
-//    int frameX = gp.getTileSize()*9;
-//    int frameY = gp.getTileSize()* 2;
-//    int frameWidth = gp.getTileSize() * 3;
-//    int frameHeight = gp.getTileSize() * 3;
     int frameX = 0;
     int frameY = 0;
     int frameWidth = 280;
@@ -108,13 +99,6 @@ public class InventoryUI {
     return x;
   }
 
-  public DecimalFormat getdFormat() {
-    return dFormat;
-  }
-
-  public void setdFormat(DecimalFormat dFormat) {
-    this.dFormat = dFormat;
-  }
 
   public int getSlotCol() {
     return slotCol;
