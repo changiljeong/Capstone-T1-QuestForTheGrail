@@ -97,7 +97,7 @@ public class Player extends Entity{
     public void setDefaultValues(){
         setWorldX(gp.getTileSize()*  60);
         setWorldY(gp.getTileSize() * 45);
-        setSpeed(4);
+        setSpeed(2);
         setDirection("down");
         setSpriteNum(1);
     }

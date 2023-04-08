@@ -46,8 +46,8 @@ public class InventoryUI {
     this.g2 = g2;
     int frameX = 0;
     int frameY = 0;
-    int frameWidth = 280;
-    int frameHeight = 600;
+    int frameWidth = 300;
+    int frameHeight = 260;
     drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
     //slot

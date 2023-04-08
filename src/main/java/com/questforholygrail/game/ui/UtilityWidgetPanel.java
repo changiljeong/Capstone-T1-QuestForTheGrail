@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -69,6 +70,7 @@ public class UtilityWidgetPanel extends JPanel {
     gbc.gridx = 0;
     gbc.gridy = 0;
     gbc.gridheight = 1;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
     JButton settingsButton = new JButton("SETTINGS");
     JButton mapButton = new JButton("MAP");
     helpButton.addActionListener(e -> helpButtonPressed());
@@ -78,10 +80,12 @@ public class UtilityWidgetPanel extends JPanel {
     gbc.gridx = 1;
     gbc.gridy = 0;
     gbc.gridheight = 1;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
     this.add(settingsButton, gbc);
     gbc.gridx = 2;
     gbc.gridy = 0;
     gbc.gridheight = 1;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
     this.add(mapButton, gbc);
     this.setBackground(Color.black);
   }

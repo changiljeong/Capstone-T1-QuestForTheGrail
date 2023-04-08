@@ -62,7 +62,7 @@ public class MiniMapPanel extends JPanel {
         setPreferredSize(new Dimension(300, 200));
         setSize(300, 200);
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawImage(background, 0, 0, null);
+        g2.drawImage(background, 20, 20, null);
         gp.getPlayer().draw(g2, true, onUtilWidget);
         g2.dispose();
     }

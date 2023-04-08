@@ -355,8 +355,8 @@
     "items": [],
     "npc": [{
       "name": "Ancient Nasirax",
-      "health": 100,
-      "attack": 25,
+      "health": 10,
+      "attack": 2,
       "action": {
         "look": "A fearsome ancient dragon!",
         "talk": "You're too afraid to talk."
