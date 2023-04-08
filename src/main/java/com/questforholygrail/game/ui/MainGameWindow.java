@@ -29,7 +29,6 @@ public class MainGameWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel titlePanel = new GameTitlePanel();
         JPanel introPanel = new GameIntroPanel();
-        setLayout(null);
         gameScreenPanel.setLayout(new BorderLayout());
         gameScreenPanel.setBackground(Color.black);
         uwp = new UtilityWidgetPanel(this);
@@ -54,12 +53,6 @@ public class MainGameWindow extends JFrame {
 
 
     private void setUpTransition(JPanel panelOne, JPanel panelTwo){
-        panelOne.setBounds(0, -50,968,576);
-        if (panelTwo == gameScreenPanel) {
-            panelTwo.setBounds(0, 0, 968, 576);
-        } else {
-            panelTwo.setBounds(0, -50,968,576);
-        }
         add(panelOne);
         getRootPane().getActionMap().put("swapPanels", new AbstractAction() {
             @Override
