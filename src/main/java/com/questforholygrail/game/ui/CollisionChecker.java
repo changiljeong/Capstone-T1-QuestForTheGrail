@@ -57,6 +57,10 @@ public class CollisionChecker {
         entityRightCol = (entityRightWorldX + entity.getSpeed()) / gp.getTileSize();
         tileNum1 = gp.getTileManager().getMapTileNumber()[entityRightCol][entityTopRow];
         tileNum2 = gp.getTileManager().getMapTileNumber()[entityRightCol][entityBottomRow];
+//        if(entityRightCol > gp.getMaxWorldRow()) {
+//          entity.setCollisionOn(true);
+//          break;
+//        }
         if(gp.getTileManager().getTile()[tileNum1].isCollision() == true ||
             gp.getTileManager().getTile()[tileNum2].isCollision()) {
           entity.setCollisionOn(true);

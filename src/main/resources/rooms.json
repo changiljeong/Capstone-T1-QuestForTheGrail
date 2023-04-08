@@ -420,7 +420,7 @@
       "name": "Holy-Grail",
       "action": {
         "look": "The ultimate treasure! Claim it now!",
-        "get": "You got the Holy Grail! Congratulations!"
+        "get": "You got the Holy Grail! \nCongratulations, you won the game!"
       },
       "filePath": "/objects/grail.png"
     }],

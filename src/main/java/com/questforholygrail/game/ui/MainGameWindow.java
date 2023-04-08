@@ -26,6 +26,7 @@ public class MainGameWindow extends JFrame {
         loadGameTextJSON();
         setSize(width, height);
         setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel titlePanel = new GameTitlePanel();
         JPanel introPanel = new GameIntroPanel();
         setLayout(null);
