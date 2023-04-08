@@ -5,6 +5,8 @@ public class GameText {
     private String startString;
     private String helpMessage;
 
+    private String guiHelpMessage;
+
     public String getEnterString() {
         return enterString;
     }
@@ -27,5 +29,13 @@ public class GameText {
 
     public void setHelpMessage(String helpMessage) {
         this.helpMessage = helpMessage;
+    }
+
+    public String getGuiHelpMessage() {
+        return guiHelpMessage;
+    }
+
+    public void setGuiHelpMessage(String guiHelpMessage) {
+        this.guiHelpMessage = guiHelpMessage;
     }
 }

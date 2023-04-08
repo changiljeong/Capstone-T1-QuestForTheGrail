@@ -1,5 +1,6 @@
 {
   "enterString": "Enter",
   "startString": "Start",
-  "helpMessage": "Commands:\nGo - Move around\nLook - Look at something\nTalk - Talk to someone\n\"Use - Use your potion to heal your wounds\nGet - Pick up items\nDrop - Drop items\nEquip - Equip items\nQuit - quit game\n Battle: \nAttack - Attack an enemy\nHeal - Use your potion"
+  "helpMessage": "Commands:\nGo - Move around\nLook - Look at something\nTalk - Talk to someone\n\"Use - Use your potion to heal your wounds\nGet - Pick up items\nDrop - Drop items\nEquip - Equip items\nQuit - quit game\n Battle: \nAttack - Attack an enemy\nHeal - Use your potion",
+  "guiHelpMessage": "Commands:\nArrow Keys - Move Character\nT - Talk to NPC\nA - Fight Monster (when in vicinity)\nH - Use potion (in & out of battle)\nE - Examine room/object/NPC\nU - Use/Equip Object"
 }
