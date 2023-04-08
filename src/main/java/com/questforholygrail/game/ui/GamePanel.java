@@ -128,6 +128,7 @@ public class GamePanel extends JPanel implements Runnable {
     Commands.talk();
     Commands.showInventory();
     Commands.playRiddle();
+    Commands.checkDoor(player.getLocation().getName());
     Main.playGame();
     providePlayerActionMessage();
     g2.dispose();

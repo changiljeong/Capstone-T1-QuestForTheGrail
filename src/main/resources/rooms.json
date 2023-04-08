@@ -55,7 +55,7 @@
     "battle": false,
     "maxY": 37,
     "maxX": 68,
-    "minY": 26,
+    "minY": 23,
     "minX": 53
   },
   {
@@ -74,7 +74,7 @@
     "locked": false,
     "battle": false,
     "maxY": 41,
-    "maxX": 84,
+    "maxX": 83,
     "minY": 28,
     "minX": 73
   },
@@ -97,7 +97,7 @@
       {
         "name": "Goblin",
         "health": 100,
-        "attack": 15,
+        "attack": 2,
         "action": {
           "look": "...Is that a bomb?!",
           "talk": "You try to reason with the goblin, \nbut they don't seem interested in talking."
@@ -181,7 +181,7 @@
     "npc": [{
       "name": "Griffin",
       "health": 100,
-      "attack": 20,
+      "attack": 4,
       "action": {
         "look": "A frightening mythological creature!",
         "talk": "You don't know the Griffin language!"
@@ -204,7 +204,7 @@
     "maxY": 40,
     "maxX": 100,
     "minY": 31,
-    "minX": 89
+    "minX": 84
   },
   {
     "name": "Minotaur's Cave",
@@ -275,7 +275,7 @@
     "npc": [{
       "name": "Banshee",
       "health": 100,
-      "attack": 15,
+      "attack": 2,
       "action": {
         "look": "You're too afraid to look!",
         "talk": "The banshee's wailing doesn't \nsound like any language you know!"
@@ -319,7 +319,7 @@
     "npc": [{
       "name": "Minotaur",
       "health": 100,
-      "attack": 17,
+      "attack": 4,
       "action": {
         "look": "The Minotaur's blade shimmers \nin the dim lighting.",
         "talk": "The Minotaur is ignoring you."
@@ -355,8 +355,8 @@
     "items": [],
     "npc": [{
       "name": "Ancient Nasirax",
-      "health": 10,
-      "attack": 2,
+      "health": 100,
+      "attack": 6,
       "action": {
         "look": "A fearsome ancient dragon!",
         "talk": "You're too afraid to talk."
@@ -405,7 +405,7 @@
     "puzzle": false,
     "locked": true,
     "battle": false,
-    "maxY": 21,
+    "maxY": 22,
     "maxX": 64,
     "minY": 18,
     "minX": 56

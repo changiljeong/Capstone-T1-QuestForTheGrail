@@ -93,35 +93,8 @@ public class Commands {
                     Map<String, String> directions = currentLocation.getDirections();
                     //if the noun is a valid direction for the current room, tries to change current location to the new location
                     if (directions.containsKey(noun)) {
-
                         String nextLocationName = directions.get(noun);
-                        for (Location location : Main.getLocations()) {
-                            if (location.getName().equalsIgnoreCase(nextLocationName)) {
-                                //if current location is locked, checks player's inventory for key
-                                if (location.isLocked()) {
-                                    List<Item> inventory = player.getInventory();
-                                    boolean hasKey = false;
-                                    for (Item item : inventory) {
-                                        //if key, player unlocks the door and removes key from inventory
-                                        if (item.getName().equalsIgnoreCase("key")) {
-                                            hasKey = true;
-                                            Display.printScreenLn("The door unlocked!");
-                                            inventory.remove(item);
-                                            break;
-                                        }
-                                    }
-                                    //if no key, player can't open the door, returns to calling method
-                                    if (!hasKey) {
-                                        Display.printScreenLn("This door is locked...");
-                                        break;
-                                    }
-                                }
-                                //if door not locked/unlocked, currentLocation updates
-                                currentLocation = location;
-                                player.setLocation(currentLocation);
-                                currentLocation.setLocked(false);
-                            }
-                        }
+                        checkDoor(nextLocationName);
                     } else {
                         //if not valid direction, player is provided feedback
                         Display.printScreenLn("You can't go in that direction.");
@@ -725,6 +698,50 @@ public class Commands {
             + "      ) (\n"
             + "  .--'   `--.\n"
             + "  `---------'");
+    }
+
+    public static void checkDoor(String nextLocationName) {
+      if (Main.isGui()) {
+          player = Main.getGameWindow().getGame().getPlayer();
+      }
+        for (Location location : Main.getLocations()) {
+            if (location.getName().equalsIgnoreCase(nextLocationName)) {
+                //if current location is locked, checks player's inventory for key
+                if (location.isLocked()) {
+                    List<Item> inventory = player.getInventory();
+                    boolean hasKey = false;
+                    for (Item item : inventory) {
+                        //if key, player unlocks the door and removes key from inventory
+                        if (item.getName().equalsIgnoreCase("key")) {
+                            hasKey = true;
+                            if (Main.isGui()) {
+                                Main.getGameWindow().getGame().getTileManager().changeTiles(location);
+                                Main.getGameWindow().getGame().getDialog()
+                                        .setCurrentDialog("The door unlocked!");
+                                Main.getGameWindow().getGame().getDialog().drawDialogBox(false);
+                            }
+                            Display.printScreenLn("The door unlocked!");
+                            inventory.remove(item);
+                            break;
+                        }
+                    }
+                    //if no key, player can't open the door, returns to calling method
+                    if (!hasKey) {
+                        Display.printScreenLn("This door is locked...");
+                        if (Main.isGui()) {
+                            Main.getGameWindow().getGame().getDialog()
+                                    .setCurrentDialog("This door is locked...");
+                            Main.getGameWindow().getGame().getDialog().drawDialogBox(false);
+                        }
+                        break;
+                    }
+                }
+                //if door not locked/unlocked, currentLocation updates
+                currentLocation = location;
+                player.setLocation(currentLocation);
+                currentLocation.setLocked(false);
+            }
+        }
     }
 
   public static Location getCurrentLocation() {

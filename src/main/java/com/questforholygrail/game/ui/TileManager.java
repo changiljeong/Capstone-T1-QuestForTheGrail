@@ -1,11 +1,14 @@
 package com.questforholygrail.game.ui;
 
+import com.questforholygrail.game.Location;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Locale;
 import java.util.Objects;
 
 public class TileManager {
@@ -17,7 +20,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[30];
+        tile = new Tile[35];
         mapTileNumber = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
 
         getTileImage();
@@ -205,25 +208,25 @@ public class TileManager {
             tile[24].setImage(
                     ImageIO.read(Objects.requireNonNull(
                             getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/doorTopLeftWithTile.png"))));
-            tile[24].setCollision(false);
+            tile[24].setCollision(true);
 
             tile[25] = new Tile();
             tile[25].setImage(
                     ImageIO.read(Objects.requireNonNull(
                             getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/doorTopRightWithTile.png"))));
-            tile[25].setCollision(false);
+            tile[25].setCollision(true);
 
             tile[26] = new Tile();
             tile[26].setImage(
                     ImageIO.read(Objects.requireNonNull(
                             getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/doorBottomLeft.png"))));
-            tile[26].setCollision(false);
+            tile[26].setCollision(true);
 
             tile[27] = new Tile();
             tile[27].setImage(
                     ImageIO.read(Objects.requireNonNull(
                             getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/doorBottomRight.png"))));
-            tile[27].setCollision(false);
+            tile[27].setCollision(true);
 
             tile[28] = new Tile();
             tile[28].setImage(
@@ -231,9 +234,27 @@ public class TileManager {
                             getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/torchOnWall.png"))));
             tile[28].setCollision(true);
 
+            tile[29] = new Tile();
+            tile[29].setImage(
+                    ImageIO.read(Objects.requireNonNull(
+                            getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/floorTileWithDoor.png"))));
+            tile[29].setCollision(true);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void changeTiles(Location currentLocation) {
+        if (currentLocation.getName().equalsIgnoreCase("Griffin Room")) {
+            tile[29] = tile[9];
+        } else if (currentLocation.getName().equalsIgnoreCase("Ancient Path")) {
+            tile[24] = tile[9];
+            tile[25] = tile[9];
+            tile[26] = tile[9];
+            tile[27] = tile[9];
+        }
+
     }
 
 
