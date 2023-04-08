@@ -39,7 +39,8 @@ public class GamePanel extends JPanel implements Runnable {
   private final double FPS = 60.0;
 
   private final TileManager tileManager = new TileManager(this);
-  private final KeyHandler keyHandler = new KeyHandler();
+  private final KeyHandler keyHandler = new KeyHandler(this);
+  private InventoryUI inventoryUi = new InventoryUI(this);
   Thread gameThread;
   private boolean roomChanged;
 
@@ -49,6 +50,10 @@ public class GamePanel extends JPanel implements Runnable {
   private Player player;
 
   private transient Item[] obj = new Item[10];
+
+  private int gameState;
+  private final int playState = 1;
+  private final int pauseState = 2;
 
   public GamePanel(){
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -65,6 +70,7 @@ public class GamePanel extends JPanel implements Runnable {
   public void setupGame(){
     AssetSetter.setNPC(this);
     aSetter.setObject();
+    gameState = 1;
   }
 
   public void startGameThread(){
@@ -75,8 +81,11 @@ public class GamePanel extends JPanel implements Runnable {
 
   public void update(){
 
-    player.update();
-
+    if(gameState == playState)
+      player.update();
+    if(gameState == pauseState){
+      //Nothing
+    }
 
   }
 
@@ -90,6 +99,7 @@ public class GamePanel extends JPanel implements Runnable {
      tileManager.draw(g2, false, false);
     //updates minimap
     Main.getGameWindow().getUwp().updateMiniMap();
+    Main.getGameWindow().getUwp().updateInventory();
     //Object draw
     for(int i=0; i<getObj().length; i++){
       if(getObj()[i] != null){
@@ -97,7 +107,11 @@ public class GamePanel extends JPanel implements Runnable {
       }
     }
 
+    //Player draw
      player.draw(g2, false, false);
+
+    //Draw UI
+    inventoryUi.draw(g2);
 
     //handles NPCs
 
@@ -112,6 +126,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
     Commands.look();
     Commands.talk();
+    Commands.showInventory();
     Commands.playRiddle();
     Main.playGame();
     providePlayerActionMessage();
@@ -256,5 +271,29 @@ public class GamePanel extends JPanel implements Runnable {
 
   public void setDialog(DialogScreen dialog) {
     this.dialog = dialog;
+  }
+
+  public InventoryUI getUi() {
+    return inventoryUi;
+  }
+
+  public void setUi(InventoryUI inventoryUi) {
+    this.inventoryUi = inventoryUi;
+  }
+
+  public int getGameState() {
+    return gameState;
+  }
+
+  public void setGameState(int gameState) {
+    this.gameState = gameState;
+  }
+
+  public int getPlayState() {
+    return playState;
+  }
+
+  public int getPauseState() {
+    return pauseState;
   }
 }

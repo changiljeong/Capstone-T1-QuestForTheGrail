@@ -477,6 +477,12 @@ public class Commands {
     }
   }
 
+  public static void showInventory(){
+    if(Main.getGameWindow().getGame().getKeyHandler().iPressed()){
+//      Main.getGameWindow().getGame().getUi().drawInventory();
+    }
+  }
+
   public static boolean fight() {
     boolean won = false;
     int playerHealth = player.getHealth();

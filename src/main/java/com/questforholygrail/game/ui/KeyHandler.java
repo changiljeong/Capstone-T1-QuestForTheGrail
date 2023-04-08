@@ -13,6 +13,15 @@ public class KeyHandler implements KeyListener {
   private boolean heal;
   private boolean talk;
   private boolean examine;
+  private boolean jPressed;
+  private boolean kPressed;
+  private boolean lPressed;
+  private boolean iPressed;
+  GamePanel gp;
+
+  public KeyHandler(GamePanel gp){
+    this.gp = gp;
+  }
 
 
   @Override
@@ -48,7 +57,33 @@ public class KeyHandler implements KeyListener {
     if(code == KeyEvent.VK_E) {
       examine = true;
     }
-
+    if(code == KeyEvent.VK_P) {
+      if(gp.getGameState() == gp.getPlayState()){
+        gp.setGameState(gp.getPauseState());
+      }else if(gp.getGameState() == gp.getPauseState()){
+        gp.setGameState(gp.getPlayState());
+      }
+    }
+    if(code == KeyEvent.VK_I){
+      if(gp.getUi().getSlotRow() !=0 ){
+        gp.getUi().setSlotRow(gp.getUi().getSlotRow()-1);
+      }
+    }
+    if(code == KeyEvent.VK_J) {
+      if(gp.getUi().getSlotCol() !=0 ){
+        gp.getUi().setSlotCol(gp.getUi().getSlotCol()-1);
+      }
+    }
+    if(code == KeyEvent.VK_K) {
+      if(gp.getUi().getSlotRow() !=4 ){
+        gp.getUi().setSlotRow(gp.getUi().getSlotRow()+1);
+      }
+    }
+    if(code == KeyEvent.VK_L) {
+      if(gp.getUi().getSlotCol() !=4 ){
+        gp.getUi().setSlotCol(gp.getUi().getSlotCol()+1);
+      }
+    }
   }
 
   @Override
@@ -73,7 +108,18 @@ public class KeyHandler implements KeyListener {
     if(code == KeyEvent.VK_E) {
       examine = false;
     }
-
+    if(code == KeyEvent.VK_I){
+      iPressed = false;
+    }
+    if(code == KeyEvent.VK_J) {
+      jPressed = false;
+    }
+    if(code == KeyEvent.VK_K) {
+      kPressed = false;
+    }
+    if(code == KeyEvent.VK_L) {
+      lPressed = false;
+    }
   }
 
   public boolean isUpPressed() {
@@ -122,5 +168,21 @@ public class KeyHandler implements KeyListener {
 
   public void setExamine(boolean examine) {
     this.examine = examine;
+  }
+
+  public boolean jPressed() {
+    return jPressed;
+  }
+
+  public boolean kPressed() {
+    return kPressed;
+  }
+
+  public boolean lPressed() {
+    return lPressed;
+  }
+
+  public boolean iPressed() {
+    return iPressed;
   }
 }

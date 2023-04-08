@@ -24,6 +24,16 @@ public class Entity {
 
   private transient Rectangle solidArea;
 
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  private String description;
+
   private transient int solidAreaDefaultX, getSolidAreaDefaultY;
   private boolean collisionOn = false;
 

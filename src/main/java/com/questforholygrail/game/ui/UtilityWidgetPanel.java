@@ -16,6 +16,8 @@ public class UtilityWidgetPanel extends JPanel {
   MiniMapPanel mmp;
   GridBagConstraints gbc = new GridBagConstraints();
 
+  InventoryPanel iPanel;
+
   public UtilityWidgetPanel(MainGameWindow frame){
     this.frame = frame;
     settings = new SettingsPopUp(frame);
@@ -26,10 +28,11 @@ public class UtilityWidgetPanel extends JPanel {
 
   public void generateMiniMap(){
     this.mmp = new MiniMapPanel(true);
-    mmp.setPreferredSize(new Dimension(100, 500));
+//    mmp.setPreferredSize(new Dimension(100, 300));
     gbc.gridy = 1;
     gbc.gridx = 0;
     gbc.gridwidth =3;
+    gbc.gridheight = 1;
     gbc.fill = GridBagConstraints.BOTH;
     this.add(mmp, gbc);
 
@@ -38,13 +41,34 @@ public class UtilityWidgetPanel extends JPanel {
   public void updateMiniMap(){
     if(mmp != null){
       mmp.updateUtilMap();
+      mmp.setOpaque(false);
+    }
+  }
+
+  public void generateInventory(){
+    this.iPanel = new InventoryPanel(true);
+//    iPanel.setPreferredSize(new Dimension(100, 300));
+    gbc.gridy = 2;
+    gbc.gridx = 0;
+    gbc.gridwidth =3;
+    gbc.gridheight = 1;
+    gbc.fill = GridBagConstraints.BOTH;
+    this.add(iPanel, gbc);
+  }
+
+  public void updateInventory(){
+    if(iPanel != null){
+      iPanel.updateUtilInventory();
+      iPanel.setOpaque( false );
       revalidate();
     }
   }
+
   private void createButtons(){
     JButton helpButton = new JButton("HELP");
     gbc.gridx = 0;
     gbc.gridy = 0;
+    gbc.gridheight = 1;
     JButton settingsButton = new JButton("SETTINGS");
     JButton mapButton = new JButton("MAP");
     helpButton.addActionListener(e -> helpButtonPressed());
@@ -53,9 +77,11 @@ public class UtilityWidgetPanel extends JPanel {
     this.add(helpButton, gbc);
     gbc.gridx = 1;
     gbc.gridy = 0;
+    gbc.gridheight = 1;
     this.add(settingsButton, gbc);
     gbc.gridx = 2;
     gbc.gridy = 0;
+    gbc.gridheight = 1;
     this.add(mapButton, gbc);
     this.setBackground(Color.blue);
   }

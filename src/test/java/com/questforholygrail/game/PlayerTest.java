@@ -39,4 +39,6 @@ class PlayerTest {
     void getAttack_noSword() {
         assertEquals(10, player.getAttack());
     }
+
+
 }

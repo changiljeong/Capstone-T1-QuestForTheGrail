@@ -35,6 +35,11 @@ public class Player extends Entity{
     private int screenX;
     private int screenY;
 
+    private int hasPotion = 0;
+    private int hasKey = 0;
+    private int hasSword = 0;
+    private int hasGrail = 0;
+
 
     public Player(){
 
@@ -53,6 +58,7 @@ public class Player extends Entity{
 
         setDefaultValues();
         getPlayerImage();
+//        setItems();
     }
 
     public Player(int health, int attack, Location location, boolean win) {
@@ -98,8 +104,7 @@ public class Player extends Entity{
 
     public void update(){
 
-        if(keyHandler.isUpPressed() || keyHandler.isDownPressed() || keyHandler.isLeftPressed() || keyHandler.isRightPressed()) {
-
+        if(keyHandler.isUpPressed() || keyHandler.isDownPressed() || keyHandler.isLeftPressed() || keyHandler.isRightPressed()){
             if(keyHandler.isUpPressed()){
                 setDirection("up");
             } else if(keyHandler.isDownPressed()){
@@ -109,8 +114,6 @@ public class Player extends Entity{
             } else if (keyHandler.isRightPressed()){
                 setDirection("right");
             }
-
-
 
             setCollisionOn(false);
 
@@ -143,6 +146,9 @@ public class Player extends Entity{
                 }
             }
 
+            //Move to different items in inventory
+
+
             setSpriteCounter(getSpriteCounter()+1);
 
             if(getSpriteCounter() > 12) {
@@ -167,10 +173,42 @@ public class Player extends Entity{
 
     public void pickUpObject(int i){
         if( i != 999){
-            if(Commands.getCurrentLocation().getItems().size() > 0) {
-                inventory.add(Commands.getCurrentLocation().getItems().get(0));
-                pickedUpItem = Commands.getCurrentLocation().getItems().get(0);
-                Commands.getCurrentLocation().getItems().remove(0);
+
+            String objectName = gp.getObj()[i].getName();
+            switch(objectName){
+                case "Key":
+                    if(Commands.getCurrentLocation().getItems().size() > 0) {
+                        inventory.add(Commands.getCurrentLocation().getItems().get(0));
+                        pickedUpItem = Commands.getCurrentLocation().getItems().get(0);
+                        Commands.getCurrentLocation().getItems().remove(0);
+                        hasKey++;
+                    }
+                    gp.getObj()[i] = null;
+                    break;
+                case "Sword":
+                    if(Commands.getCurrentLocation().getItems().size() > 0) {
+                        inventory.add(Commands.getCurrentLocation().getItems().get(0));
+                        pickedUpItem = Commands.getCurrentLocation().getItems().get(0);
+                        Commands.getCurrentLocation().getItems().remove(0);
+                    }
+                    hasSword++;
+                    break;
+                case "Holy Grail":
+                    if(Commands.getCurrentLocation().getItems().size() > 0) {
+                        inventory.add(Commands.getCurrentLocation().getItems().get(0));
+                        pickedUpItem = Commands.getCurrentLocation().getItems().get(0);
+                        Commands.getCurrentLocation().getItems().remove(0);
+                    }
+                    hasGrail++;
+                    break;
+                case "Potion":
+                    if(Commands.getCurrentLocation().getItems().size() > 0) {
+                        inventory.add(Commands.getCurrentLocation().getItems().get(0));
+                        pickedUpItem = Commands.getCurrentLocation().getItems().get(0);
+                        Commands.getCurrentLocation().getItems().remove(0);
+                        hasPotion++;
+                    }
+                    break;
             }
             gp.getObj()[i] = null;
         }
@@ -264,6 +302,10 @@ public class Player extends Entity{
         }
         return win;
     }
+
+//    public void setItems(){
+//
+//    }
 
     public int getHealth() {
         return health;

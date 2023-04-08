@@ -17,7 +17,7 @@ public class MiniMapPanel extends JPanel {
     public MiniMapPanel(boolean onUtilWidget) {
         this.onUtilWidget = onUtilWidget;
         loadMiniMapBackground();
-        repaint();
+//        repaint();
     }
 
     public void loadMiniMapBackground(){
@@ -59,6 +59,8 @@ public class MiniMapPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        setPreferredSize(new Dimension(300, 200));
+        setSize(300, 200);
         Graphics2D g2 = (Graphics2D) g;
         g2.drawImage(background, 0, 0, null);
         gp.getPlayer().draw(g2, true, onUtilWidget);
