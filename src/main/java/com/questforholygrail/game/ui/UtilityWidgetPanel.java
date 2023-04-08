@@ -83,7 +83,7 @@ public class UtilityWidgetPanel extends JPanel {
     gbc.gridy = 0;
     gbc.gridheight = 1;
     this.add(mapButton, gbc);
-    this.setBackground(Color.blue);
+    this.setBackground(Color.black);
   }
 
   private void helpButtonPressed(){
