@@ -3,6 +3,7 @@ package com.questforholygrail.game;
 import com.questforholygrail.game.ui.GamePanel;
 import com.questforholygrail.game.ui.Health;
 import com.questforholygrail.game.ui.KeyHandler;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -307,6 +308,9 @@ public class Player extends Entity{
     //draw Health
     private void drawHealth(Graphics2D g2){
         BufferedImage[] healthDisplay = healthObject.generateHealthDisplay(this);
+        Color c = new Color(0, 0, 0, 150);
+        g2.setColor(c);
+        g2.fillRoundRect(506, 5,gp.getTileSize()*3 + 16, gp.getTileSize()/2, 50, 50);
         if(healthDisplay[9] != null) {
             for(int i = 0; i <healthDisplay.length; i++){
                 g2.drawImage(healthDisplay[i], 510 + (20 * i), 10, null);

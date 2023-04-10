@@ -510,6 +510,7 @@ public class Commands {
       if (playerHealth <= 0) {
         currentLocation.getNpc().get(0).setFighting(false);
         player.setFighting(false);
+        Main.getGameWindow().getGame().setDefeatMessage(true);
         //if player defeated, restarts player at beginning of game with full health
         for (Location location : Main.getLocations()) {
           if (location.getName().equalsIgnoreCase("The Gate of Trials")) {

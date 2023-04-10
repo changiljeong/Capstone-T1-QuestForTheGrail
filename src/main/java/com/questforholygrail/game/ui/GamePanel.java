@@ -54,6 +54,8 @@ public class GamePanel extends JPanel implements Runnable {
   private int gameState;
   private final int playState = 1;
   private final int pauseState = 2;
+  private boolean defeatMessage;
+  private int defeatMessageCounter;
 
   public GamePanel(){
     this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -130,6 +132,7 @@ public class GamePanel extends JPanel implements Runnable {
     Commands.playRiddle();
     Commands.checkDoor(player.getLocation().getName());
     Main.playGame();
+    displayDefeatMessage();
     providePlayerActionMessage();
     g2.dispose();
 
@@ -167,6 +170,20 @@ public class GamePanel extends JPanel implements Runnable {
 
 
 
+    }
+  }
+
+  private void displayDefeatMessage(){
+    if(defeatMessage){
+      if(defeatMessageCounter < 140){
+        Main.getGameWindow().getGame().getDialog()
+            .setCurrentDialog("You have been defeated in battle! \nThe fairy saves you and returns you to \nthe beginning with full health.");
+        Main.getGameWindow().getGame().getDialog().drawDialogBox(false);
+        defeatMessageCounter++;
+      } else {
+        defeatMessageCounter = 0;
+        defeatMessage = false;
+      }
     }
   }
 
@@ -296,5 +313,13 @@ public class GamePanel extends JPanel implements Runnable {
 
   public int getPauseState() {
     return pauseState;
+  }
+
+  public boolean isDefeatMessage() {
+    return defeatMessage;
+  }
+
+  public void setDefeatMessage(boolean defeatMessage) {
+    this.defeatMessage = defeatMessage;
   }
 }
