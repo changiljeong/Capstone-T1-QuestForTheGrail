@@ -19,6 +19,7 @@ public class Item {
   private transient int solidAreaDefaultY = 0;
 
   private transient Rectangle solidArea = new Rectangle(0, 0, 48, 48);
+  private String description = "";
 
   public Item() {
   }
@@ -27,9 +28,10 @@ public class Item {
     this.name = name;
   }
 
-  public Item(String name, String filePath) {
+  public Item(String name, String filePath, String description) {
     this.name = name;
     setImage(filePath);
+    this.description = description;
   }
 
   public void draw(Graphics2D g2, GamePanel gp){
@@ -117,6 +119,13 @@ public class Item {
     return action;
   }
 
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
   public String getName() {
     return name;

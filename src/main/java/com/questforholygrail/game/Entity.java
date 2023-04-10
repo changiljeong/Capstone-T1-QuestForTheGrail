@@ -19,20 +19,21 @@ public class Entity {
   private transient BufferedImage right1;
   private transient BufferedImage right2;
 
+  private transient BufferedImage swordUp1;
+  private transient BufferedImage swordUp2;
+  private transient BufferedImage swordDown1;
+  private transient BufferedImage swordDown2;
+  private transient BufferedImage swordLeft1;
+  private transient BufferedImage swordLeft2;
+  private transient BufferedImage swordRight1;
+  private transient BufferedImage swordRight2;
+
   private transient int spriteCounter;
   private transient int spriteNum;
 
   private transient Rectangle solidArea;
 
-  public String getDescription() {
-    return description;
-  }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  private String description;
 
   private transient int solidAreaDefaultX, getSolidAreaDefaultY;
   private boolean collisionOn = false;
@@ -133,6 +134,70 @@ public class Entity {
     this.right2 = right2;
   }
 
+  public BufferedImage getSwordUp1() {
+    return swordUp1;
+  }
+
+  public void setSwordUp1(BufferedImage swordUp1) {
+    this.swordUp1 = swordUp1;
+  }
+
+  public BufferedImage getSwordUp2() {
+    return swordUp2;
+  }
+
+  public void setSwordUp2(BufferedImage swordUp2) {
+    this.swordUp2 = swordUp2;
+  }
+
+  public BufferedImage getSwordDown1() {
+    return swordDown1;
+  }
+
+  public void setSwordDown1(BufferedImage swordDown1) {
+    this.swordDown1 = swordDown1;
+  }
+
+  public BufferedImage getSwordDown2() {
+    return swordDown2;
+  }
+
+  public void setSwordDown2(BufferedImage swordDown2) {
+    this.swordDown2 = swordDown2;
+  }
+
+  public BufferedImage getSwordLeft1() {
+    return swordLeft1;
+  }
+
+  public void setSwordLeft1(BufferedImage swordLeft1) {
+    this.swordLeft1 = swordLeft1;
+  }
+
+  public BufferedImage getSwordLeft2() {
+    return swordLeft2;
+  }
+
+  public void setSwordLeft2(BufferedImage swordLeft2) {
+    this.swordLeft2 = swordLeft2;
+  }
+
+  public BufferedImage getSwordRight1() {
+    return swordRight1;
+  }
+
+  public void setSwordRight1(BufferedImage swordRight1) {
+    this.swordRight1 = swordRight1;
+  }
+
+  public BufferedImage getSwordRight2() {
+    return swordRight2;
+  }
+
+  public void setSwordRight2(BufferedImage swordRight2) {
+    this.swordRight2 = swordRight2;
+  }
+
   public int getSpriteCounter() {
     return spriteCounter;
   }
@@ -180,4 +245,6 @@ public class Entity {
   public void setSolidAreaDefaultY(int getSolidAreaDefaultY) {
     this.getSolidAreaDefaultY = getSolidAreaDefaultY;
   }
+
+
 }

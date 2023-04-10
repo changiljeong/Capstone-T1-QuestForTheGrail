@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.text.DecimalFormat;
+import jdk.swing.interop.SwingInterOpUtils;
 
 public class InventoryUI {
 
@@ -59,6 +60,15 @@ public class InventoryUI {
 
     //Draw player's items
     for(int i = 0; i< gp.getPlayer().getInventory().size(); i++){
+      //equip curosr
+      if(gp.getPlayer().getInventory().get(i).getName().equalsIgnoreCase("Sword")){
+
+        if(gp.getKeyHandler().isEquipWeapon()){
+          g2.setColor(new Color(240,190,90));
+          g2.fillRoundRect(slotX, slotY, gp.getTileSize(), gp.getTileSize(), 10, 10);
+        }
+      }
+
       gp.getPlayer().getInventory().get(i).setImage(gp.getPlayer().getInventory().get(i).getFilePath());
       g2.drawImage(gp.getPlayer().getInventory().get(i).getImage(), slotX, slotY, gp.getTileSize(), gp.getTileSize(), null);
       slotX += gp.getTileSize();
@@ -79,6 +89,29 @@ public class InventoryUI {
     g2.setStroke(new BasicStroke(3));
     g2.drawRoundRect(cursorX, cursorY, cursorWidth, corsorHeight, 10, 10);
 
+    //Description Frame
+    int dFrameX = frameX + 20;
+    int dFrameY = frameY + 200;
+    int dFrameWidth = frameWidth - 40;
+    int dFrameHeight = gp.getTileSize()*1;
+    drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
+    //Draw Description text;
+    int textX = dFrameX + 20;
+    int textY = dFrameY + 20;
+    g2.setFont(g2.getFont().deriveFont(10F));
+
+    int itemIndex = getItemIndexOnSlot();
+    if(itemIndex < gp.getPlayer().getInventory().size()){
+      for (String line : gp.getPlayer().getInventory().get(itemIndex).getAction().get("look").split("\n")) {
+        g2.drawString(line, textX, textY);
+        textY += 10;
+      }
+    }
+  }
+
+  public int getItemIndexOnSlot(){
+    int itemIndex = slotCol + (slotRow*5);
+    return itemIndex;
   }
 
   public void drawSubWindow(int x, int y, int width, int height){
@@ -115,4 +148,5 @@ public class InventoryUI {
   public void setSlotRow(int slotRow) {
     this.slotRow = slotRow;
   }
+
 }

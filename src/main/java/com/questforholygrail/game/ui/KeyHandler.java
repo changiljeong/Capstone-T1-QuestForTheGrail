@@ -17,6 +17,10 @@ public class KeyHandler implements KeyListener {
   private boolean kPressed;
   private boolean lPressed;
   private boolean iPressed;
+  private boolean equipWeapon;
+
+
+
   GamePanel gp;
 
   public KeyHandler(GamePanel gp){
@@ -83,6 +87,22 @@ public class KeyHandler implements KeyListener {
         gp.getUi().setSlotCol(gp.getUi().getSlotCol()+1);
       }
     }
+    if(code == KeyEvent.VK_U){
+      if(gp.getUi().getItemIndexOnSlot() < gp.getPlayer().getInventory().size()){
+        if(gp.getPlayer().getInventory().get(
+                gp.getUi().getItemIndexOnSlot())
+            .getName().equalsIgnoreCase(("sword"))
+            && equipWeapon == true){
+          equipWeapon = false;
+        } else if(gp.getPlayer().getInventory().get(
+                gp.getUi().getItemIndexOnSlot())
+            .getName().equalsIgnoreCase(("sword"))){
+          equipWeapon = true;
+        }
+      }
+    }
+
+
     if(code == KeyEvent.VK_H) {
       heal = true;
     }
@@ -187,5 +207,13 @@ public class KeyHandler implements KeyListener {
 
   public boolean iPressed() {
     return iPressed;
+  }
+
+  public boolean isEquipWeapon() {
+    return equipWeapon;
+  }
+
+  public void setEquipWeapon(boolean equipWeapon) {
+    this.equipWeapon = equipWeapon;
   }
 }

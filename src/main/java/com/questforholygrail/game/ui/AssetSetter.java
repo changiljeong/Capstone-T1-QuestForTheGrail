@@ -23,19 +23,19 @@ public class AssetSetter {
 
   public void setObject() {
 
-    gp.getObj()[0] = new Item(location[0].getItems().get(0).getName(), location[0].getItems().get(0).getFilePath());
+    gp.getObj()[0] = new Item(location[0].getItems().get(0).getName(), location[0].getItems().get(0).getFilePath(), location[0].getItems().get(0).getAction().get("look"));
     gp.getObj()[0].setWorldX(53 * gp.getTileSize());
     gp.getObj()[0].setWorldY(48 * gp.getTileSize());
     location[0].getItems().get(0).setWorldX(53 * gp.getTileSize());
     location[0].getItems().get(0).setWorldY(48 * gp.getTileSize());
 
-    gp.getObj()[3] = new Item(location[4].getItems().get(0).getName(), location[4].getItems().get(0).getFilePath());;
+    gp.getObj()[3] = new Item(location[4].getItems().get(0).getName(), location[4].getItems().get(0).getFilePath(), location[4].getItems().get(0).getAction().get("look"));;
     gp.getObj()[3].setWorldX(79 * gp.getTileSize());
     gp.getObj()[3].setWorldY(50 * gp.getTileSize());
     location[4].getItems().get(0).setWorldX(79 * gp.getTileSize());
     location[4].getItems().get(0).setWorldY(50 * gp.getTileSize());
 
-    gp.getObj()[8] = new Item(location[11].getItems().get(0).getName(), location[11].getItems().get(0).getFilePath());;
+    gp.getObj()[8] = new Item(location[11].getItems().get(0).getName(), location[11].getItems().get(0).getFilePath(), location[11].getItems().get(0).getAction().get("look"));;
     gp.getObj()[8].setWorldX(62 * gp.getTileSize());
     gp.getObj()[8].setWorldY(19 * gp.getTileSize());
     location[11].getItems().get(0).setWorldX(62 * gp.getTileSize());

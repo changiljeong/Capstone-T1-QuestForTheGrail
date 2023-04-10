@@ -409,7 +409,7 @@ public class Commands {
           currentLocation.setPuzzle(false);
 
           //drops reward
-          Main.getGameWindow().getGame().getObj()[5] = new Item(Main.getLocations()[7].getItems().get(0).getName(), Main.getLocations()[7].getItems().get(0).getFilePath());;
+          Main.getGameWindow().getGame().getObj()[5] = new Item(Main.getLocations()[7].getItems().get(0).getName(), Main.getLocations()[7].getItems().get(0).getFilePath(), Main.getLocations()[7].getItems().get(0).getAction().get("look"));;
           Main.getGameWindow().getGame().getObj()[5].setWorldX(25 * Main.getGameWindow().getGame().getTileSize());
           Main.getGameWindow().getGame().getObj()[5].setWorldY(34 * Main.getGameWindow().getGame().getTileSize());
           Main.getLocations()[7].getItems().get(0).setWorldX(25 * Main.getGameWindow().getGame().getTileSize());

@@ -26,6 +26,9 @@ public class Player extends Entity{
     private boolean fighting;
     private List<BufferedImage> fightSpritesRight;
     private List<BufferedImage> fightSpritesLeft;
+    private List<BufferedImage> fightSpritesSwordRight;
+    private List<BufferedImage> fightSpritesSwordLeft;
+
     private int fightSpriteNum;
     private Item pickedUpItem;
     private int pickedUpItemDisplayCounter;
@@ -72,6 +75,8 @@ public class Player extends Entity{
     public void getPlayerImage(){
         fightSpritesRight = new ArrayList<>();
         fightSpritesLeft = new ArrayList<>();
+        fightSpritesSwordRight = new ArrayList<>();
+        fightSpritesSwordLeft = new ArrayList<>();
         try {
             setUp1(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle/back1.png"))));
             setUp2(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle/back2.png"))));
@@ -81,6 +86,14 @@ public class Player extends Entity{
             setLeft2(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle/left2.png"))));
             setRight1(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle/right1.png"))));
             setRight2(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle/right2.png"))));
+            setSwordUp1(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle-sword/back1.png"))));
+            setSwordUp2(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle-sword/back2.png"))));
+            setSwordDown1(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle-sword/front1.png"))));
+            setSwordDown2(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle-sword/front2.png"))));
+            setSwordLeft1(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle-sword/left1.png"))));
+            setSwordLeft2(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle-sword/left2.png"))));
+            setSwordRight1(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle-sword/right1.png"))));
+            setSwordRight2(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle-sword/right2.png"))));
             fightSpritesRight.add(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle/fightright1.png"))));
             fightSpritesRight.add(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle/fightright3.png"))));
             fightSpritesRight.add(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle/fightright6.png"))));
@@ -89,6 +102,14 @@ public class Player extends Entity{
             fightSpritesLeft.add(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle/fightleft3.png"))));
             fightSpritesLeft.add(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle/fightleft6.png"))));
             fightSpritesLeft.add(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle/fightleft7.png"))));
+            fightSpritesSwordRight.add(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle-sword/fightright1.png"))));
+            fightSpritesSwordRight.add(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle-sword/fightright3.png"))));
+            fightSpritesSwordRight.add(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle-sword/fightright6.png"))));
+            fightSpritesSwordRight.add(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle-sword/fightright7.png"))));
+            fightSpritesSwordLeft.add(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle-sword/fightleft1.png"))));
+            fightSpritesSwordLeft.add(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle-sword/fightleft3.png"))));
+            fightSpritesSwordLeft.add(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle-sword/fightleft6.png"))));
+            fightSpritesSwordLeft.add(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/nyckolle-sword/fightleft7.png"))));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -219,11 +240,11 @@ public class Player extends Entity{
 
 
         if (onUtilWidget) {
-            image = getDown1();
+            image = gp.getKeyHandler().isEquipWeapon()? getSwordDown1():getDown1();
             g2.drawImage(image, (getWorldX() - 800)/(gp.getOriginalTileSize()), (getWorldY()- 500)/(gp.getOriginalTileSize()), gp.getTileSize()/2, gp.getTileSize()/2, null);
         }
         else if (onMiniMap) {
-            image = getDown1();
+            image = gp.getKeyHandler().isEquipWeapon()? getSwordDown1():getDown1();
             g2.drawImage(image, (getWorldX()+850)/(gp.getOriginalTileSize()/2), (getWorldY()+600)/(gp.getOriginalTileSize()/2), gp.getTileSize()/2, gp.getTileSize()/2, null);
         } else {
             drawHealth(g2);
@@ -232,43 +253,52 @@ public class Player extends Entity{
             switch (direction){
                 case "up":
                     if(getSpriteNum() == 1) {
-                        image = getUp1();
+                        image =  gp.getKeyHandler().isEquipWeapon() ?  getSwordUp1():getUp1();
                     }
                     if(getSpriteNum() == 2) {
-                        image = getUp2();
+                        image = gp.getKeyHandler().isEquipWeapon()? getSwordUp2():getUp2();
                     }
                     break;
                 case "down":
                     if(getSpriteNum() == 1) {
-                        image = getDown1();
+                        image = gp.getKeyHandler().isEquipWeapon()? getSwordDown1():getDown1();
                     }
                     if(getSpriteNum() == 2) {
-                        image = getDown2();
+                        image = gp.getKeyHandler().isEquipWeapon()? getSwordDown2():getDown2();
                     }
                     break;
                 case "left":
                     if(getSpriteNum() == 1) {
-                        image = getLeft1();
+                        image = gp.getKeyHandler().isEquipWeapon()? getSwordLeft1():getLeft1();
                     }
                     if(getSpriteNum() == 2) {
-                        image = getLeft2();
+                        image = gp.getKeyHandler().isEquipWeapon()? getSwordLeft2():getLeft2();
                     }
                     break;
                 case "right":
                     if(getSpriteNum() == 1) {
-                        image = getRight1();
+                        image = gp.getKeyHandler().isEquipWeapon()? getSwordRight1():getRight1();
                     }
                     if(getSpriteNum() == 2) {
-                        image = getRight2();
+                        image = gp.getKeyHandler().isEquipWeapon()? getSwordRight2():getRight2();
                     }
                     break;
             }
             if(!fighting) {
                 g2.drawImage(image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
             } else if (direction.equalsIgnoreCase("right") || direction.equalsIgnoreCase("down")) {
-                g2.drawImage(fightSpritesRight.get(fightSpriteNum), screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+                if(gp.getKeyHandler().isEquipWeapon()){
+                    g2.drawImage(fightSpritesSwordRight.get(fightSpriteNum), screenX, screenY, gp.getTileSize()*3, gp.getTileSize()*3, null);
+                }else {
+                    g2.drawImage( fightSpritesRight.get(fightSpriteNum), screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+                }
+
             } else {
-                g2.drawImage(fightSpritesLeft.get(fightSpriteNum), screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+                if(gp.getKeyHandler().isEquipWeapon()){
+                    g2.drawImage(fightSpritesSwordLeft.get(fightSpriteNum), screenX, screenY, gp.getTileSize()*3, gp.getTileSize()*3, null);
+                }else {
+                    g2.drawImage( fightSpritesLeft.get(fightSpriteNum), screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+                }
             }
         }
 
