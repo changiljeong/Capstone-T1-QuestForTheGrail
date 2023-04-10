@@ -26,6 +26,8 @@ public class KeyHandler implements KeyListener {
 
   @Override
   public void keyTyped(KeyEvent e) {
+    int code = e.getKeyCode();
+
 
   }
 
@@ -47,9 +49,6 @@ public class KeyHandler implements KeyListener {
     }
     if(code == KeyEvent.VK_A) {
       attack = true;
-    }
-    if(code == KeyEvent.VK_H) {
-      heal = true;
     }
     if(code == KeyEvent.VK_T) {
       talk = true;
@@ -83,6 +82,9 @@ public class KeyHandler implements KeyListener {
       if(gp.getUi().getSlotCol() !=4 ){
         gp.getUi().setSlotCol(gp.getUi().getSlotCol()+1);
       }
+    }
+    if(code == KeyEvent.VK_H) {
+      heal = true;
     }
   }
 
@@ -120,6 +122,7 @@ public class KeyHandler implements KeyListener {
     if(code == KeyEvent.VK_L) {
       lPressed = false;
     }
+
   }
 
   public boolean isUpPressed() {

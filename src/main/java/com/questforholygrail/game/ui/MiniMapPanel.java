@@ -59,10 +59,17 @@ public class MiniMapPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        setPreferredSize(new Dimension(300, 200));
-        setSize(300, 200);
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawImage(background, 20, 20, null);
+        if(onUtilWidget){
+            setPreferredSize(new Dimension(300, 200));
+            setSize(300, 200);
+            g2.drawImage(background, 20, 20, null);
+        } else {
+            setPreferredSize(new Dimension(900, 500));
+            setSize(900, 500);
+            gp.getTileManager().draw(g2, true, false);
+        }
+
         gp.getPlayer().draw(g2, true, onUtilWidget);
         g2.dispose();
     }

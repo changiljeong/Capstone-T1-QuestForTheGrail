@@ -18,6 +18,7 @@ public class CollisionChecker {
     int entityTopWorldY = entity.getWorldY() + (int)entity.getSolidArea().getY();
     int entityButtonWorldY = entity.getWorldY() + (int)(entity.getSolidArea().getY() + entity.getSolidArea().getHeight());
 
+
     int entityLeftCol = entityLeftWorldX / gp.getTileSize();
     int entityRightCol = entityRightWorldX / gp.getTileSize();
     int entityTopRow = entityTopWorldY / gp.getTileSize();

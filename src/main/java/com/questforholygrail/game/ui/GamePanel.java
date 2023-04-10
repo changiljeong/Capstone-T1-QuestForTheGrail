@@ -171,7 +171,7 @@ public class GamePanel extends JPanel implements Runnable {
   }
 
   private void providePlayerActionMessage(){
-    if(player.getPickedUpItem() != null && player.getPickedUpItemDisplayCounter() < 50) {
+    if(player.getPickedUpItem() != null && player.getPickedUpItemDisplayCounter() < 110) {
       Main.getGameWindow().getGame().getDialog()
           .setCurrentDialog(player.getPickedUpItem().getAction().get("get"));
       Main.getGameWindow().getGame().getDialog().drawDialogBox(false);

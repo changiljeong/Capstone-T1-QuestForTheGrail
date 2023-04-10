@@ -97,7 +97,7 @@ public class Player extends Entity{
     public void setDefaultValues(){
         setWorldX(gp.getTileSize()*  60);
         setWorldY(gp.getTileSize() * 45);
-        setSpeed(2);
+        setSpeed(3);
         setDirection("down");
         setSpriteNum(1);
     }
@@ -152,6 +152,7 @@ public class Player extends Entity{
             setSpriteCounter(getSpriteCounter()+1);
 
             if(getSpriteCounter() > 12) {
+
                 if(fighting){
                     if(fightSpriteNum < fightSpritesLeft.size() - 1){
                         fightSpriteNum++;
@@ -216,7 +217,6 @@ public class Player extends Entity{
     public void draw(Graphics2D g2, boolean onMiniMap, boolean onUtilWidget){
         BufferedImage image = null;
 
-        drawHealth(g2);
 
         if (onUtilWidget) {
             image = getDown1();
@@ -226,6 +226,7 @@ public class Player extends Entity{
             image = getDown1();
             g2.drawImage(image, (getWorldX()+850)/(gp.getOriginalTileSize()/2), (getWorldY()+600)/(gp.getOriginalTileSize()/2), gp.getTileSize()/2, gp.getTileSize()/2, null);
         } else {
+            drawHealth(g2);
             String direction = getDirection();
 
             switch (direction){

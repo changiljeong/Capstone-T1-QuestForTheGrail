@@ -34,6 +34,7 @@ public class MainGameWindow extends JFrame {
         uwp = new UtilityWidgetPanel(this);
         gameScreenPanel.add(uwp, BorderLayout.LINE_END);
         gameScreenPanel.add(game);
+        game.startGameThread();
         setUpTransition(titlePanel, introPanel);
         setVisible(true);
     }
@@ -67,9 +68,9 @@ public class MainGameWindow extends JFrame {
         if(panelTwo == gameScreenPanel) {
             game.requestFocus();
             game.setupGame();
-            game.startGameThread();
             uwp.generateMiniMap();
             uwp.generateInventory();
+
         } else {
             getRootPane().getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "swapPanels");
         }
