@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
 
 public class NPC extends Entity {
 
@@ -35,6 +36,8 @@ public class NPC extends Entity {
   private transient int screenX;
   private transient int screenY;
   private transient boolean defeated;
+  private transient AudioInputStream noise;
+  private transient boolean effectPlayed;
 
 
   public NPC(String name, int health, int attack) {
@@ -266,5 +269,21 @@ public class NPC extends Entity {
 
   public void setyOffset(int yOffset) {
     this.yOffset = yOffset;
+  }
+
+  public AudioInputStream getNoise() {
+    return noise;
+  }
+
+  public void setNoise(AudioInputStream noise) {
+    this.noise = noise;
+  }
+
+  public boolean isEffectPlayed() {
+    return effectPlayed;
+  }
+
+  public void setEffectPlayed(boolean effectPlayed) {
+    this.effectPlayed = effectPlayed;
   }
 }

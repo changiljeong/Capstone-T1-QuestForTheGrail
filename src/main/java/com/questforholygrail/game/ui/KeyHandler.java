@@ -12,6 +12,7 @@ public class KeyHandler implements KeyListener {
   private boolean attack;
   private boolean heal;
   private boolean talk;
+  private boolean startFX;
   private boolean examine;
   private boolean jPressed;
   private boolean kPressed;
@@ -52,9 +53,11 @@ public class KeyHandler implements KeyListener {
       rightPressed = true;
     }
     if(code == KeyEvent.VK_A) {
+      startFX = true;
       attack = true;
     }
     if(code == KeyEvent.VK_T) {
+      startFX = true;
       talk = true;
     }
     if(code == KeyEvent.VK_E) {
@@ -191,6 +194,14 @@ public class KeyHandler implements KeyListener {
 
   public void setExamine(boolean examine) {
     this.examine = examine;
+  }
+
+  public boolean isStartFX() {
+    return startFX;
+  }
+
+  public void setStartFX(boolean startFX) {
+    this.startFX = startFX;
   }
 
   public boolean jPressed() {

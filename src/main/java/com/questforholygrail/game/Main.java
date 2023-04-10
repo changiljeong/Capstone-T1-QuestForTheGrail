@@ -31,6 +31,7 @@ public class Main {
         Location currentLocation = locations[0];
 
         sound.soundLoad();
+        sound.soundFXLoad(locations);
 
 
         // create a new player with starting values

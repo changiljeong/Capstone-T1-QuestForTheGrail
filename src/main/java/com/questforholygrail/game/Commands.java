@@ -204,6 +204,7 @@ public class Commands {
                     npcFound = true;
                     //if found, NPC talks
                     Display.printScreenLn(element.getAction().get("talk"));
+                    talk();
                   }
                 }
                 //if not found, provides feedback to player
@@ -444,6 +445,10 @@ public class Commands {
   }
 
   public static void talk(){
+    if(currentLocation.getNpc().size() > 0 && Main.getGameWindow().getGame().getKeyHandler().isStartFX()){
+      Main.getGameWindow().getGame().getKeyHandler().setStartFX(false);
+      Main.getSound().playSoundFX(currentLocation.getNpc().get(0));
+    }
     if(Main.isGui() && checkPlayerInRangeOfNpc() && Main.getGameWindow().getGame().getKeyHandler().isTalk()){
       NPC npc = currentLocation.getNpc().get(0);
       Main.getGameWindow().getGame().getDialog().setCurrentDialog(npc.getName() + "\n" + npc.getAction().get("talk"));
@@ -474,6 +479,9 @@ public class Commands {
 
     //calculates enemy attack power
     int npcRandomAttack = (int) (Math.random() * (enemyAttack - min + 1) + min);
+
+    //prompts enemy to make sound
+    talk();
 
     //applies player's attack to enemy health
     enemyHealth = enemyHealth - playerRandomAttack;
@@ -617,6 +625,8 @@ public class Commands {
       int range;
       if (npc.getName().equalsIgnoreCase("Ancient Nasirax")){
         range = Main.getGameWindow().getGame().getTileSize() * 5;
+      } else if(npc.getName().equalsIgnoreCase("Griffin")) {
+        range = Main.getGameWindow().getGame().getTileSize() * 4;
       } else {
         range = Main.getGameWindow().getGame().getTileSize() * 2;
       }
@@ -630,7 +640,6 @@ public class Commands {
 
   //prints room description
   public static void roomDescription() {
-    Main.getSound().soundFXLoad(player);
     Display.printScreenLn("--------------------------------------");
   }
 
@@ -723,8 +732,6 @@ public class Commands {
                             hasKey = true;
                             if (Main.isGui()) {
                                 Main.getGameWindow().getGame().getTileManager().changeTiles(location);
-                                Main.getGameWindow().getGame().getDialog()
-                                        .setCurrentDialog("The door unlocked!");
                                 Main.getGameWindow().getGame().getDialog().drawDialogBox(false);
                             }
                             Display.printScreenLn("The door unlocked!");
