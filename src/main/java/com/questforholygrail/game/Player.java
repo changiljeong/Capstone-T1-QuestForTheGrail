@@ -216,11 +216,9 @@ public class Player extends Entity{
                     }
                     hasSword++;
                     break;
-                case "Holy Grail":
+                case "Holy-Grail":
                     if(Commands.getCurrentLocation().getItems().size() > 0) {
-                        inventory.add(Commands.getCurrentLocation().getItems().get(0));
-                        pickedUpItem = Commands.getCurrentLocation().getItems().get(0);
-                        Commands.getCurrentLocation().getItems().remove(0);
+                       win = true;
                     }
                     hasGrail++;
                     break;
@@ -237,8 +235,8 @@ public class Player extends Entity{
         }
     }
     public void draw(Graphics2D g2, boolean onMiniMap, boolean onUtilWidget){
-        BufferedImage image = null;
 
+        BufferedImage image = null;
 
         if (onUtilWidget) {
             image = gp.getKeyHandler().isEquipWeapon()? getSwordDown1():getDown1();
@@ -302,7 +300,9 @@ public class Player extends Entity{
                 }
             }
         }
-
+        if(win){
+            gp.getUi().drawGameWinScreen(g2);
+        }
     }
 
     //draw Health

@@ -38,9 +38,21 @@ public class InventoryUI {
 
   public void drawPauseScreen(){
     String text = "Pause";
-    int x = getXforCenteredText(text);
+    int x = getXforCenteredText(g2, text);
     int y = gp.getScreenHeight()/2;
     g2.drawString(text, x, y);
+  }
+
+  public void drawGameWinScreen(Graphics2D g2){
+    g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 35F));
+    String text = "Congratulations!! \nYou win the game!!!";
+    int y = gp.getScreenHeight()/2;
+    g2.setPaint(Color.WHITE);
+    for (String line : text.split("\n")) {
+      int x = getXforCenteredText(g2, line);
+      g2.drawString(line, x, y);
+      y += 40;
+    }
   }
 
   public void drawInventory(Graphics2D g2){
@@ -62,7 +74,6 @@ public class InventoryUI {
     for(int i = 0; i< gp.getPlayer().getInventory().size(); i++){
       //equip curosr
       if(gp.getPlayer().getInventory().get(i).getName().equalsIgnoreCase("Sword")){
-
         if(gp.getKeyHandler().isEquipWeapon()){
           g2.setColor(new Color(240,190,90));
           g2.fillRoundRect(slotX, slotY, gp.getTileSize(), gp.getTileSize(), 10, 10);
@@ -126,7 +137,7 @@ public class InventoryUI {
   }
 
 
-  public int getXforCenteredText(String text){
+  public int getXforCenteredText(Graphics2D g2, String text){
     int length = (int)g2.getFontMetrics().getStringBounds(text,g2).getWidth();
     int x = gp.getScreenWidth()/2 - length/2;
     return x;
