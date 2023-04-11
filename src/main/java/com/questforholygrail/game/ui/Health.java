@@ -1,84 +1,85 @@
 package com.questforholygrail.game.ui;
 
 import com.questforholygrail.game.Player;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
-import javax.imageio.ImageIO;
 
 public class Health {
 
-  private static BufferedImage emptyHeart;
-  private static BufferedImage halfHeart;
-  private static BufferedImage fullHeart;
-  private int displayHealingCounter;
+    private static BufferedImage emptyHeart;
+    private static BufferedImage halfHeart;
+    private static BufferedImage fullHeart;
+    private int displayHealingCounter;
 
-  public Health(){
-    loadHearts();
-  }
-
-  private void loadHearts() {
-    try {
-      emptyHeart = ImageIO.read(Objects.requireNonNull(
-          getClass().getResourceAsStream(
-              "/tiles/health/emptyHeart.png")));
-      halfHeart = ImageIO.read(Objects.requireNonNull(
-          getClass().getResourceAsStream(
-              "/tiles/health/halfHeart.png")));
-      fullHeart = ImageIO.read(Objects.requireNonNull(
-          getClass().getResourceAsStream(
-              "/tiles/health/fullHeart.png")));
-    } catch (IOException e) {
-      e.printStackTrace();
+    public Health() {
+        loadHearts();
     }
-  }
 
-  public BufferedImage[] generateHealthDisplay(Player player){
-    BufferedImage[] health = new BufferedImage[10];
-    int playerHealth = player.getHealth();
-
-    for(int i = 0; i < health.length; i++){
-      if(playerHealth - 10 >= 0){
-        health[i] = fullHeart;
-      } else if (playerHealth - 10 > -10){
-        health[i] = halfHeart;
-      } else {
-        health[i] = emptyHeart;
-      }
-      playerHealth -= 10;
+    private void loadHearts() {
+        try {
+            emptyHeart = ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream(
+                            "/tiles/health/emptyHeart.png")));
+            halfHeart = ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream(
+                            "/tiles/health/halfHeart.png")));
+            fullHeart = ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream(
+                            "/tiles/health/fullHeart.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    return health;
-  }
 
-  public int getDisplayHealingCounter() {
-    return displayHealingCounter;
-  }
+    public BufferedImage[] generateHealthDisplay(Player player) {
+        BufferedImage[] health = new BufferedImage[10];
+        int playerHealth = player.getHealth();
 
-  public void setDisplayHealingCounter(int displayHealingCounter) {
-    this.displayHealingCounter = displayHealingCounter;
-  }
+        for (int i = 0; i < health.length; i++) {
+            if (playerHealth - 10 >= 0) {
+                health[i] = fullHeart;
+            } else if (playerHealth - 10 > -10) {
+                health[i] = halfHeart;
+            } else {
+                health[i] = emptyHeart;
+            }
+            playerHealth -= 10;
+        }
+        return health;
+    }
 
-  public static BufferedImage getEmptyHeart() {
-    return emptyHeart;
-  }
+    public int getDisplayHealingCounter() {
+        return displayHealingCounter;
+    }
 
-  public static void setEmptyHeart(BufferedImage emptyHeart) {
-    Health.emptyHeart = emptyHeart;
-  }
+    public void setDisplayHealingCounter(int displayHealingCounter) {
+        this.displayHealingCounter = displayHealingCounter;
+    }
 
-  public static BufferedImage getHalfHeart() {
-    return halfHeart;
-  }
+    public static BufferedImage getEmptyHeart() {
+        return emptyHeart;
+    }
 
-  public static void setHalfHeart(BufferedImage halfHeart) {
-    Health.halfHeart = halfHeart;
-  }
+    public static void setEmptyHeart(BufferedImage emptyHeart) {
+        Health.emptyHeart = emptyHeart;
+    }
 
-  public static BufferedImage getFullHeart() {
-    return fullHeart;
-  }
+    public static BufferedImage getHalfHeart() {
+        return halfHeart;
+    }
 
-  public static void setFullHeart(BufferedImage fullHeart) {
-    Health.fullHeart = fullHeart;
-  }
+    public static void setHalfHeart(BufferedImage halfHeart) {
+        Health.halfHeart = halfHeart;
+    }
+
+    public static BufferedImage getFullHeart() {
+        return fullHeart;
+    }
+
+    public static void setFullHeart(BufferedImage fullHeart) {
+        Health.fullHeart = fullHeart;
+    }
 }

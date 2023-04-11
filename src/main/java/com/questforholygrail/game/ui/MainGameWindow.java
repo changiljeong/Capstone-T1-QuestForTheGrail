@@ -3,11 +3,10 @@ package com.questforholygrail.game.ui;
 import com.google.gson.Gson;
 import com.questforholygrail.game.util.GameText;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import javax.swing.*;
-import javax.swing.border.Border;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -53,8 +52,7 @@ public class MainGameWindow extends JFrame {
     }
 
 
-
-    private void setUpTransition(JPanel panelOne, JPanel panelTwo){
+    private void setUpTransition(JPanel panelOne, JPanel panelTwo) {
         add(panelOne);
         getRootPane().getActionMap().put("swapPanels", new AbstractAction() {
             @Override
@@ -66,7 +64,7 @@ public class MainGameWindow extends JFrame {
 
             }
         });
-        if(panelTwo == gameScreenPanel) {
+        if (panelTwo == gameScreenPanel) {
             game.requestFocus();
             game.setupGame();
             uwp.generateMiniMap();

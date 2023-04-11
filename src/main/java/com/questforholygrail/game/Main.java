@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.questforholygrail.game.ui.Display;
 import com.questforholygrail.game.ui.MainGameWindow;
 import com.questforholygrail.game.ui.UserInput;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -16,12 +17,12 @@ public class Main {
     private static boolean gui = false;
     private static MainGameWindow gameWindow;
 
-//Must run GUI from here!!
+    //Must run GUI from here!!
     public static void main(String[] args) throws IOException {
 
 
-        try(Reader reader = new InputStreamReader(
-            Objects.requireNonNull(Main.class.getClassLoader().getResourceAsStream("rooms.json")))) {
+        try (Reader reader = new InputStreamReader(
+                Objects.requireNonNull(Main.class.getClassLoader().getResourceAsStream("rooms.json")))) {
 
             Gson gson = new Gson();
             locations = gson.fromJson(reader, Location[].class);
@@ -51,7 +52,7 @@ public class Main {
         Display.printScreenLn("Would you like to play the text game or video game? (text/video)");
         choice = UserInput.getInput();
 
-        if(!choice.equalsIgnoreCase("text")){
+        if (!choice.equalsIgnoreCase("text")) {
             gui = true;
             Main.setGameWindow(new MainGameWindow(968, 576));
         } else {

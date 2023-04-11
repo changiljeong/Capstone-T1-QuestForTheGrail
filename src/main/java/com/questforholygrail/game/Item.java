@@ -1,145 +1,148 @@
 package com.questforholygrail.game;
+
 import com.questforholygrail.game.ui.GamePanel;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Map;
-import javax.imageio.ImageIO;
 
 public class Item {
 
-  private String name;
-  private Map<String, String> action;
-  private String filePath;
-  private transient BufferedImage image;
-  private transient boolean collision = false;
-  private transient int worldX, worldY;
-  private transient int solidAreaDefaultX = 0;
-  private transient int solidAreaDefaultY = 0;
+    private String name;
+    private Map<String, String> action;
+    private String filePath;
+    private transient BufferedImage image;
+    private transient boolean collision = false;
+    private transient int worldX, worldY;
+    private transient int solidAreaDefaultX = 0;
+    private transient int solidAreaDefaultY = 0;
 
-  private transient Rectangle solidArea = new Rectangle(0, 0, 48, 48);
-  private String description = "";
+    private transient Rectangle solidArea = new Rectangle(0, 0, 48, 48);
+    private String description = "";
 
-  public Item() {
-  }
-
-  public Item(String name) {
-    this.name = name;
-  }
-
-  public Item(String name, String filePath, String description) {
-    this.name = name;
-    setImage(filePath);
-    this.description = description;
-  }
-
-  public void draw(Graphics2D g2, GamePanel gp){
-
-    int screenX = worldX - gp.getPlayer().getWorldX() + gp.getPlayer().getScreenX();
-    int screenY = worldY - gp.getPlayer().getWorldY() + gp.getPlayer().getScreenY();
-
-    if(worldX + gp.getTileSize()> gp.getPlayer().getWorldX() - gp.getPlayer().getScreenX() &&
-        worldX - gp.getTileSize()< gp.getPlayer().getWorldX() + gp.getPlayer().getScreenX() &&
-        worldY + gp.getTileSize()> gp.getPlayer().getWorldY() - gp.getPlayer().getScreenY() &&
-        worldY - gp.getTileSize()< gp.getPlayer().getWorldY() + gp.getPlayer().getScreenY()){
-      g2.drawImage(getImage(), screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+    public Item() {
     }
-  }
 
-  public void setImage(String filePath) {
-    try {
-      this.image = ImageIO.read(getClass().getResourceAsStream(filePath));
-    } catch (IOException e) {
-      e.printStackTrace();
+    public Item(String name) {
+        this.name = name;
     }
-  }
+
+    public Item(String name, String filePath, String description) {
+        this.name = name;
+        setImage(filePath);
+        this.description = description;
+    }
+
+    public void draw(Graphics2D g2, GamePanel gp) {
+
+        int screenX = worldX - gp.getPlayer().getWorldX() + gp.getPlayer().getScreenX();
+        int screenY = worldY - gp.getPlayer().getWorldY() + gp.getPlayer().getScreenY();
+
+        if (worldX + gp.getTileSize() > gp.getPlayer().getWorldX() - gp.getPlayer().getScreenX() &&
+                worldX - gp.getTileSize() < gp.getPlayer().getWorldX() + gp.getPlayer().getScreenX() &&
+                worldY + gp.getTileSize() > gp.getPlayer().getWorldY() - gp.getPlayer().getScreenY() &&
+                worldY - gp.getTileSize() < gp.getPlayer().getWorldY() + gp.getPlayer().getScreenY()) {
+            g2.drawImage(getImage(), screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+        }
+    }
+
+    public void setImage(String filePath) {
+        try {
+            this.image = ImageIO.read(getClass().getResourceAsStream(filePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
-  public void setCollision(boolean collision) {
-    this.collision = collision;
-  }
+    public void setCollision(boolean collision) {
+        this.collision = collision;
+    }
 
-  public void setWorldX(int worldX) {
-    this.worldX = worldX;
-  }
+    public void setWorldX(int worldX) {
+        this.worldX = worldX;
+    }
 
-  public void setWorldY(int worldY) {
-    this.worldY = worldY;
-  }
+    public void setWorldY(int worldY) {
+        this.worldY = worldY;
+    }
 
-  public BufferedImage getImage() {
-    return image;
-  }
+    public BufferedImage getImage() {
+        return image;
+    }
 
-  public boolean isCollision() {
-    return collision;
-  }
+    public boolean isCollision() {
+        return collision;
+    }
 
-  public int getWorldX() {
-    return worldX;
-  }
+    public int getWorldX() {
+        return worldX;
+    }
 
-  public int getWorldY() {
-    return worldY;
-  }
+    public int getWorldY() {
+        return worldY;
+    }
 
-  public Rectangle getSolidArea() {
-    return solidArea;
-  }
+    public Rectangle getSolidArea() {
+        return solidArea;
+    }
 
-  public int getSolidAreaDefaultX() {
-    return solidAreaDefaultX;
-  }
+    public int getSolidAreaDefaultX() {
+        return solidAreaDefaultX;
+    }
 
-  public void setSolidAreaDefaultX(int solidAreaDefaultX) {
-    this.solidAreaDefaultX = solidAreaDefaultX;
-  }
+    public void setSolidAreaDefaultX(int solidAreaDefaultX) {
+        this.solidAreaDefaultX = solidAreaDefaultX;
+    }
 
-  public int getSolidAreaDefaultY() {
-    return solidAreaDefaultY;
-  }
+    public int getSolidAreaDefaultY() {
+        return solidAreaDefaultY;
+    }
 
-  public void setSolidAreaDefaultY(int solidAreaDefaultY) {
-    this.solidAreaDefaultY = solidAreaDefaultY;
-  }
+    public void setSolidAreaDefaultY(int solidAreaDefaultY) {
+        this.solidAreaDefaultY = solidAreaDefaultY;
+    }
 
-  public void setSolidArea(Rectangle solidArea) {
-    this.solidArea = solidArea;
-  }
+    public void setSolidArea(Rectangle solidArea) {
+        this.solidArea = solidArea;
+    }
 
-  public String getFilePath() {
-    return filePath;
-  }
+    public String getFilePath() {
+        return filePath;
+    }
 
-  public void setFilePath(String filePath) {
-    this.filePath = filePath;
-  }
-  public Map<String, String> getAction() {
-    return action;
-  }
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 
-  public String getDescription() {
-    return description;
-  }
+    public Map<String, String> getAction() {
+        return action;
+    }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-  //formats item string
-  @Override
-  public String toString() {
-    return "Item{" +
-        "name='" + name + '\'' +
-        ", action=" + action +
-        '}';
-  }
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    //formats item string
+    @Override
+    public String toString() {
+        return "Item{" +
+                "name='" + name + '\'' +
+                ", action=" + action +
+                '}';
+    }
 }

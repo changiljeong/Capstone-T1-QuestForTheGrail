@@ -2,12 +2,12 @@ package com.questforholygrail.game.ui;
 
 import com.questforholygrail.game.Main;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Objects;
 
 public class MiniMapPanel extends JPanel {
     private GamePanel gp = Main.getGameWindow().getGame();
@@ -17,19 +17,18 @@ public class MiniMapPanel extends JPanel {
     public MiniMapPanel(boolean onUtilWidget) {
         this.onUtilWidget = onUtilWidget;
         loadMiniMapBackground();
-//        repaint();
     }
 
-    public void loadMiniMapBackground(){
+    public void loadMiniMapBackground() {
         try {
             background = ImageIO.read(Objects.requireNonNull(
-                getClass().getResourceAsStream(
-                    "/maps/minimapBackground.png")));
+                    getClass().getResourceAsStream(
+                            "/maps/minimapBackground.png")));
             int w = 260;
             int h = 150;
 
             BufferedImage img =
-                new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+                    new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
             int x;
             int y;
             int ww = background.getWidth();
@@ -52,7 +51,7 @@ public class MiniMapPanel extends JPanel {
 
     }
 
-    public void updateUtilMap(){
+    public void updateUtilMap() {
         repaint();
     }
 
@@ -60,7 +59,7 @@ public class MiniMapPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        if(onUtilWidget){
+        if (onUtilWidget) {
             setPreferredSize(new Dimension(300, 200));
             setSize(300, 200);
             g2.drawImage(background, 20, 20, null);

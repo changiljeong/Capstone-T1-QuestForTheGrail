@@ -1,15 +1,13 @@
 package com.questforholygrail.game.ui;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
-
-import java.awt.*;
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class GameIntroPanelTest {
 
@@ -23,13 +21,12 @@ class GameIntroPanelTest {
     public final JLabel NEW_LABEL = new JLabel(NEW_ICON);
 
 
-
     @BeforeEach
     public void beforeEach() {
         gip = new GameIntroPanel();
         instructionArtImageIcon = TEST_ICON;
         instructionArtImageLabel = TEST_LABEL;
-        instructionArtImageLabel.setSize(968,567);
+        instructionArtImageLabel.setSize(968, 567);
         gip.add(instructionArtImageLabel);
     }
 
@@ -45,7 +42,7 @@ class GameIntroPanelTest {
     }
 
     @Test
-    void testGetImgIcon_notNewIcon(){
+    void testGetImgIcon_notNewIcon() {
         assertNotEquals(gip.getImgIcon(), NEW_ICON);
     }
 

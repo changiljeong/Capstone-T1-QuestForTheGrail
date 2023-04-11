@@ -3,20 +3,16 @@ package com.questforholygrail.game;
 import com.questforholygrail.game.ui.GamePanel;
 import com.questforholygrail.game.ui.Health;
 import com.questforholygrail.game.ui.KeyHandler;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 
-public class Player extends Entity{
+public class Player extends Entity {
 
     private int health;
     private int attack;
@@ -45,20 +41,21 @@ public class Player extends Entity{
     private int hasGrail = 0;
 
 
-    public Player(){
+    public Player() {
 
     }
+
     public Player(GamePanel gp, KeyHandler keyHandler) {
         this.gp = gp;
         this.keyHandler = keyHandler;
-        this.screenX = gp.getScreenWidth()/2 -(gp.getTileSize()/2);
-        this.screenY = gp.getScreenHeight()/2 - (gp.getTileSize()/2);
+        this.screenX = gp.getScreenWidth() / 2 - (gp.getTileSize() / 2);
+        this.screenY = gp.getScreenHeight() / 2 - (gp.getTileSize() / 2);
 
         Rectangle solidArea = new Rectangle();
         solidArea.setRect(8, 16, 32, 32);
         setSolidArea(solidArea);
-        setSolidAreaDefaultX((int)solidArea.getX());
-        setSolidAreaDefaultY((int)solidArea.getY());
+        setSolidAreaDefaultX((int) solidArea.getX());
+        setSolidAreaDefaultY((int) solidArea.getY());
 
         setDefaultValues();
         getPlayerImage();
@@ -73,7 +70,7 @@ public class Player extends Entity{
         this.win = win;
     }
 
-    public void getPlayerImage(){
+    public void getPlayerImage() {
         fightSpritesRight = new ArrayList<>();
         fightSpritesLeft = new ArrayList<>();
         fightSpritesSwordRight = new ArrayList<>();
@@ -116,24 +113,24 @@ public class Player extends Entity{
         }
     }
 
-    public void setDefaultValues(){
-        setWorldX(gp.getTileSize()*  60);
+    public void setDefaultValues() {
+        setWorldX(gp.getTileSize() * 60);
         setWorldY(gp.getTileSize() * 45);
         setSpeed(3);
         setDirection("down");
         setSpriteNum(1);
     }
 
-    public void update(){
+    public void update() {
 
-        if(keyHandler.isUpPressed() || keyHandler.isDownPressed() || keyHandler.isLeftPressed() || keyHandler.isRightPressed()){
-            if(keyHandler.isUpPressed()){
+        if (keyHandler.isUpPressed() || keyHandler.isDownPressed() || keyHandler.isLeftPressed() || keyHandler.isRightPressed()) {
+            if (keyHandler.isUpPressed()) {
                 setDirection("up");
-            } else if(keyHandler.isDownPressed()){
+            } else if (keyHandler.isDownPressed()) {
                 setDirection("down");
             } else if (keyHandler.isLeftPressed()) {
                 setDirection("left");
-            } else if (keyHandler.isRightPressed()){
+            } else if (keyHandler.isRightPressed()) {
                 setDirection("right");
             }
 
@@ -154,19 +151,19 @@ public class Player extends Entity{
 
 
             //If collision is false; player can move
-            if(isCollisionOn() == false){
-                switch (getDirection()){
+            if (isCollisionOn() == false) {
+                switch (getDirection()) {
                     case "up":
-                        setWorldY(getWorldY()-getSpeed());
+                        setWorldY(getWorldY() - getSpeed());
                         break;
                     case "down":
-                        setWorldY(getWorldY()+getSpeed());
+                        setWorldY(getWorldY() + getSpeed());
                         break;
                     case "left":
-                        setWorldX(getWorldX()-getSpeed());
+                        setWorldX(getWorldX() - getSpeed());
                         break;
                     case "right":
-                        setWorldX(getWorldX()+getSpeed());
+                        setWorldX(getWorldX() + getSpeed());
                         break;
                 }
             }
@@ -174,12 +171,15 @@ public class Player extends Entity{
             //Move to different items in inventory
 
 
-            setSpriteCounter(getSpriteCounter()+1);
+            //Move to different items in inventory
 
-            if(getSpriteCounter() > 12) {
 
-                if(fighting){
-                    if(fightSpriteNum < fightSpritesLeft.size() - 1){
+            setSpriteCounter(getSpriteCounter() + 1);
+
+            if (getSpriteCounter() > 12) {
+
+                if (fighting) {
+                    if (fightSpriteNum < fightSpritesLeft.size() - 1) {
                         fightSpriteNum++;
                     } else {
                         fightSpriteNum = 0;
@@ -197,13 +197,13 @@ public class Player extends Entity{
 
     }
 
-    public void pickUpObject(int i){
-        if( i != 999){
+    public void pickUpObject(int i) {
+        if (i != 999) {
 
             String objectName = gp.getObj()[i].getName();
-            switch(objectName){
+            switch (objectName) {
                 case "Key":
-                    if(Commands.getCurrentLocation().getItems().size() > 0) {
+                    if (Commands.getCurrentLocation().getItems().size() > 0) {
                         inventory.add(Commands.getCurrentLocation().getItems().get(0));
                         pickedUpItem = Commands.getCurrentLocation().getItems().get(0);
                         Commands.getCurrentLocation().getItems().remove(0);
@@ -212,7 +212,7 @@ public class Player extends Entity{
                     gp.getObj()[i] = null;
                     break;
                 case "Sword":
-                    if(Commands.getCurrentLocation().getItems().size() > 0) {
+                    if (Commands.getCurrentLocation().getItems().size() > 0) {
                         inventory.add(Commands.getCurrentLocation().getItems().get(0));
                         pickedUpItem = Commands.getCurrentLocation().getItems().get(0);
                         Commands.getCurrentLocation().getItems().remove(0);
@@ -220,13 +220,13 @@ public class Player extends Entity{
                     hasSword++;
                     break;
                 case "Holy-Grail":
-                    if(Commands.getCurrentLocation().getItems().size() > 0) {
-                       win = true;
+                    if (Commands.getCurrentLocation().getItems().size() > 0) {
+                        win = true;
                     }
                     hasGrail++;
                     break;
                 case "Potion":
-                    if(Commands.getCurrentLocation().getItems().size() > 0) {
+                    if (Commands.getCurrentLocation().getItems().size() > 0) {
                         inventory.add(Commands.getCurrentLocation().getItems().get(0));
                         pickedUpItem = Commands.getCurrentLocation().getItems().get(0);
                         Commands.getCurrentLocation().getItems().remove(0);
@@ -237,85 +237,84 @@ public class Player extends Entity{
             gp.getObj()[i] = null;
         }
     }
-    public void draw(Graphics2D g2, boolean onMiniMap, boolean onUtilWidget){
 
+    public void draw(Graphics2D g2, boolean onMiniMap, boolean onUtilWidget) {
         BufferedImage image = null;
 
         if (onUtilWidget) {
-            image = gp.getKeyHandler().isEquipWeapon()? getSwordDown1():getDown1();
-            g2.drawImage(image, (getWorldX() - 800)/(gp.getOriginalTileSize()), (getWorldY()- 500)/(gp.getOriginalTileSize()), gp.getTileSize()/2, gp.getTileSize()/2, null);
-        }
-        else if (onMiniMap) {
-            image = gp.getKeyHandler().isEquipWeapon()? getSwordDown1():getDown1();
-            g2.drawImage(image, (getWorldX()+850)/(gp.getOriginalTileSize()/2), (getWorldY()+600)/(gp.getOriginalTileSize()/2), gp.getTileSize()/2, gp.getTileSize()/2, null);
+            image = gp.getKeyHandler().isEquipWeapon() ? getSwordDown1() : getDown1();
+            g2.drawImage(image, (getWorldX() - 800) / (gp.getOriginalTileSize()), (getWorldY() - 500) / (gp.getOriginalTileSize()), gp.getTileSize() / 2, gp.getTileSize() / 2, null);
+        } else if (onMiniMap) {
+            image = gp.getKeyHandler().isEquipWeapon() ? getSwordDown1() : getDown1();
+            g2.drawImage(image, (getWorldX() + 850) / (gp.getOriginalTileSize() / 2), (getWorldY() + 600) / (gp.getOriginalTileSize() / 2), gp.getTileSize() / 2, gp.getTileSize() / 2, null);
         } else {
             drawHealth(g2);
             String direction = getDirection();
 
-            switch (direction){
+            switch (direction) {
                 case "up":
-                    if(getSpriteNum() == 1) {
-                        image =  gp.getKeyHandler().isEquipWeapon() ?  getSwordUp1():getUp1();
+                    if (getSpriteNum() == 1) {
+                        image = gp.getKeyHandler().isEquipWeapon() ? getSwordUp1() : getUp1();
                     }
-                    if(getSpriteNum() == 2) {
-                        image = gp.getKeyHandler().isEquipWeapon()? getSwordUp2():getUp2();
+                    if (getSpriteNum() == 2) {
+                        image = gp.getKeyHandler().isEquipWeapon() ? getSwordUp2() : getUp2();
                     }
                     break;
                 case "down":
-                    if(getSpriteNum() == 1) {
-                        image = gp.getKeyHandler().isEquipWeapon()? getSwordDown1():getDown1();
+                    if (getSpriteNum() == 1) {
+                        image = gp.getKeyHandler().isEquipWeapon() ? getSwordDown1() : getDown1();
                     }
-                    if(getSpriteNum() == 2) {
-                        image = gp.getKeyHandler().isEquipWeapon()? getSwordDown2():getDown2();
+                    if (getSpriteNum() == 2) {
+                        image = gp.getKeyHandler().isEquipWeapon() ? getSwordDown2() : getDown2();
                     }
                     break;
                 case "left":
-                    if(getSpriteNum() == 1) {
-                        image = gp.getKeyHandler().isEquipWeapon()? getSwordLeft1():getLeft1();
+                    if (getSpriteNum() == 1) {
+                        image = gp.getKeyHandler().isEquipWeapon() ? getSwordLeft1() : getLeft1();
                     }
-                    if(getSpriteNum() == 2) {
-                        image = gp.getKeyHandler().isEquipWeapon()? getSwordLeft2():getLeft2();
+                    if (getSpriteNum() == 2) {
+                        image = gp.getKeyHandler().isEquipWeapon() ? getSwordLeft2() : getLeft2();
                     }
                     break;
                 case "right":
-                    if(getSpriteNum() == 1) {
-                        image = gp.getKeyHandler().isEquipWeapon()? getSwordRight1():getRight1();
+                    if (getSpriteNum() == 1) {
+                        image = gp.getKeyHandler().isEquipWeapon() ? getSwordRight1() : getRight1();
                     }
-                    if(getSpriteNum() == 2) {
-                        image = gp.getKeyHandler().isEquipWeapon()? getSwordRight2():getRight2();
+                    if (getSpriteNum() == 2) {
+                        image = gp.getKeyHandler().isEquipWeapon() ? getSwordRight2() : getRight2();
                     }
                     break;
             }
-            if(!fighting) {
+            if (!fighting) {
                 g2.drawImage(image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
             } else if (direction.equalsIgnoreCase("right") || direction.equalsIgnoreCase("down")) {
-                if(gp.getKeyHandler().isEquipWeapon()){
-                    g2.drawImage(fightSpritesSwordRight.get(fightSpriteNum), screenX, screenY, gp.getTileSize()*3, gp.getTileSize()*3, null);
-                }else {
-                    g2.drawImage( fightSpritesRight.get(fightSpriteNum), screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+                if (gp.getKeyHandler().isEquipWeapon()) {
+                    g2.drawImage(fightSpritesSwordRight.get(fightSpriteNum), screenX, screenY, gp.getTileSize() * 3, gp.getTileSize() * 3, null);
+                } else {
+                    g2.drawImage(fightSpritesRight.get(fightSpriteNum), screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
                 }
 
             } else {
-                if(gp.getKeyHandler().isEquipWeapon()){
-                    g2.drawImage(fightSpritesSwordLeft.get(fightSpriteNum), screenX, screenY, gp.getTileSize()*3, gp.getTileSize()*3, null);
-                }else {
-                    g2.drawImage( fightSpritesLeft.get(fightSpriteNum), screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+                if (gp.getKeyHandler().isEquipWeapon()) {
+                    g2.drawImage(fightSpritesSwordLeft.get(fightSpriteNum), screenX, screenY, gp.getTileSize() * 3, gp.getTileSize() * 3, null);
+                } else {
+                    g2.drawImage(fightSpritesLeft.get(fightSpriteNum), screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
                 }
             }
         }
-        if(win){
+        if (win) {
             gp.getUi().drawGameWinScreen(g2);
         }
     }
 
     //draw Health
-    private void drawHealth(Graphics2D g2){
+    private void drawHealth(Graphics2D g2) {
         BufferedImage[] healthDisplay = healthObject.generateHealthDisplay(this);
         Color c = new Color(0, 0, 0, 150);
         g2.setColor(c);
-        g2.fillRoundRect(506, 5,gp.getTileSize()*3 + 16, gp.getTileSize()/2, 50, 50);
-        if(healthDisplay[9] != null) {
-            for(int i = 0; i <healthDisplay.length; i++){
+        g2.fillRoundRect(506, 5, gp.getTileSize() * 3 + 16, gp.getTileSize() / 2, 50, 50);
+        if (healthDisplay[9] != null) {
+            for (int i = 0; i < healthDisplay.length; i++) {
                 g2.drawImage(healthDisplay[i], 510 + (20 * i), 10, null);
             }
         }
@@ -324,7 +323,7 @@ public class Player extends Entity{
 
     //sets attack based on whether player has sword in inventory
     public int getAttack() {
-        if (equippedItem != null && equippedItem.getName().equalsIgnoreCase("sword")){
+        if (equippedItem != null && equippedItem.getName().equalsIgnoreCase("sword")) {
             attack = 30;
         }
         return attack;
@@ -356,6 +355,7 @@ public class Player extends Entity{
     public void setAttack(int attack) {
         this.attack = attack;
     }
+
     public List<Item> getInventory() {
         return inventory;
     }
@@ -374,7 +374,7 @@ public class Player extends Entity{
 
     public void setEquippedItem(Item equippedItem) {
         //stores currently equipped item in inventory, if applicable
-        if(this.equippedItem != null) {
+        if (this.equippedItem != null) {
             inventory.add(this.equippedItem);
         }
         //equips item
@@ -423,10 +423,10 @@ public class Player extends Entity{
     @Override
     public String toString() {
         return "Player{" +
-            ", health=" + health +
-            ", inventory=" + inventory +
-            ", location=" + location +
-            '}';
+                ", health=" + health +
+                ", inventory=" + inventory +
+                ", location=" + location +
+                '}';
     }
 }
 

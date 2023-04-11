@@ -4,11 +4,11 @@ import java.util.Scanner;
 
 public class UserInput {
 
-  private static final Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
 
-  public static String getInput(){
-    return scanner.nextLine();
-  }
+    public static String getInput() {
+        return scanner.nextLine();
+    }
 
 }

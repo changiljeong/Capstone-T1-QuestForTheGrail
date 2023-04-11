@@ -13,12 +13,13 @@ public class FurnitureManager {
 
     private int[] xOffsetValues;
     private int[] yOffsetValues;
+
     public FurnitureManager(GamePanel gp) {
 
         furniture = new Furniture[30];
         this.gp = gp;
-        xOffsetValues = new int[]{0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0};
-        yOffsetValues = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0};
+        xOffsetValues = new int[]{0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        yOffsetValues = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     }
 
     public void loadFurniture() {
@@ -199,10 +200,10 @@ public class FurnitureManager {
                 if (furniture[i] != null) {
                     furniture[i].setSolidArea(
                             new Rectangle(
-                                    furniture[i].getInitialX()*gp.getTileSize()+xOffsetValues[i],
-                                    furniture[i].getInitialY()*gp.getTileSize()+yOffsetValues[i],
-                                    (i>9 ? gp.getTileSize()/3:gp.getTileSize()),
-                                    (i>9 ? gp.getTileSize()/3:gp.getTileSize())));
+                                    furniture[i].getInitialX() * gp.getTileSize() + xOffsetValues[i],
+                                    furniture[i].getInitialY() * gp.getTileSize() + yOffsetValues[i],
+                                    (i > 9 ? gp.getTileSize() / 3 : gp.getTileSize()),
+                                    (i > 9 ? gp.getTileSize() / 3 : gp.getTileSize())));
                 }
             }
 

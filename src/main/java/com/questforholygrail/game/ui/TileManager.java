@@ -8,7 +8,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Locale;
 import java.util.Objects;
 
 public class TileManager {
@@ -28,7 +27,7 @@ public class TileManager {
     }
 
     public void loadMap() {
-        try{
+        try {
             InputStream is = getClass().getResourceAsStream("/maps/worldMap.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(Objects.requireNonNull(is)));
 
@@ -54,7 +53,7 @@ public class TileManager {
             }
             br.close();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -113,7 +112,7 @@ public class TileManager {
             tile[8].setImage(
                     ImageIO.read(Objects.requireNonNull(
                             getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/grayStoneBottomRightWall.png"))));
-           tile[8].setCollision(true);
+            tile[8].setCollision(true);
 
             tile[9] = new Tile();
             tile[9].setImage(
@@ -136,13 +135,13 @@ public class TileManager {
             tile[12].setImage(
                     ImageIO.read(Objects.requireNonNull(
                             getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/grayStoneTopLeft.png"))));
-           tile[12].setCollision(true);
+            tile[12].setCollision(true);
 
             tile[13] = new Tile();
             tile[13].setImage(
                     ImageIO.read(Objects.requireNonNull(
                             getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/grayStoneTopLeftCornerWall.png"))));
-           tile[13].setCollision(true);
+            tile[13].setCollision(true);
 
             tile[14] = new Tile();
             tile[14].setImage(
@@ -264,7 +263,7 @@ public class TileManager {
         int worldRow = 0;
 
         if (onUtilWidget) {
-            tileSize = gp.getOriginalTileSize()/8;
+            tileSize = gp.getOriginalTileSize() / 8;
             while (worldCol < gp.getMaxWorldCol() && worldRow < gp.getMaxWorldRow()) {
                 int tileNumber = mapTileNumber[worldCol][worldRow];
                 int worldX = worldCol * tileSize;
@@ -273,13 +272,13 @@ public class TileManager {
 
                 worldCol++;
 
-                if(worldCol == gp.getMaxWorldCol()) {
+                if (worldCol == gp.getMaxWorldCol()) {
                     worldCol = 0;
                     worldRow++;
                 }
             }
         } else if (isMiniMap) {
-            tileSize = gp.getOriginalTileSize()/2;
+            tileSize = gp.getOriginalTileSize() / 2;
             while (worldCol < gp.getMaxWorldCol() && worldRow < gp.getMaxWorldRow()) {
                 int tileNumber = mapTileNumber[worldCol][worldRow];
                 int worldX = worldCol * tileSize;
@@ -288,7 +287,7 @@ public class TileManager {
 
                 worldCol++;
 
-                if(worldCol == gp.getMaxWorldCol()) {
+                if (worldCol == gp.getMaxWorldCol()) {
                     worldCol = 0;
                     worldRow++;
                 }
@@ -303,15 +302,15 @@ public class TileManager {
                 int screenX = worldX - gp.getPlayer().getWorldX() + gp.getPlayer().getScreenX();
                 int screenY = worldY - gp.getPlayer().getWorldY() + gp.getPlayer().getScreenY();
 
-                if(worldX + tileSize> gp.getPlayer().getWorldX() - gp.getPlayer().getScreenX() &&
-                        worldX - tileSize< gp.getPlayer().getWorldX() + gp.getPlayer().getScreenX() &&
-                        worldY + tileSize> gp.getPlayer().getWorldY() - gp.getPlayer().getScreenY() &&
-                        worldY - tileSize< gp.getPlayer().getWorldY() + gp.getPlayer().getScreenY()){
+                if (worldX + tileSize > gp.getPlayer().getWorldX() - gp.getPlayer().getScreenX() &&
+                        worldX - tileSize < gp.getPlayer().getWorldX() + gp.getPlayer().getScreenX() &&
+                        worldY + tileSize > gp.getPlayer().getWorldY() - gp.getPlayer().getScreenY() &&
+                        worldY - tileSize < gp.getPlayer().getWorldY() + gp.getPlayer().getScreenY()) {
                     g2.drawImage(tile[tileNumber].getImage(), screenX, screenY, tileSize, tileSize, null);
                 }
                 worldCol++;
 
-                if(worldCol == gp.getMaxWorldCol()) {
+                if (worldCol == gp.getMaxWorldCol()) {
                     worldCol = 0;
                     worldRow++;
                 }
