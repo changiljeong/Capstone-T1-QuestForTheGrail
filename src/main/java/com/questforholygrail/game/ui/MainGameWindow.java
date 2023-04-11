@@ -37,6 +37,7 @@ public class MainGameWindow extends JFrame {
         game.startGameThread();
         setUpTransition(titlePanel, introPanel);
         setVisible(true);
+        setTitle("Quest for the Holy Grail");
     }
 
     public void loadGameTextJSON() {

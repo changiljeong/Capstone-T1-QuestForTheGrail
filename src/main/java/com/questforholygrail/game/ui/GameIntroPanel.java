@@ -10,7 +10,7 @@ public class GameIntroPanel extends JPanel {
   private ImageIcon imgIcon;
 
   public GameIntroPanel() {
-    this.imgIcon = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/splash-Art/Instructions-SplashArt-Updated.png")));
+    this.imgIcon = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/splash-Art/Instructions-SplashArt-Final.png")));
     imgLabel = new JLabel(imgIcon);
     imgLabel.setSize(968,576);
     add(imgLabel);

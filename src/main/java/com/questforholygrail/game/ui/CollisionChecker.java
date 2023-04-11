@@ -102,6 +102,44 @@ public class CollisionChecker {
 
   }
 
+  public void checkFurniture(Entity entity){
+    Furniture[] furniture = gp.getFurnitureManager().getFurniture();
+    entity.getSolidArea().setLocation((int)(entity.getWorldX() + entity.getSolidArea().getX()), (int)(entity.getWorldY() + entity.getSolidArea().getY()));
+    for (Furniture piece : furniture) {
+      if (piece == null) {
+        continue;
+      }
+      switch(entity.getDirection()){
+        case "up":
+          entity.getSolidArea().setLocation((int)entity.getSolidArea().getX(), (int)(entity.getSolidArea().getY() - entity.getSpeed()));
+          if(entity.getSolidArea().intersects(piece.getSolidArea())){
+            entity.setCollisionOn(true);
+          }
+          break;
+        case "down":
+          entity.getSolidArea().setLocation((int)entity.getSolidArea().getX(), (int)(entity.getSolidArea().getY() + entity.getSpeed()));
+          if(entity.getSolidArea().intersects(piece.getSolidArea())){
+            entity.setCollisionOn(true);
+          }
+          break;
+        case "left":
+          entity.getSolidArea().setLocation((int)(entity.getSolidArea().getX() - entity.getSpeed()), (int)entity.getSolidArea().getY());
+          if(entity.getSolidArea().intersects(piece.getSolidArea())){
+            entity.setCollisionOn(true);
+          }
+          break;
+        case "right":
+          entity.getSolidArea().setLocation((int)(entity.getSolidArea().getX() + entity.getSpeed()), (int)entity.getSolidArea().getY());
+          if(entity.getSolidArea().intersects(piece.getSolidArea())){
+            entity.setCollisionOn(true);
+          }
+          break;
+      }
+    }
+    entity.getSolidArea().setLocation(entity.getSolidAreaDefaultX(), entity.getSolidAreaDefaultY());
+  }
+
+
   public int checkObject(Entity entity, boolean player){
     int index = 999;
     for(int i=0; i<gp.getObj().length; i++){

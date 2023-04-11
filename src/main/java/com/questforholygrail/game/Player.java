@@ -149,6 +149,9 @@ public class Player extends Entity{
             //check NPC collision
             gp.getcChecker().checkNPC(this);
 
+            //check Furniture collision
+            gp.getcChecker().checkFurniture(this);
+
 
             //If collision is false; player can move
             if(isCollisionOn() == false){

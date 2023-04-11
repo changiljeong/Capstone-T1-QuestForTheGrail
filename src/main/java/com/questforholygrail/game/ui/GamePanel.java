@@ -39,6 +39,8 @@ public class GamePanel extends JPanel implements Runnable {
   private final double FPS = 60.0;
 
   private final TileManager tileManager = new TileManager(this);
+
+  private final FurnitureManager furnitureManager = new FurnitureManager(this);
   private final KeyHandler keyHandler = new KeyHandler(this);
   private InventoryUI inventoryUi = new InventoryUI(this);
   Thread gameThread;
@@ -66,7 +68,7 @@ public class GamePanel extends JPanel implements Runnable {
     player = new Player(this, keyHandler);
     player.setHealth(100);
     player.setAttack(5);
-
+    furnitureManager.loadFurniture();
   }
 
   public void setupGame(){
@@ -99,6 +101,9 @@ public class GamePanel extends JPanel implements Runnable {
      dialog = new DialogScreen(this, g2);
 
      tileManager.draw(g2, false, false);
+
+     furnitureManager.draw(g2, false, this);
+
     //updates minimap
     Main.getGameWindow().getUwp().updateMiniMap();
     Main.getGameWindow().getUwp().updateInventory();
@@ -321,5 +326,9 @@ public class GamePanel extends JPanel implements Runnable {
 
   public void setDefeatMessage(boolean defeatMessage) {
     this.defeatMessage = defeatMessage;
+  }
+
+  public FurnitureManager getFurnitureManager() {
+    return furnitureManager;
   }
 }
