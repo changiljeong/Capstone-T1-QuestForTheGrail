@@ -27,7 +27,7 @@ public class FurnitureManager {
             furniture[0] = new Furniture();
             furniture[0].setImage(
                     ImageIO.read(Objects.requireNonNull(
-                            getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/bookShelfOne.png"))));
+                            getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/bookshelfOne.png"))));
             furniture[0].setxScaleFactor(1);
             furniture[0].setyScaleFactor(1);
             furniture[0].setCollision(true);
@@ -38,7 +38,7 @@ public class FurnitureManager {
             furniture[1] = new Furniture();
             furniture[1].setImage(
                     ImageIO.read(Objects.requireNonNull(
-                            getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/bookShelfOne.png"))));
+                            getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/bookshelfOne.png"))));
             furniture[1].setxScaleFactor(1);
             furniture[1].setyScaleFactor(1);
             furniture[1].setCollision(true);
@@ -48,7 +48,7 @@ public class FurnitureManager {
             furniture[2] = new Furniture();
             furniture[2].setImage(
                     ImageIO.read(Objects.requireNonNull(
-                            getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/bookShelfOne.png"))));
+                            getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/bookshelfOne.png"))));
             furniture[2].setxScaleFactor(1);
             furniture[2].setyScaleFactor(1);
             furniture[2].setCollision(true);
@@ -58,7 +58,7 @@ public class FurnitureManager {
             furniture[3] = new Furniture();
             furniture[3].setImage(
                     ImageIO.read(Objects.requireNonNull(
-                            getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/bookShelfOne.png"))));
+                            getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/bookshelfOne.png"))));
             furniture[3].setxScaleFactor(1);
             furniture[3].setyScaleFactor(1);
             furniture[3].setCollision(true);
@@ -68,7 +68,7 @@ public class FurnitureManager {
             furniture[4] = new Furniture();
             furniture[4].setImage(
                     ImageIO.read(Objects.requireNonNull(
-                            getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/bookShelfOne.png"))));
+                            getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/bookshelfOne.png"))));
             furniture[4].setxScaleFactor(1);
             furniture[4].setyScaleFactor(1);
             furniture[4].setCollision(true);
@@ -78,7 +78,7 @@ public class FurnitureManager {
             furniture[5] = new Furniture();
             furniture[5].setImage(
                     ImageIO.read(Objects.requireNonNull(
-                            getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/bookShelfOne.png"))));
+                            getClass().getResourceAsStream("/tiles/piconia_dungeon_tiles/bookshelfOne.png"))));
             furniture[5].setxScaleFactor(1);
             furniture[5].setyScaleFactor(1);
             furniture[5].setCollision(true);
